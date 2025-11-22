@@ -49,7 +49,11 @@ class BillingManager(
     fun initialize(onReady: () -> Unit = {}) {
         billingClient = BillingClient.newBuilder(context)
             .setListener(this)
-            .enablePendingPurchases()
+            .enablePendingPurchases(
+                PendingPurchasesParams.newBuilder()
+                    .enableOneTimeProducts()
+                    .build()
+            )
             .build()
 
         billingClient?.startConnection(object : BillingClientStateListener {

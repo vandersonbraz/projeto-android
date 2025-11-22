@@ -33,13 +33,12 @@
     <style name="Theme.Calmare" parent="Base.Theme.Calmare" />
 
     <!-- Splash Screen Theme -->
-    <style name="Theme.Calmare.Splash" parent="Theme.SplashScreen">
-        <item name="windowSplashScreenBackground">@color/primary</item>
-        <item name="windowSplashScreenAnimatedIcon">@mipmap/ic_launcher</item>
-        <item name="windowSplashScreenAnimationDuration">1000</item>
-        <item name="postSplashScreenTheme">@style/Theme.Calmare</item>
+    <style name="Theme.Calmare.Splash" parent="Base.Theme.Calmare">
+        <item name="android:windowBackground">@drawable/bg_gradient_purple</item>
         <item name="android:statusBarColor">@color/primary</item>
         <item name="android:navigationBarColor">@color/primary</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:windowLightNavigationBar">false</item>
     </style>
 
     <!-- Premium Activity Theme (with purple gradient) -->

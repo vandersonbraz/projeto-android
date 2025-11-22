@@ -33,7 +33,7 @@ class MainActivity : AppCompatActivity() {
         setupPremiumButton()
 
         // Observa status premium para controlar anúncios
-        billingManager.isPremium.observe(this) { isPremium ->
+        billingManager.isPremium.observe(this) { _ ->
             // Atualiza UI baseado em status premium
         }
     }
