@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Brand Colors - exatamente como nos mockups -->
+    <color name="primary">#6C63FF</color>
+    <color name="primary_variant">#A29BFE</color>
+    <color name="secondary">#A29BFE</color>
+    <color name="accent">#FF6B9D</color>
+
+    <!-- Background Colors -->
+    <color name="background">#F8F9FE</color>
+    <color name="surface">#FFFFFF</color>
+    <color name="card_background">#FFFFFF</color>
+
+    <!-- Text Colors -->
+    <color name="text_primary">#2D3436</color>
+    <color name="text_secondary">#636E72</color>
+    <color name="text_on_primary">#FFFFFF</color>
+
+    <!-- Status Colors -->
+    <color name="success">#00D2A0</color>
+    <color name="error">#FF6B6B</color>
+    <color name="warning">#FFA502</color>
+
+    <!-- UI Elements -->
+    <color name="border_light">#E0E0E0</color>
+    <color name="divider">#F0F0F0</color>
+    <color name="ad_placeholder">#E8E8E8</color>
+
+    <!-- Gradients (start & end colors) -->
+    <color name="gradient_purple_start">#6C63FF</color>
+    <color name="gradient_purple_end">#A29BFE</color>
+    <color name="gradient_pink_start">#FF6B9D</color>
+    <color name="gradient_pink_end">#6C63FF</color>
+
+    <!-- Premium Badge -->
+    <color name="premium_gold">#FFD700</color>
+    <color name="premium_gold_dark">#FFA500</color>
+
+    <!-- Overlays -->
+    <color name="overlay_dark">#80000000</color>
+    <color name="overlay_light">#20000000</color>
+
+    <!-- Material Design System Colors (required) -->
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+</resources>

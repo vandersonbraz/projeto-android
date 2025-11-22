@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- App Name -->
+    <string name="app_name">Calmare</string>
+
+    <!-- Navigation -->
+    <string name="nav_home">Início</string>
+    <string name="nav_sounds">Sons</string>
+    <string name="nav_favorites">Favoritos</string>
+    <string name="nav_settings">Ajustes</string>
+
+    <!-- Home Screen -->
+    <string name="home_greeting">Olá, %1$s! 👋</string>
+    <string name="home_greeting_default">Olá! 👋</string>
+    <string name="home_feeling">Como você está se sentindo?</string>
+    <string name="section_quick_session">🎯 Sessão Rápida</string>
+    <string name="section_popular_sounds">🎵 Sons Populares</string>
+    <string name="section_guided_meditations">✨ Meditações Guiadas</string>
+    <string name="quick_session_title">Respiração 5 Minutos</string>
+    <string name="btn_start_now">Começar agora</string>
+    <string name="premium_badge">PREMIUM</string>
+    <string name="locked_content">🔒</string>
+
+    <!-- Sound Library -->
+    <string name="sounds_title">Sons</string>
+    <string name="filter_all">Todos</string>
+    <string name="filter_nature">Natureza</string>
+    <string name="filter_ambient">Ambientes</string>
+    <string name="filter_music">Música</string>
+    <string name="filter_white_noise">White Noise</string>
+
+    <!-- Sound Names -->
+    <string name="sound_rain">Chuva</string>
+    <string name="sound_ocean">Oceano</string>
+    <string name="sound_forest">Floresta</string>
+    <string name="sound_thunder">Trovão</string>
+    <string name="sound_fire">Lareira</string>
+    <string name="sound_cafe">Cafeteria</string>
+
+    <!-- Player -->
+    <string name="player_category_nature">Sons da Natureza</string>
+    <string name="player_loop">Loop</string>
+    <string name="player_favorite">Favorito</string>
+    <string name="player_timer">Timer</string>
+    <string name="player_volume">Volume</string>
+    <string name="zen_message">Deixe-se levar pelo som…\nRespire profundamente</string>
+    <string name="premium_cta_title">Experimente o Premium</string>
+    <string name="premium_cta_subtitle">Acesso ilimitado a tudo</string>
+    <string name="btn_subscribe_now">ASSINAR AGORA</string>
+
+    <!-- Premium/Subscription -->
+    <string name="premium_title">Calmare\nPREMIUM</string>
+    <string name="premium_subtitle">Desbloqueie todo o potencial\nda sua paz interior</string>
+    <string name="benefits_title">BENEFÍCIOS:</string>
+    <string name="benefit_unlimited_sounds">Acesso ilimitado a 300+ sons</string>
+    <string name="benefit_all_meditations">Todas as meditações guiadas</string>
+    <string name="benefit_no_ads">Sem anúncios, nunca</string>
+    <string name="benefit_offline">Modo offline (downloads)</string>
+    <string name="benefit_statistics">Estatísticas detalhadas</string>
+    <string name="benefit_support">Suporte prioritário</string>
+
+    <string name="plans_title">ESCOLHA SEU PLANO:</string>
+    <string name="plan_monthly">MENSAL</string>
+    <string name="plan_annual">ANUAL 🏆</string>
+    <string name="plan_lifetime">VITALÍCIO ⚡</string>
+
+    <string name="price_monthly">R$ 19,90/mês</string>
+    <string name="price_annual_month">R$ 12,90/mês</string>
+    <string name="price_annual_total">Cobrado R$ 154,80/ano</string>
+    <string name="price_lifetime">R$ 89,90</string>
+
+    <string name="billing_monthly">Renovação automática</string>
+    <string name="billing_annual">Cobrado R$ 154,80/ano</string>
+    <string name="billing_lifetime">Pagamento único • Acesso para sempre</string>
+
+    <string name="save_badge">💰 Economize 35%%!</string>
+    <string name="btn_start_premium">COMEÇAR AGORA</string>
+    <string name="disclaimer">Cancele a qualquer momento\npela Google Play Store</string>
+
+    <string name="remove_ads_section">OU REMOVER APENAS OS ANÚNCIOS:</string>
+    <string name="remove_ads_title">🚫 Remover Anúncios</string>
+    <string name="remove_ads_price">R$ 14,90</string>
+    <string name="remove_ads_subtitle">Pagamento único\nMantenha anúncios fora para sempre</string>
+    <string name="btn_buy_remove_ads">COMPRAR AGORA</string>
+
+    <!-- Settings -->
+    <string name="settings_title">Configurações</string>
+    <string name="settings_user_free">Usuário Grátis</string>
+    <string name="settings_user_premium">✨ Usuário Premium</string>
+    <string name="settings_member_since">Membro desde %1$s</string>
+    <string name="btn_manage_subscription">GERENCIAR ASSINATURA</string>
+    <string name="btn_subscribe_premium">ASSINAR PREMIUM</string>
+
+    <string name="section_general">GERAL</string>
+    <string name="section_statistics">ESTATÍSTICAS</string>
+    <string name="section_support">SUPORTE</string>
+    <string name="section_legal">LEGAL</string>
+
+    <string name="setting_notifications">🔔 Notificações</string>
+    <string name="setting_reminders">⏰ Lembretes Diários</string>
+    <string name="setting_dark_mode">🌙 Modo Escuro</string>
+    <string name="setting_downloads">💾 Downloads</string>
+    <string name="setting_progress">📊 Meu Progresso</string>
+    <string name="setting_achievements">🏆 Conquistas</string>
+    <string name="setting_help">❓ Central de Ajuda</string>
+    <string name="setting_contact">💬 Fale Conosco</string>
+    <string name="setting_rate">⭐ Avaliar o App</string>
+    <string name="setting_privacy">📄 Política de Privacidade</string>
+    <string name="setting_terms">📋 Termos de Uso</string>
+    <string name="setting_restore">🔄 Restaurar Compras</string>
+
+    <string name="version">Versão %1$s</string>
+
+    <!-- Meditations -->
+    <string name="meditation_anxiety_zero">Ansiedade Zero</string>
+    <string name="meditation_deep_sleep">Sono Profundo</string>
+    <string name="meditation_total_focus">Foco Total</string>
+    <string name="instructor_sarah">Sarah</string>
+    <string name="instructor_joao">João</string>
+    <string name="instructor_ana">Ana</string>
+
+    <!-- General -->
+    <string name="btn_play">▶</string>
+    <string name="btn_pause">⏸</string>
+    <string name="btn_close">Fechar</string>
+    <string name="loading">Carregando…</string>
+    <string name="error_generic">Ocorreu um erro. Tente novamente.</string>
+
+    <!-- Privacy & Terms (Base text - você deve expandir) -->
+    <string name="privacy_policy_text">POLÍTICA DE PRIVACIDADE\n\nSua privacidade é importante para nós.\n\n[Adicione aqui o texto completo da política de privacidade]</string>
+    <string name="terms_of_use_text">TERMOS DE USO\n\nAo usar o Calmare, você concorda com:\n\n[Adicione aqui o texto completo dos termos]</string>
+</resources>
