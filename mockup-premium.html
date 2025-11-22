@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"="width=device-width, initial-scale=1.0">
+    <title>Calmare - Premium</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #F8F9FE;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .phone-frame {
+            width: 375px;
+            height: 812px;
+            background: white;
+            border-radius: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .premium-header {
+            background: linear-gradient(180deg, #6C63FF 0%, #A29BFE 100%);
+            padding: 60px 30px 40px;
+            text-align: center;
+            color: white;
+        }
+
+        .crown-icon {
+            font-size: 64px;
+            margin-bottom: 16px;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .premium-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .premium-subtitle {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 50px;
+            left: 20px;
+            width: 32px;
+            height: 32px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        .content {
+            padding: 24px;
+            overflow-y: auto;
+            height: calc(812px - 240px);
+        }
+
+        .benefits-title {
+            font-weight: 600;
+            font-size: 16px;
+            color: #2D3436;
+            margin-bottom: 16px;
+        }
+
+        .benefit-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+            font-size: 15px;
+        }
+
+        .check-icon {
+            color: #00D2A0;
+            font-size: 20px;
+        }
+
+        .plans-title {
+            font-weight: 600;
+            font-size: 16px;
+            color: #2D3436;
+            margin: 24px 0 16px;
+        }
+
+        .plan-card {
+            background: white;
+            border: 2px solid #E0E0E0;
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 12px;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .plan-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .plan-card.selected {
+            background: #6C63FF;
+            border-color: #FF6B9D;
+            border-width: 3px;
+            color: white;
+        }
+
+        .plan-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        .radio {
+            width: 20px;
+            height: 20px;
+            border: 2px solid #636E72;
+            border-radius: 50%;
+            position: relative;
+        }
+
+        .plan-card.selected .radio {
+            border-color: white;
+        }
+
+        .plan-card.selected .radio::after {
+            content: '';
+            width: 10px;
+            height: 10px;
+            background: white;
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .plan-name {
+            font-weight: 600;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .plan-price {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .plan-billing {
+            font-size: 13px;
+            opacity: 0.8;
+        }
+
+        .plan-card.selected .plan-billing {
+            opacity: 0.9;
+        }
+
+        .save-badge {
+            background: #00D2A0;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            display: inline-block;
+            margin-top: 8px;
+        }
+
+        .cta-button {
+            background: linear-gradient(135deg, #FF6B9D, #6C63FF);
+            color: white;
+            border: none;
+            padding: 18px;
+            border-radius: 16px;
+            font-weight: 700;
+            font-size: 16px;
+            width: 100%;
+            margin: 24px 0 12px;
+            cursor: pointer;
+            box-shadow: 0 8px 20px rgba(108,99,255,0.3);
+            transition: transform 0.2s;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 24px rgba(108,99,255,0.4);
+        }
+
+        .disclaimer {
+            text-align: center;
+            font-size: 12px;
+            color: #636E72;
+            margin-bottom: 24px;
+        }
+
+        .divider {
+            height: 1px;
+            background: #E0E0E0;
+            margin: 24px 0;
+        }
+
+        .remove-ads-section {
+            margin-top: 16px;
+        }
+
+        .section-subtitle {
+            font-size: 14px;
+            color: #636E72;
+            margin-bottom: 12px;
+            text-align: center;
+        }
+
+        .remove-ads-card {
+            background: white;
+            border: 2px solid #6C63FF;
+            border-radius: 16px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .remove-ads-card h3 {
+            font-size: 18px;
+            color: #2D3436;
+            margin-bottom: 8px;
+        }
+
+        .remove-ads-card .price {
+            font-size: 24px;
+            font-weight: 700;
+            color: #6C63FF;
+            margin-bottom: 8px;
+        }
+
+        .remove-ads-card p {
+            font-size: 14px;
+            color: #636E72;
+            margin-bottom: 16px;
+        }
+
+        .secondary-button {
+            background: white;
+            color: #6C63FF;
+            border: 2px solid #6C63FF;
+            padding: 12px 24px;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .secondary-button:hover {
+            background: #6C63FF;
+            color: white;
+        }
+
+        .legal-links {
+            text-align: center;
+            font-size: 12px;
+            color: #636E72;
+            margin-top: 20px;
+        }
+
+        .legal-links a {
+            color: #6C63FF;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="phone-frame">
+        <div class="premium-header">
+            <div class="close-btn">×</div>
+            <div class="crown-icon">👑</div>
+            <div class="premium-title">Calmare<br>PREMIUM</div>
+            <div class="premium-subtitle">Desbloqueie todo o potencial<br>da sua paz interior</div>
+        </div>
+
+        <div class="content">
+            <div class="benefits-title">BENEFÍCIOS:</div>
+
+            <div class="benefit-item">
+                <div class="check-icon">✅</div>
+                <div>Acesso ilimitado a 300+ sons</div>
+            </div>
+            <div class="benefit-item">
+                <div class="check-icon">✅</div>
+                <div>Todas as meditações guiadas</div>
+            </div>
+            <div class="benefit-item">
+                <div class="check-icon">✅</div>
+                <div>Sem anúncios, nunca</div>
+            </div>
+            <div class="benefit-item">
+                <div class="check-icon">✅</div>
+                <div>Modo offline (downloads)</div>
+            </div>
+            <div class="benefit-item">
+                <div class="check-icon">✅</div>
+                <div>Estatísticas detalhadas</div>
+            </div>
+            <div class="benefit-item">
+                <div class="check-icon">✅</div>
+                <div>Suporte prioritário</div>
+            </div>
+
+            <div class="plans-title">ESCOLHA SEU PLANO:</div>
+
+            <div class="plan-card">
+                <div class="plan-header">
+                    <div class="radio"></div>
+                    <div class="plan-name">MENSAL</div>
+                </div>
+                <div class="plan-price">R$ 19,90/mês</div>
+                <div class="plan-billing">Renovação automática</div>
+            </div>
+
+            <div class="plan-card selected">
+                <div class="plan-header">
+                    <div class="radio"></div>
+                    <div class="plan-name">ANUAL 🏆</div>
+                </div>
+                <div class="plan-price">R$ 12,90/mês</div>
+                <div class="plan-billing">Cobrado R$ 154,80/ano</div>
+                <div class="save-badge">💰 Economize 35%!</div>
+            </div>
+
+            <div class="plan-card">
+                <div class="plan-header">
+                    <div class="radio"></div>
+                    <div class="plan-name">VITALÍCIO ⚡</div>
+                </div>
+                <div class="plan-price">R$ 89,90</div>
+                <div class="plan-billing">Pagamento único • Acesso para sempre</div>
+            </div>
+
+            <button class="cta-button">COMEÇAR AGORA</button>
+
+            <div class="disclaimer">
+                Cancele a qualquer momento<br>pela Google Play Store
+            </div>
+
+            <div class="divider"></div>
+
+            <div class="remove-ads-section">
+                <div class="section-subtitle">OU REMOVER APENAS OS ANÚNCIOS:</div>
+
+                <div class="remove-ads-card">
+                    <h3>🚫 Remover Anúncios</h3>
+                    <div class="price">R$ 14,90</div>
+                    <p>Pagamento único<br>Mantenha anúncios fora para sempre</p>
+                    <button class="secondary-button">COMPRAR AGORA</button>
+                </div>
+            </div>
+
+            <div class="legal-links">
+                <a href="#">Política de Privacidade</a> • <a href="#">Termos</a><br>
+                <a href="#">Restaurar Compras</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

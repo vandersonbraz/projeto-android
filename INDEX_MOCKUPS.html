@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calmare - Todos os Mockups</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #667EEA 0%, #764BA2 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 50px;
+        }
+
+        .header h1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 56px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            text-shadow: 0 4px 20px rgba(0,0,0,0.2);
+        }
+
+        .header .tagline {
+            font-size: 20px;
+            opacity: 0.9;
+        }
+
+        .header .subtitle {
+            font-size: 16px;
+            margin-top: 12px;
+            opacity: 0.8;
+        }
+
+        .mockups-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        .mockup-card {
+            background: white;
+            border-radius: 24px;
+            padding: 24px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            transition: transform 0.3s, box-shadow 0.3s;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .mockup-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        .mockup-preview {
+            width: 100%;
+            height: 400px;
+            background: linear-gradient(135deg, #F8F9FE, #E8E9FE);
+            border-radius: 16px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 80px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .mockup-preview::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(108,99,255,0.1), rgba(162,155,254,0.1));
+        }
+
+        .mockup-info h3 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 24px;
+            font-weight: 600;
+            color: #2D3436;
+            margin-bottom: 8px;
+        }
+
+        .mockup-info p {
+            color: #636E72;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .mockup-tag {
+            display: inline-block;
+            background: #6C63FF;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-top: 8px;
+        }
+
+        .design-system {
+            background: white;
+            border-radius: 24px;
+            padding: 40px;
+            margin-bottom: 50px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+
+        .design-system h2 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 32px;
+            font-weight: 700;
+            color: #2D3436;
+            margin-bottom: 24px;
+        }
+
+        .colors {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+            margin-bottom: 32px;
+        }
+
+        .color-box {
+            text-align: center;
+        }
+
+        .color-swatch {
+            width: 100%;
+            height: 100px;
+            border-radius: 12px;
+            margin-bottom: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .color-name {
+            font-weight: 600;
+            color: #2D3436;
+            margin-bottom: 4px;
+        }
+
+        .color-hex {
+            font-size: 13px;
+            color: #636E72;
+            font-family: monospace;
+        }
+
+        .features {
+            background: white;
+            border-radius: 24px;
+            padding: 40px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+
+        .features h2 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 32px;
+            font-weight: 700;
+            color: #2D3436;
+            margin-bottom: 24px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .feature-icon {
+            font-size: 32px;
+            flex-shrink: 0;
+        }
+
+        .feature-content h4 {
+            font-weight: 600;
+            color: #2D3436;
+            margin-bottom: 4px;
+        }
+
+        .feature-content p {
+            color: #636E72;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .cta-section {
+            text-align: center;
+            margin-top: 50px;
+            padding: 40px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 24px;
+            backdrop-filter: blur(10px);
+        }
+
+        .cta-section h2 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 32px;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 16px;
+        }
+
+        .cta-section p {
+            color: rgba(255,255,255,0.9);
+            font-size: 18px;
+            margin-bottom: 24px;
+        }
+
+        .approve-btn {
+            background: white;
+            color: #6C63FF;
+            border: none;
+            padding: 16px 48px;
+            border-radius: 16px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .approve-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 32px rgba(0,0,0,0.3);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🧘 CALMARE</h1>
+            <div class="tagline">App de Meditação e Sons Relaxantes</div>
+            <div class="subtitle">Design Moderno • Alta Monetização • Premium Quality</div>
+        </div>
+
+        <div class="design-system">
+            <h2>🎨 Design System</h2>
+            <div class="colors">
+                <div class="color-box">
+                    <div class="color-swatch" style="background: #6C63FF;"></div>
+                    <div class="color-name">Primary</div>
+                    <div class="color-hex">#6C63FF</div>
+                </div>
+                <div class="color-box">
+                    <div class="color-swatch" style="background: #A29BFE;"></div>
+                    <div class="color-name">Secondary</div>
+                    <div class="color-hex">#A29BFE</div>
+                </div>
+                <div class="color-box">
+                    <div class="color-swatch" style="background: #FF6B9D;"></div>
+                    <div class="color-name">Accent</div>
+                    <div class="color-hex">#FF6B9D</div>
+                </div>
+                <div class="color-box">
+                    <div class="color-swatch" style="background: #F8F9FE;"></div>
+                    <div class="color-name">Background</div>
+                    <div class="color-hex">#F8F9FE</div>
+                </div>
+                <div class="color-box">
+                    <div class="color-swatch" style="background: #00D2A0;"></div>
+                    <div class="color-name">Success</div>
+                    <div class="color-hex">#00D2A0</div>
+                </div>
+                <div class="color-box">
+                    <div class="color-swatch" style="background: #2D3436;"></div>
+                    <div class="color-name">Dark Text</div>
+                    <div class="color-hex">#2D3436</div>
+                </div>
+            </div>
+            <p style="color: #636E72;">
+                <strong>Tipografia:</strong> Poppins (Headings) • Inter (Body)<br>
+                <strong>Estilo:</strong> Moderno, Clean, Gradientes Suaves, Sombras Elevadas
+            </p>
+        </div>
+
+        <h2 style="color: white; font-family: 'Poppins', sans-serif; font-size: 32px; margin-bottom: 24px; text-align: center;">
+            📱 Mockups das Telas
+        </h2>
+
+        <div class="mockups-grid">
+            <a href="mockup-splash.html" target="_blank" class="mockup-card">
+                <div class="mockup-preview">✨</div>
+                <div class="mockup-info">
+                    <h3>Splash Screen</h3>
+                    <p>Tela inicial com gradiente roxo, logo centralizado e loading suave</p>
+                    <span class="mockup-tag">1-2 segundos</span>
+                </div>
+            </a>
+
+            <a href="mockup-home.html" target="_blank" class="mockup-card">
+                <div class="mockup-preview">🏠</div>
+                <div class="mockup-info">
+                    <h3>Home Principal</h3>
+                    <p>Dashboard com mood tracker, sessão rápida, sons populares e meditações guiadas</p>
+                    <span class="mockup-tag">Tela principal</span>
+                </div>
+            </a>
+
+            <a href="mockup-biblioteca.html" target="_blank" class="mockup-card">
+                <div class="mockup-preview">🎵</div>
+                <div class="mockup-info">
+                    <h3>Biblioteca de Sons</h3>
+                    <p>Grid 2 colunas com sons categorizados, filtros e banners de anúncios</p>
+                    <span class="mockup-tag">Navegação</span>
+                </div>
+            </a>
+
+            <a href="mockup-player.html" target="_blank" class="mockup-card">
+                <div class="mockup-preview">▶️</div>
+                <div class="mockup-info">
+                    <h3>Player de Som</h3>
+                    <p>Player imersivo com animações, controles completos e CTA premium</p>
+                    <span class="mockup-tag">Interativo</span>
+                </div>
+            </a>
+
+            <a href="mockup-premium.html" target="_blank" class="mockup-card">
+                <div class="mockup-preview">👑</div>
+                <div class="mockup-info">
+                    <h3>Tela Premium</h3>
+                    <p>Página de assinatura com 3 planos, benefícios destacados e opção remove-ads</p>
+                    <span class="mockup-tag">Monetização</span>
+                </div>
+            </a>
+        </div>
+
+        <div class="features">
+            <h2>💰 Estratégia de Monetização</h2>
+            <div class="features-grid">
+                <div class="feature-item">
+                    <div class="feature-icon">📺</div>
+                    <div class="feature-content">
+                        <h4>Banner Ads</h4>
+                        <p>Banners 320x50 em Home, Biblioteca e Configurações (apenas free)</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">🎬</div>
+                    <div class="feature-content">
+                        <h4>Interstitial Ads</h4>
+                        <p>Ao fechar player após 5+ min e navegação controlada</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">🎁</div>
+                    <div class="feature-content">
+                        <h4>Rewarded Ads</h4>
+                        <p>Desbloquear conteúdo premium por 24h assistindo vídeo</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">💎</div>
+                    <div class="feature-content">
+                        <h4>Assinatura Mensal</h4>
+                        <p>R$ 19,90/mês com renovação automática</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">🏆</div>
+                    <div class="feature-content">
+                        <h4>Assinatura Anual</h4>
+                        <p>R$ 154,80/ano (economize 35%!) - Mais destacada</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">🚫</div>
+                    <div class="feature-content">
+                        <h4>Remove Ads</h4>
+                        <p>Compra única R$ 14,90 para remover anúncios permanentemente</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="cta-section">
+            <h2>✅ Próximo Passo</h2>
+            <p>Aprovou o design? Clique abaixo para eu começar a programar o app completo!</p>
+            <button class="approve-btn" onclick="alert('Perfeito! Volte ao chat e confirme que aprovou. Vou começar a programar tudo agora! 🚀')">
+                APROVAR E PROGRAMAR
+            </button>
+            <p style="margin-top: 16px; font-size: 14px;">
+                ou volte ao chat e peça ajustes específicos
+            </p>
+        </div>
+    </div>
+</body>
+</html>

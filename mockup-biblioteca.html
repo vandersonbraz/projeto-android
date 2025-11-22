@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"="width=device-width, initial-scale=1.0">
+    <title>Calmare - Biblioteca de Sons</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #F8F9FE;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .phone-frame {
+            width: 375px;
+            height: 812px;
+            background: white;
+            border-radius: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .header {
+            background: white;
+            padding: 50px 20px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .back-btn {
+            font-size: 24px;
+            color: #2D3436;
+        }
+
+        .header-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 20px;
+            font-weight: 600;
+            color: #2D3436;
+        }
+
+        .header-right {
+            display: flex;
+            gap: 16px;
+        }
+
+        .icon-btn {
+            font-size: 20px;
+            color: #636E72;
+            cursor: pointer;
+        }
+
+        .filters {
+            padding: 16px 20px;
+            overflow-x: auto;
+            white-space: nowrap;
+            background: white;
+        }
+
+        .filters::-webkit-scrollbar {
+            display: none;
+        }
+
+        .filter-chip {
+            display: inline-block;
+            padding: 8px 16px;
+            background: #F0F0F0;
+            color: #636E72;
+            border-radius: 20px;
+            margin-right: 8px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .filter-chip.active {
+            background: #6C63FF;
+            color: white;
+        }
+
+        .content {
+            padding: 20px;
+            overflow-y: auto;
+            height: calc(812px - 130px - 70px);
+            background: #F8F9FE;
+        }
+
+        .category-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #636E72;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+        }
+
+        .sound-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .sound-card {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+            cursor: pointer;
+            transition: transform 0.2s;
+            position: relative;
+        }
+
+        .sound-card:hover {
+            transform: translateY(-4px);
+        }
+
+        .sound-image {
+            width: 100%;
+            height: 120px;
+            background: linear-gradient(135deg, #A29BFE, #6C63FF);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            position: relative;
+        }
+
+        .sound-image.rain {
+            background: linear-gradient(135deg, #667EEA, #764BA2);
+        }
+
+        .sound-image.ocean {
+            background: linear-gradient(135deg, #0093E9, #80D0C7);
+        }
+
+        .sound-image.forest {
+            background: linear-gradient(135deg, #56AB2F, #A8E063);
+        }
+
+        .sound-image.thunder {
+            background: linear-gradient(135deg, #434343, #000000);
+        }
+
+        .sound-image.fire {
+            background: linear-gradient(135deg, #F09819, #FF512F);
+        }
+
+        .sound-image.cafe {
+            background: linear-gradient(135deg, #8E2DE2, #4A00E0);
+        }
+
+        .lock-badge {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background: rgba(255,255,255,0.9);
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+        }
+
+        .sound-info {
+            padding: 12px;
+        }
+
+        .sound-name {
+            font-weight: 600;
+            font-size: 15px;
+            color: #2D3436;
+            margin-bottom: 4px;
+        }
+
+        .sound-subtitle {
+            font-size: 12px;
+            color: #636E72;
+            margin-bottom: 8px;
+        }
+
+        .play-btn-small {
+            width: 32px;
+            height: 32px;
+            background: #6C63FF;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            position: absolute;
+            bottom: 12px;
+            right: 12px;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(108,99,255,0.3);
+        }
+
+        .ad-banner {
+            background: #E8E8E8;
+            height: 50px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+            font-size: 12px;
+            margin-top: 16px;
+        }
+
+        .bottom-nav {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 70px;
+            background: white;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            box-shadow: 0 -2px 12px rgba(0,0,0,0.08);
+            padding-bottom: 10px;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            cursor: pointer;
+        }
+
+        .nav-item .icon {
+            font-size: 24px;
+        }
+
+        .nav-item.active .icon {
+            color: #6C63FF;
+        }
+
+        .nav-item .label {
+            font-size: 11px;
+            color: #636E72;
+        }
+
+        .nav-item.active .label {
+            color: #6C63FF;
+        }
+    </style>
+</head>
+<body>
+    <div class="phone-frame">
+        <div class="header">
+            <div class="header-left">
+                <div class="back-btn">←</div>
+                <div class="header-title">Sons</div>
+            </div>
+            <div class="header-right">
+                <div class="icon-btn">🔍</div>
+                <div class="icon-btn">⋮</div>
+            </div>
+        </div>
+
+        <div class="filters">
+            <div class="filter-chip active">Todos</div>
+            <div class="filter-chip">Natureza</div>
+            <div class="filter-chip">Ambientes</div>
+            <div class="filter-chip">Música</div>
+            <div class="filter-chip">White Noise</div>
+        </div>
+
+        <div class="content">
+            <div class="category-title">NATUREZA</div>
+            <div class="sound-grid">
+                <div class="sound-card">
+                    <div class="sound-image rain">
+                        🌧️
+                        <div class="lock-badge">🔒</div>
+                    </div>
+                    <div class="sound-info">
+                        <div class="sound-name">Chuva</div>
+                        <div class="sound-subtitle">Leve</div>
+                    </div>
+                    <div class="play-btn-small">▶</div>
+                </div>
+
+                <div class="sound-card">
+                    <div class="sound-image ocean">
+                        🌊
+                    </div>
+                    <div class="sound-info">
+                        <div class="sound-name">Oceano</div>
+                        <div class="sound-subtitle">Ondas</div>
+                    </div>
+                    <div class="play-btn-small">▶</div>
+                </div>
+
+                <div class="sound-card">
+                    <div class="sound-image forest">
+                        🌲
+                    </div>
+                    <div class="sound-info">
+                        <div class="sound-name">Floresta</div>
+                        <div class="sound-subtitle">Tropical</div>
+                    </div>
+                    <div class="play-btn-small">▶</div>
+                </div>
+
+                <div class="sound-card">
+                    <div class="sound-image thunder">
+                        ⛈️
+                        <div class="lock-badge">🔒</div>
+                    </div>
+                    <div class="sound-info">
+                        <div class="sound-name">Trovão</div>
+                        <div class="sound-subtitle">Tempestade</div>
+                    </div>
+                    <div class="play-btn-small">▶</div>
+                </div>
+            </div>
+
+            <div class="category-title">AMBIENTES</div>
+            <div class="sound-grid">
+                <div class="sound-card">
+                    <div class="sound-image fire">
+                        🔥
+                        <div class="lock-badge">🔒</div>
+                    </div>
+                    <div class="sound-info">
+                        <div class="sound-name">Lareira</div>
+                        <div class="sound-subtitle">Crepitante</div>
+                    </div>
+                    <div class="play-btn-small">▶</div>
+                </div>
+
+                <div class="sound-card">
+                    <div class="sound-image cafe">
+                        ☕
+                        <div class="lock-badge">🔒</div>
+                    </div>
+                    <div class="sound-info">
+                        <div class="sound-name">Cafeteria</div>
+                        <div class="sound-subtitle">Ambiente</div>
+                    </div>
+                    <div class="play-btn-small">▶</div>
+                </div>
+            </div>
+
+            <div class="ad-banner">⚠️ BANNER AD (Usuário Free)</div>
+        </div>
+
+        <div class="bottom-nav">
+            <div class="nav-item">
+                <div class="icon">🏠</div>
+                <div class="label">Início</div>
+            </div>
+            <div class="nav-item active">
+                <div class="icon">🎵</div>
+                <div class="label">Sons</div>
+            </div>
+            <div class="nav-item">
+                <div class="icon">❤️</div>
+                <div class="label">Favoritos</div>
+            </div>
+            <div class="nav-item">
+                <div class="icon">⚙️</div>
+                <div class="label">Ajustes</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

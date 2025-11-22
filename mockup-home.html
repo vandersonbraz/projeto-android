@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"="width=device-width, initial-scale=1.0">
+    <title>Calmare - Home</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #F8F9FE;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .phone-frame {
+            width: 375px;
+            height: 812px;
+            background: white;
+            border-radius: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .status-bar {
+            height: 44px;
+            background: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            font-size: 14px;
+        }
+
+        .header {
+            background: white;
+            padding: 16px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .menu-icon {
+            font-size: 24px;
+            color: #2D3436;
+        }
+
+        .logo {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            font-size: 20px;
+            color: #6C63FF;
+        }
+
+        .header-right {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .bell-icon {
+            font-size: 20px;
+            color: #636E72;
+        }
+
+        .premium-badge {
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .content {
+            padding: 20px;
+            overflow-y: auto;
+            height: calc(812px - 44px - 68px - 70px);
+        }
+
+        .greeting {
+            margin-bottom: 16px;
+        }
+
+        .greeting h2 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 22px;
+            font-weight: 600;
+            color: #2D3436;
+            margin-bottom: 4px;
+        }
+
+        .greeting p {
+            color: #636E72;
+            font-size: 15px;
+        }
+
+        .mood-tracker {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .mood-emoji {
+            font-size: 32px;
+            padding: 8px;
+            border-radius: 12px;
+            background: white;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .mood-emoji:hover {
+            transform: scale(1.1);
+        }
+
+        .section-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #2D3436;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .hero-card {
+            background: linear-gradient(135deg, rgba(108,99,255,0.9), rgba(162,155,254,0.9)), url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="400" height="200"><rect fill="%23A29BFE" width="400" height="200"/></svg>');
+            background-size: cover;
+            border-radius: 16px;
+            padding: 24px;
+            color: white;
+            margin-bottom: 16px;
+            min-height: 160px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .hero-card h3 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .play-btn {
+            background: white;
+            color: #6C63FF;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 24px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            align-self: flex-start;
+        }
+
+        .premium-lock {
+            background: rgba(255,255,255,0.2);
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            display: inline-block;
+            margin-top: 8px;
+        }
+
+        .ad-banner {
+            background: #E8E8E8;
+            height: 50px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+            font-size: 12px;
+            margin: 16px 0;
+        }
+
+        .sounds-scroll {
+            display: flex;
+            gap: 12px;
+            overflow-x: auto;
+            padding-bottom: 8px;
+            margin-bottom: 24px;
+        }
+
+        .sounds-scroll::-webkit-scrollbar {
+            display: none;
+        }
+
+        .sound-card {
+            min-width: 100px;
+            height: 100px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .sound-card:hover {
+            transform: translateY(-4px);
+        }
+
+        .sound-card .emoji {
+            font-size: 32px;
+        }
+
+        .sound-card .name {
+            font-size: 13px;
+            font-weight: 500;
+            color: #2D3436;
+        }
+
+        .meditation-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .meditation-item {
+            background: white;
+            border-radius: 12px;
+            padding: 12px;
+            display: flex;
+            gap: 12px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+        }
+
+        .meditation-thumb {
+            width: 60px;
+            height: 60px;
+            border-radius: 8px;
+            background: linear-gradient(135deg, #A29BFE, #6C63FF);
+            flex-shrink: 0;
+        }
+
+        .meditation-info {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .meditation-title {
+            font-weight: 600;
+            color: #2D3436;
+            font-size: 15px;
+            margin-bottom: 4px;
+        }
+
+        .meditation-meta {
+            font-size: 12px;
+            color: #636E72;
+        }
+
+        .meditation-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .play-icon {
+            width: 32px;
+            height: 32px;
+            background: #6C63FF;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        .lock-icon {
+            color: #FFD700;
+            font-size: 18px;
+        }
+
+        .bottom-nav {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 70px;
+            background: white;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            box-shadow: 0 -2px 12px rgba(0,0,0,0.08);
+            padding-bottom: 10px;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            cursor: pointer;
+        }
+
+        .nav-item .icon {
+            font-size: 24px;
+        }
+
+        .nav-item.active .icon {
+            color: #6C63FF;
+        }
+
+        .nav-item .label {
+            font-size: 11px;
+            color: #636E72;
+        }
+
+        .nav-item.active .label {
+            color: #6C63FF;
+        }
+    </style>
+</head>
+<body>
+    <div class="phone-frame">
+        <div class="status-bar">
+            <div>9:41</div>
+            <div>📶 📡 🔋</div>
+        </div>
+
+        <div class="header">
+            <div class="header-left">
+                <div class="menu-icon">☰</div>
+                <div class="logo">CALMARE</div>
+            </div>
+            <div class="header-right">
+                <div class="bell-icon">🔔</div>
+                <div class="premium-badge">PREMIUM</div>
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="greeting">
+                <h2>Olá, Maria! 👋</h2>
+                <p>Como você está se sentindo?</p>
+            </div>
+
+            <div class="mood-tracker">
+                <div class="mood-emoji">😌</div>
+                <div class="mood-emoji">😰</div>
+                <div class="mood-emoji">😴</div>
+                <div class="mood-emoji">😊</div>
+                <div class="mood-emoji">😔</div>
+            </div>
+
+            <div class="section-title">🎯 Sessão Rápida</div>
+            <div class="hero-card">
+                <div>
+                    <h3>Respiração 5 Minutos</h3>
+                    <div class="premium-lock">🔒 PREMIUM</div>
+                </div>
+                <button class="play-btn">▶ Começar agora</button>
+            </div>
+
+            <div class="ad-banner">⚠️ BANNER AD 320x50 (Usuário Free)</div>
+
+            <div class="section-title">🎵 Sons Populares</div>
+            <div class="sounds-scroll">
+                <div class="sound-card">
+                    <div class="emoji">🌧️</div>
+                    <div class="name">Chuva</div>
+                </div>
+                <div class="sound-card">
+                    <div class="emoji">🌊</div>
+                    <div class="name">Oceano</div>
+                </div>
+                <div class="sound-card">
+                    <div class="emoji">🌲</div>
+                    <div class="name">Floresta</div>
+                </div>
+                <div class="sound-card">
+                    <div class="emoji">🔥</div>
+                    <div class="name">Lareira</div>
+                </div>
+            </div>
+
+            <div class="section-title">✨ Meditações Guiadas</div>
+            <div class="meditation-list">
+                <div class="meditation-item">
+                    <div class="meditation-thumb"></div>
+                    <div class="meditation-info">
+                        <div class="meditation-title">Ansiedade Zero</div>
+                        <div class="meditation-meta">⏱️ 10 min  ⭐ 4.8  👤 Sarah</div>
+                    </div>
+                    <div class="meditation-actions">
+                        <div class="play-icon">▶</div>
+                        <div class="lock-icon">🔒</div>
+                    </div>
+                </div>
+
+                <div class="meditation-item">
+                    <div class="meditation-thumb"></div>
+                    <div class="meditation-info">
+                        <div class="meditation-title">Sono Profundo</div>
+                        <div class="meditation-meta">⏱️ 15 min  ⭐ 4.9  👤 João</div>
+                    </div>
+                    <div class="meditation-actions">
+                        <div class="play-icon">▶</div>
+                    </div>
+                </div>
+
+                <div class="meditation-item">
+                    <div class="meditation-thumb"></div>
+                    <div class="meditation-info">
+                        <div class="meditation-title">Foco Total</div>
+                        <div class="meditation-meta">⏱️ 20 min  ⭐ 5.0  👤 Ana</div>
+                    </div>
+                    <div class="meditation-actions">
+                        <div class="play-icon">▶</div>
+                        <div class="lock-icon">🔒</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="bottom-nav">
+            <div class="nav-item active">
+                <div class="icon">🏠</div>
+                <div class="label">Início</div>
+            </div>
+            <div class="nav-item">
+                <div class="icon">🎵</div>
+                <div class="label">Sons</div>
+            </div>
+            <div class="nav-item">
+                <div class="icon">❤️</div>
+                <div class="label">Favoritos</div>
+            </div>
+            <div class="nav-item">
+                <div class="icon">⚙️</div>
+                <div class="label">Ajustes</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
