@@ -74,7 +74,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
-                        android:text="✅ Sem anúncios\n✅ Ouça em segundo plano\n✅ Pulos ilimitados\n✅ Todos os sons premium"
+                        android:text="✅ Sem anúncios\n✅ Ouça em segundo plano\n✅ Pulos ilimitados"
                         android:textAppearance="@style/TextAppearance.Calmare.Caption"
                         android:lineSpacingExtra="4dp" />
 

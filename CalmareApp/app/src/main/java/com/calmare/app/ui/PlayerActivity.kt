@@ -46,9 +46,9 @@ class PlayerActivity : AppCompatActivity() {
     private var interstitialAd: InterstitialAd? = null
     private var rewardedAd: RewardedAd? = null
 
-    // Sistema de créditos (5 pulos grátis)
-    private var skipCredits = 5  // Créditos para pular/avançar/retroceder
-    private val MAX_CREDITS = 5
+    // Contador de ações (a cada 5 ações mostra rewarded)
+    private var actionCounter = 0  // Conta ações: pular, retroceder, avançar, completar música
+    private val MAX_ACTIONS = 5
 
     private lateinit var tvTitle: TextView
     private lateinit var tvCategory: TextView
@@ -241,24 +241,16 @@ class PlayerActivity : AppCompatActivity() {
     }
 
     private fun seekBy(milliseconds: Int) {
-        // Verifica créditos antes de permitir avançar/retroceder
-        if (!checkSkipCredits()) {
-            return
-        }
-
         mediaPlayer?.let {
             val newPosition = (it.currentPosition + milliseconds).coerceIn(0, it.duration)
             it.seekTo(newPosition)
             updateProgress()
         }
+        // Registra ação e mostra anúncio
+        registerAction()
     }
 
     private fun playPreviousTrack() {
-        // Verifica créditos antes de permitir pular faixa
-        if (!checkSkipCredits()) {
-            return
-        }
-
         if (playlist.isEmpty()) {
             Toast.makeText(this, "⏮️ Nenhuma playlist disponível", Toast.LENGTH_SHORT).show()
             return
@@ -272,14 +264,11 @@ class PlayerActivity : AppCompatActivity() {
         currentIndex--
         // Se estava tocando, a próxima faixa toca automaticamente
         loadAndPlaySound(playlist[currentIndex], autoPlay = isPlaying)
+        // Registra ação e mostra anúncio
+        registerAction()
     }
 
     private fun playNextTrack() {
-        // Verifica créditos antes de permitir pular faixa
-        if (!checkSkipCredits()) {
-            return
-        }
-
         if (playlist.isEmpty()) {
             Toast.makeText(this, "⏭️ Nenhuma playlist disponível", Toast.LENGTH_SHORT).show()
             return
@@ -293,6 +282,8 @@ class PlayerActivity : AppCompatActivity() {
         currentIndex++
         // Se estava tocando, a próxima faixa toca automaticamente
         loadAndPlaySound(playlist[currentIndex], autoPlay = isPlaying)
+        // Registra ação e mostra anúncio
+        registerAction()
     }
 
     private fun loadAndPlaySound(sound: Sound, autoPlay: Boolean = false) {
@@ -424,8 +415,8 @@ class PlayerActivity : AppCompatActivity() {
                 setOnCompletionListener {
                     // Quando o áudio termina (sem loop)
                     if (!this@PlayerActivity.isLooping) {
-                        // Mostra intersticial antes de ir para próxima faixa (só para gratuitos)
-                        this@PlayerActivity.showInterstitialAd()
+                        // Registra ação (música terminou) e mostra anúncio
+                        this@PlayerActivity.registerAction()
 
                         // Se reprodução automática está ativa E há próxima faixa, vai para ela
                         if (this@PlayerActivity.isAutoPlayEnabled &&
@@ -527,14 +518,8 @@ class PlayerActivity : AppCompatActivity() {
         // Premium: oculta banner e não mostra anúncios
         if (isUserPremium) {
             adViewBanner.visibility = android.view.View.GONE
-            skipCredits = Int.MAX_VALUE  // Créditos ilimitados para premium
-            updateSkipButtonsState()
         } else {
             adViewBanner.visibility = android.view.View.VISIBLE
-            if (skipCredits == Int.MAX_VALUE) {
-                skipCredits = MAX_CREDITS  // Restaura créditos para gratuitos
-            }
-            updateSkipButtonsState()
         }
     }
 
@@ -583,12 +568,11 @@ class PlayerActivity : AppCompatActivity() {
     private fun showRewardedAd() {
         if (rewardedAd != null) {
             rewardedAd?.show(this) { _ ->
-                // Usuário assistiu ao anúncio completo, recarrega créditos
-                skipCredits = MAX_CREDITS
-                updateSkipButtonsState()
+                // Usuário assistiu ao anúncio completo, reseta contador
+                actionCounter = 0
                 Toast.makeText(
                     this,
-                    "✅ +5 pulos desbloqueados!",
+                    "✅ Continue ouvindo suas músicas!",
                     Toast.LENGTH_SHORT
                 ).show()
             }
@@ -603,47 +587,28 @@ class PlayerActivity : AppCompatActivity() {
         }
     }
 
-    private fun checkSkipCredits(): Boolean {
+    private fun registerAction() {
+        // Premium não vê anúncios
         if (isUserPremium) {
-            return true  // Premium tem acesso ilimitado
+            return
         }
 
-        if (skipCredits > 0) {
-            skipCredits--
-            updateSkipButtonsState()
-            return true
-        } else {
-            // Sem créditos: PAUSA o áudio e força anúncio de 30s
+        actionCounter++
+
+        if (actionCounter >= MAX_ACTIONS) {
+            // 5ª ação: PAUSA e mostra rewarded de 30s
             if (isPlaying) {
                 pausePlayback()
             }
             Toast.makeText(
                 this,
-                "🎬 Assista ao anúncio de 30s para desbloquear +5 pulos!",
+                "🎬 Assista ao anúncio para continuar ouvindo!",
                 Toast.LENGTH_LONG
             ).show()
             showRewardedAd()
-            return false
-        }
-    }
-
-    private fun updateSkipButtonsState() {
-        val enabled = isUserPremium || skipCredits > 0
-        btnPreviousTrack.isEnabled = enabled
-        btnNextTrack.isEnabled = enabled
-        btnRewind.isEnabled = enabled
-        btnForward.isEnabled = enabled
-
-        // Atualiza opacidade visual
-        val alpha = if (enabled) 1.0f else 0.3f
-        btnPreviousTrack.alpha = alpha
-        btnNextTrack.alpha = alpha
-        btnRewind.alpha = alpha
-        btnForward.alpha = alpha
-
-        // Atualiza título com créditos restantes (só para gratuitos)
-        if (!isUserPremium && skipCredits < Int.MAX_VALUE) {
-            supportActionBar?.subtitle = "Pulos restantes: $skipCredits"
+        } else {
+            // Ações 1-4: mostra intersticial de 5s
+            showInterstitialAd()
         }
     }
 
