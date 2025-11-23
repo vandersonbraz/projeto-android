@@ -278,10 +278,8 @@ class PlayerActivity : AppCompatActivity() {
         isAudioPrepared = false
         btnPlayPause.setImageResource(android.R.drawable.ic_media_play)
 
-        // Prepara novo áudio
+        // Prepara e toca novo áudio automaticamente
         prepareMediaPlayer()
-
-        Toast.makeText(this, "⏭️ ${sound.title}", Toast.LENGTH_SHORT).show()
     }
 
     private fun toggleLoop() {
@@ -346,9 +344,6 @@ class PlayerActivity : AppCompatActivity() {
         }
 
         try {
-            // Mostra mensagem de carregamento
-            Toast.makeText(this, "Carregando áudio...", Toast.LENGTH_SHORT).show()
-
             mediaPlayer = MediaPlayer().apply {
                 setAudioAttributes(
                     AudioAttributes.Builder()
@@ -363,10 +358,10 @@ class PlayerActivity : AppCompatActivity() {
 
                 setOnPreparedListener {
                     tvTotalTime.text = formatTime(duration / 1000)
-                    // Player começa pausado - usuário precisa clicar em Play
                     isAudioPrepared = true
                     btnPlayPause.isEnabled = true
-                    Toast.makeText(this@PlayerActivity, "✅ Áudio pronto!", Toast.LENGTH_SHORT).show()
+                    // Toca automaticamente quando pronto
+                    startPlayback()
                 }
 
                 setOnCompletionListener {

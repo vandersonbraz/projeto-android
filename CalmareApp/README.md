@@ -4,9 +4,9 @@
 
 ## 📥 **DOWNLOAD DIRETO**
 
-### 🎯 **PROJETO COMPLETO - v1.3 NO WARNINGS (BUILD OK):**
+### 🎯 **PROJETO COMPLETO - v1.3 AUTOPLAY (BUILD OK):**
 
-**[⬇️ BAIXAR AQUI - v1.3-NO-WARNINGS (134 KB)](https://github.com/vandersonbraz/projeto-android/raw/claude/android-monetization-app-01BXuLECEMMS2JfQUs6Cpqsf/CalmareApp/Calmare-App-v1.3-NO-WARNINGS.zip)**
+**[⬇️ BAIXAR AQUI - v1.3-AUTOPLAY (134 KB)](https://github.com/vandersonbraz/projeto-android/raw/claude/android-monetization-app-01BXuLECEMMS2JfQUs6Cpqsf/CalmareApp/Calmare-App-v1.3-AUTOPLAY.zip)**
 
 **✅ Projeto Android Studio completo**
 **✅ Badge do sino: "Meditações" (centralizado, sem "Perdidas")**
@@ -16,8 +16,9 @@
 **✅ Player: navegação REAL entre faixas (próxima/anterior)**
 **✅ Navega pela lista filtrada atual (Sons, Favoritos, Home)**
 **✅ Loop começa DESATIVADO por padrão (usuário ativa quando quiser)**
+**✅ Autoplay: toca automaticamente ao abrir ou trocar de faixa**
+**✅ Sem mensagens de "carregando" - experiência fluida**
 **✅ Rewind/Forward funcionam sempre (independente do loop)**
-**✅ Autoplay só funciona com loop desligado (lógica correta)**
 **✅ ZERO avisos de depreciação - API atualizada para Android 13+**
 **✅ Compila sem erros e sem avisos - 100% pronto!**
 
