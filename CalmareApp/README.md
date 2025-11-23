@@ -4,9 +4,13 @@
 
 ## 📥 **DOWNLOAD DIRETO**
 
-**[⬇️ BAIXAR ZIP COMPLETO (133 KB)](https://github.com/vandersonbraz/projeto-android/raw/claude/android-monetization-app-01BXuLECEMMS2JfQUs6Cpqsf/CalmareApp/Calmare-App-v1.0-Complete.zip)**
+### 🎯 **PROJETO COMPLETO COM TODAS AS ATUALIZAÇÕES:**
 
-**[🆕 BAIXAR APENAS ATUALIZAÇÃO v1.0 (25 KB)](https://github.com/vandersonbraz/projeto-android/raw/claude/android-monetization-app-01BXuLECEMMS2JfQUs6Cpqsf/CalmareApp/Calmare-Update-v1.0-ONLY.zip)** ← Apenas arquivos modificados
+**[⬇️ BAIXAR AQUI (132 KB)](https://github.com/vandersonbraz/projeto-android/raw/claude/android-monetization-app-01BXuLECEMMS2JfQUs6Cpqsf/CalmareApp/Calmare-App-COMPLETO-v1.0-FINAL.zip)**
+
+**✅ Projeto Android Studio completo**
+**✅ Todas as funcionalidades v1.0 incluídas**
+**✅ Extrair e abrir - pronto para usar!**
 
 ---
 
