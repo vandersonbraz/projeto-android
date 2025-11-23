@@ -225,8 +225,8 @@
         <!-- Botão Loop/Repetir -->
         <ImageButton
             android:id="@+id/btn_loop"
-            android:layout_width="56dp"
-            android:layout_height="56dp"
+            android:layout_width="72dp"
+            android:layout_height="72dp"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:src="@android:drawable/ic_menu_rotate"
             android:tint="@color/white"
@@ -241,8 +241,8 @@
         <!-- Botão Stop -->
         <ImageButton
             android:id="@+id/btn_stop"
-            android:layout_width="56dp"
-            android:layout_height="56dp"
+            android:layout_width="72dp"
+            android:layout_height="72dp"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:src="@drawable/ic_stop"
             android:tint="@color/white"
@@ -257,8 +257,8 @@
         <!-- Botão Volume -->
         <ImageButton
             android:id="@+id/btn_volume"
-            android:layout_width="56dp"
-            android:layout_height="56dp"
+            android:layout_width="72dp"
+            android:layout_height="72dp"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:src="@android:drawable/ic_lock_silent_mode_off"
             android:tint="@color/white"

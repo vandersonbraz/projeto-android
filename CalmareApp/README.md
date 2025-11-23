@@ -4,21 +4,21 @@
 
 ## 📥 **DOWNLOAD DIRETO**
 
-### 🎯 **PROJETO COMPLETO - v2.11 FINAL (BUILD OK):**
+### 🎯 **PROJETO COMPLETO - v2.12 FINAL (BUILD OK):**
 
-**[⬇️ BAIXAR AQUI - v2.11-FINAL (137 KB)](https://github.com/vandersonbraz/projeto-android/raw/claude/android-monetization-app-01BXuLECEMMS2JfQUs6Cpqsf/CalmareApp/Calmare-App-v2.11-FINAL.zip)**
+**[⬇️ BAIXAR AQUI - v2.12-FINAL (137 KB)](https://github.com/vandersonbraz/projeto-android/raw/claude/android-monetization-app-01BXuLECEMMS2JfQUs6Cpqsf/CalmareApp/Calmare-App-v2.12-FINAL.zip)**
 
-**🔥 NOVIDADES v2.11 FINAL:**
-**⏹️ ÍCONE STOP CORRIGIDO:**
-**✅ Botão STOP agora é um QUADRADINHO branco ⏹️ (não dois pausinhos)**
-**✅ Visual consistente: branco igual ao botão de volume**
-**✅ Ícone customizado (ic_stop.xml) - design limpo e profissional**
+**🔥 NOVIDADES v2.12 FINAL:**
+**⏹️ BOTÃO STOP PROPORCIONAL:**
+**✅ Botões secundários aumentados: 56dp → 72dp (Loop, Stop, Volume)**
+**✅ Quadradinho do STOP maior e mais visível**
+**✅ Visual proporcional e profissional em todos os botões**
+**✅ Interface balanceada: botões principais (80dp) + secundários (72dp)**
 **🔁 LOOP AUTOMÁTICO FUNCIONANDO 100%:**
 **✅ Loop agora funciona PERFEITAMENTE em TODAS as músicas**
 **✅ Callback inteligente: aguarda anúncio fechar antes de retomar playback**
 **✅ Intersticial (5s): música recomeça AUTOMATICAMENTE após o anúncio**
 **✅ Rewarded (30s): música recomeça AUTOMATICAMENTE após o anúncio**
-**✅ Funcionamento idêntico entre Sessão Rápida e músicas regulares**
 **🎯 INTERFACE COMPLETA:**
 **✅ Layout: Loop (🔁) | Stop (⏹️) | Volume (🔊)**
 **✅ Todos os botões com visual consistente e profissional**
