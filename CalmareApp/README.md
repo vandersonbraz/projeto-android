@@ -8,6 +8,11 @@
 
 **[⬇️ BAIXAR AQUI - v1.8-MONETIZATION (135 KB)](https://github.com/vandersonbraz/projeto-android/raw/claude/android-monetization-app-01BXuLECEMMS2JfQUs6Cpqsf/CalmareApp/Calmare-App-v1.8-MONETIZATION.zip)**
 
+**🔥 NOVIDADES v1.8 ATUALIZADA:**
+**✅ Rewarded ad FORÇADO após 5 pulos (pausa áudio automaticamente)**
+**✅ Tela Premium com 4 benefícios destacados (✅ Sem anúncios, ✅ Segundo plano, ✅ Pulos ilimitados, ✅ Sons premium)**
+**✅ Zero warnings de compilação - código 100% limpo**
+
 **✅ Projeto Android Studio completo**
 **✅ Badge do sino: "Meditações" (centralizado, sem "Perdidas")**
 **✅ Mensagem "nenhuma notificação" quando não há notificações**
@@ -27,7 +32,8 @@
 **✅ Banner Ad: sempre visível no rodapé (remove se premium)**
 **✅ Intersticial: a cada faixa que termina (pulável após 5s)**
 **✅ Sistema de 5 pulos grátis: avançar/retroceder/pular faixas**
-**✅ Rewarded Ad (30s): assista para desbloquear +5 pulos**
+**🔥 Rewarded Ad FORÇADO: após 5 pulos PAUSA o áudio e exige anúncio de 30s**
+**✅ Tela Premium atualizada: 4 benefícios com tiques verdes**
 **✅ Premium remove TODOS os anúncios + pulos ilimitados**
 
 **✅ Sem mensagens de "carregando" - experiência fluida**
