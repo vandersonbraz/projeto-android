@@ -49,6 +49,9 @@ class HomeFragment : Fragment() {
             openPlayer("Respiração 5 Minutos", 300)
         }
 
+        // 🎬 BOTÕES DE TESTE DE ANÚNCIOS (Remover antes de publicar)
+        setupAdTestButtons(view)
+
         // Setup mood trackers
         setupMoodTrackers(view)
 
@@ -57,6 +60,38 @@ class HomeFragment : Fragment() {
 
         // Setup guided meditations
         setupGuidedMeditations(view)
+    }
+
+    private fun setupAdTestButtons(view: View) {
+        // Botão de teste: Interstitial Ad
+        view.findViewById<Button>(R.id.btn_test_interstitial)?.setOnClickListener {
+            Toast.makeText(requireContext(), "Carregando Interstitial...", Toast.LENGTH_SHORT).show()
+            adManager.showInterstitialAd(requireActivity()) {
+                Toast.makeText(requireContext(), "Interstitial fechado!", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        // Botão de teste: Rewarded Ad
+        view.findViewById<Button>(R.id.btn_test_rewarded)?.setOnClickListener {
+            if (adManager.isRewardedAdReady()) {
+                Toast.makeText(requireContext(), "Mostrando Rewarded...", Toast.LENGTH_SHORT).show()
+                adManager.showRewardedAd(
+                    requireActivity(),
+                    onRewarded = { amount ->
+                        Toast.makeText(
+                            requireContext(),
+                            "🎉 Você ganhou $amount moedas!",
+                            Toast.LENGTH_LONG
+                        ).show()
+                    },
+                    onAdClosed = {
+                        Toast.makeText(requireContext(), "Rewarded fechado!", Toast.LENGTH_SHORT).show()
+                    }
+                )
+            } else {
+                Toast.makeText(requireContext(), "⏳ Anúncio ainda carregando...", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 
     private fun setupMoodTrackers(view: View) {
