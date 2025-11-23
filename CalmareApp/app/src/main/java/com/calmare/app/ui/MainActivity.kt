@@ -1,8 +1,16 @@
 package com.calmare.app.ui
 
+import android.Manifest
+import android.app.TimePickerDialog
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.calmare.app.R
@@ -12,12 +20,18 @@ import com.calmare.app.ui.fragments.FavoritesFragment
 import com.calmare.app.ui.fragments.HomeFragment
 import com.calmare.app.ui.fragments.SettingsFragment
 import com.calmare.app.ui.fragments.SoundsFragment
+import com.calmare.app.utils.ReminderManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var adManager: AdManager
     private lateinit var billingManager: BillingManager
+    private lateinit var reminderManager: ReminderManager
+
+    companion object {
+        private const val NOTIFICATION_PERMISSION_CODE = 100
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,6 +47,8 @@ class MainActivity : AppCompatActivity() {
         billingManager = BillingManager(this, lifecycleScope).apply {
             initialize()
         }
+
+        reminderManager = ReminderManager(this)
 
         setupNavigation()
         setupPremiumButton()
@@ -91,20 +107,109 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun showNotificationReminderDialog() {
-        android.app.AlertDialog.Builder(this)
+        // Verifica permissão de notificações (Android 13+)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if (ContextCompat.checkSelfPermission(
+                    this,
+                    Manifest.permission.POST_NOTIFICATIONS
+                ) != PackageManager.PERMISSION_GRANTED
+            ) {
+                // Pede permissão
+                ActivityCompat.requestPermissions(
+                    this,
+                    arrayOf(Manifest.permission.POST_NOTIFICATIONS),
+                    NOTIFICATION_PERMISSION_CODE
+                )
+                return
+            }
+        }
+
+        // Mostra opções de lembretes
+        showReminderOptionsDialog()
+    }
+
+    private fun showReminderOptionsDialog() {
+        val options = arrayOf(
+            "⏰ Ativar Lembretes Padrão (8h, 12h, 20h)",
+            "🕐 Escolher Horário Personalizado",
+            "❌ Desativar Todos os Lembretes"
+        )
+
+        AlertDialog.Builder(this)
             .setTitle("🔔 Lembretes de Meditação")
-            .setMessage("Configure lembretes diários para lembrar você de meditar!\n\n" +
-                    "• Escolha seus horários favoritos\n" +
-                    "• Receba notificações personalizadas\n" +
-                    "• Nunca perca sua prática diária\n\n" +
-                    "Funcionalidade completa em breve! ✨")
-            .setPositiveButton("OK") { dialog, _ ->
-                dialog.dismiss()
+            .setItems(options) { _, which ->
+                when (which) {
+                    0 -> activateDefaultReminders()
+                    1 -> showCustomTimePickerDialog()
+                    2 -> deactivateAllReminders()
+                }
             }
-            .setNeutralButton("Ir para Configurações") { _, _ ->
-                startActivity(Intent(this, SettingsActivity::class.java))
-            }
+            .setNeutralButton("Cancelar", null)
             .show()
+    }
+
+    private fun activateDefaultReminders() {
+        reminderManager.scheduleDefaultReminders()
+        Toast.makeText(
+            this,
+            "✅ Lembretes ativados!\n🌅 8h  |  ☀️ 12h  |  🌙 20h",
+            Toast.LENGTH_LONG
+        ).show()
+    }
+
+    private fun showCustomTimePickerDialog() {
+        val calendar = java.util.Calendar.getInstance()
+        TimePickerDialog(
+            this,
+            { _, hourOfDay, minute ->
+                reminderManager.scheduleReminder(
+                    hourOfDay,
+                    minute,
+                    "🧘 Hora de Meditar",
+                    "Reserve alguns minutos para sua paz interior"
+                )
+                Toast.makeText(
+                    this,
+                    "✅ Lembrete agendado para ${String.format("%02d:%02d", hourOfDay, minute)}",
+                    Toast.LENGTH_SHORT
+                ).show()
+            },
+            calendar.get(java.util.Calendar.HOUR_OF_DAY),
+            calendar.get(java.util.Calendar.MINUTE),
+            true
+        ).show()
+    }
+
+    private fun deactivateAllReminders() {
+        // Cancela horários padrão
+        reminderManager.cancelReminder(8, 0)
+        reminderManager.cancelReminder(12, 0)
+        reminderManager.cancelReminder(20, 0)
+
+        Toast.makeText(
+            this,
+            "🔕 Todos os lembretes foram desativados",
+            Toast.LENGTH_SHORT
+        ).show()
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == NOTIFICATION_PERMISSION_CODE) {
+            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                showReminderOptionsDialog()
+            } else {
+                Toast.makeText(
+                    this,
+                    "⚠️ Permissão de notificações necessária para lembretes",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+        }
     }
 
     override fun onDestroy() {
