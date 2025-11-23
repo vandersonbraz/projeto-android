@@ -16,8 +16,16 @@ class NotificationReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
         val title = intent.getStringExtra("title") ?: "🧘 Hora de Meditar"
         val message = intent.getStringExtra("message") ?: "Reserve alguns minutos para sua paz interior"
+        val hour = intent.getIntExtra("hour", -1)
+        val minute = intent.getIntExtra("minute", -1)
 
         showNotification(context, title, message)
+
+        // Reagenda para o próximo dia (mantém o lembrete diário)
+        if (hour != -1 && minute != -1) {
+            val reminderManager = ReminderManager(context)
+            reminderManager.scheduleReminder(hour, minute, title, message)
+        }
     }
 
     private fun showNotification(context: Context, title: String, message: String) {

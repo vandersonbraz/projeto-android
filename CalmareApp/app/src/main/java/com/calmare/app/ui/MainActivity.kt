@@ -130,7 +130,6 @@ class MainActivity : AppCompatActivity() {
 
     private fun showReminderOptionsDialog() {
         val options = arrayOf(
-            "⏰ Ativar Lembretes Padrão (8h, 12h, 20h)",
             "🕐 Escolher Horário Personalizado",
             "❌ Desativar Todos os Lembretes"
         )
@@ -139,9 +138,8 @@ class MainActivity : AppCompatActivity() {
             .setTitle("🔔 Lembretes de Meditação")
             .setItems(options) { _, which ->
                 when (which) {
-                    0 -> activateDefaultReminders()
-                    1 -> showCustomTimePickerDialog()
-                    2 -> deactivateAllReminders()
+                    0 -> showCustomTimePickerDialog()
+                    1 -> deactivateAllReminders()
                 }
             }
             .setNeutralButton("Cancelar", null)

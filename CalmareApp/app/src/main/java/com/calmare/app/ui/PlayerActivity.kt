@@ -183,6 +183,16 @@ class PlayerActivity : AppCompatActivity() {
     }
 
     private fun seekBy(milliseconds: Int) {
+        // Só permite avançar/retroceder se o looping estiver desativado
+        if (isLooping) {
+            Toast.makeText(
+                this,
+                "⚠️ Desative o loop para avançar/retroceder",
+                Toast.LENGTH_SHORT
+            ).show()
+            return
+        }
+
         mediaPlayer?.let {
             val newPosition = (it.currentPosition + milliseconds).coerceIn(0, it.duration)
             it.seekTo(newPosition)
