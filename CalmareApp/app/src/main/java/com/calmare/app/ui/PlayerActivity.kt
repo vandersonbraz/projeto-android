@@ -271,17 +271,18 @@ class PlayerActivity : AppCompatActivity() {
             return
         }
 
-        if (playlist.isEmpty()) {
-            Toast.makeText(this, "⏮️ Nenhuma playlist disponível", Toast.LENGTH_SHORT).show()
+        // Se não tem playlist ou tem apenas 1 áudio: não faz nada
+        if (playlist.isEmpty() || playlist.size <= 1) {
             return
         }
 
+        // Loop infinito: se está na primeira, vai pra última
         if (currentIndex <= 0) {
-            Toast.makeText(this, "⏮️ Já está na primeira faixa", Toast.LENGTH_SHORT).show()
-            return
+            currentIndex = playlist.size - 1
+        } else {
+            currentIndex--
         }
 
-        currentIndex--
         // Se estava tocando, a próxima faixa toca automaticamente
         loadAndPlaySound(playlist[currentIndex], autoPlay = isPlaying)
         // Registra ação e mostra anúncio
@@ -294,17 +295,18 @@ class PlayerActivity : AppCompatActivity() {
             return
         }
 
-        if (playlist.isEmpty()) {
-            Toast.makeText(this, "⏭️ Nenhuma playlist disponível", Toast.LENGTH_SHORT).show()
+        // Se não tem playlist ou tem apenas 1 áudio: não faz nada
+        if (playlist.isEmpty() || playlist.size <= 1) {
             return
         }
 
+        // Loop infinito: se está na última, volta pra primeira
         if (currentIndex >= playlist.size - 1) {
-            Toast.makeText(this, "⏭️ Já está na última faixa", Toast.LENGTH_SHORT).show()
-            return
+            currentIndex = 0
+        } else {
+            currentIndex++
         }
 
-        currentIndex++
         // Se estava tocando, a próxima faixa toca automaticamente
         loadAndPlaySound(playlist[currentIndex], autoPlay = isPlaying)
         // Registra ação e mostra anúncio
