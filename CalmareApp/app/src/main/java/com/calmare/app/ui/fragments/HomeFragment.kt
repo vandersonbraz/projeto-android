@@ -24,6 +24,7 @@ class HomeFragment : Fragment() {
 
     private lateinit var adManager: AdManager
     private lateinit var preferencesManager: PreferencesManager
+    private var currentToast: Toast? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -112,12 +113,16 @@ class HomeFragment : Fragment() {
 
         moods.forEach { (id, moodName) ->
             view.findViewById<View>(id)?.setOnClickListener {
-                // Mostra mensagem IMEDIATAMENTE
-                Toast.makeText(
+                // Cancela o Toast anterior (se existir)
+                currentToast?.cancel()
+
+                // Mostra novo Toast IMEDIATAMENTE
+                currentToast = Toast.makeText(
                     requireContext(),
                     "Você está se sentindo: $moodName 😊",
                     Toast.LENGTH_SHORT
-                ).show()
+                )
+                currentToast?.show()
 
                 // Salva humor no DataStore em background
                 lifecycleScope.launch {
