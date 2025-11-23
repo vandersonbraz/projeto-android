@@ -36,10 +36,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:scrollbars="none"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp"
-        android:paddingTop="8dp"
-        android:paddingBottom="8dp">
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"
+        android:paddingTop="6dp"
+        android:paddingBottom="6dp">
 
         <com.google.android.material.chip.ChipGroup
             android:id="@+id/chip_group_categories"
@@ -47,39 +47,39 @@
             android:layout_height="wrap_content"
             app:singleSelection="true"
             app:singleLine="true"
-            app:chipSpacingHorizontal="6dp">
+            app:chipSpacingHorizontal="4dp">
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/chip_all"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="32dp"
                 android:text="Todos"
-                android:textSize="13sp"
+                android:textSize="12sp"
                 android:checked="true"
                 style="@style/Widget.Material3.Chip.Filter" />
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/chip_nature"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="32dp"
                 android:text="Natureza"
-                android:textSize="13sp"
+                android:textSize="12sp"
                 style="@style/Widget.Material3.Chip.Filter" />
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/chip_meditation"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="32dp"
                 android:text="Meditação"
-                android:textSize="13sp"
+                android:textSize="12sp"
                 style="@style/Widget.Material3.Chip.Filter" />
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/chip_music"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="32dp"
                 android:text="Música"
-                android:textSize="13sp"
+                android:textSize="12sp"
                 style="@style/Widget.Material3.Chip.Filter" />
         </com.google.android.material.chip.ChipGroup>
 

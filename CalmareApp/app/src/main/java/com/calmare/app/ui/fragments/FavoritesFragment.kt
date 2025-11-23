@@ -73,12 +73,12 @@ class FavoritesFragment : Fragment() {
                 favoriteSounds = SoundsRepository.sounds.filter { sound ->
                     favoriteIds.contains(sound.id)
                 }
-                updateUI()
+                updateUI(favoriteIds)
             }
         }
     }
 
-    private fun updateUI() {
+    private fun updateUI(favoriteIds: Set<Int>) {
         if (favoriteSounds.isEmpty()) {
             recyclerView.visibility = View.GONE
             emptyLayout.visibility = View.VISIBLE
@@ -86,6 +86,8 @@ class FavoritesFragment : Fragment() {
             recyclerView.visibility = View.VISIBLE
             emptyLayout.visibility = View.GONE
             soundsAdapter.updateSounds(favoriteSounds)
+            // Atualiza os favoritos para mostrar corações vermelhos
+            soundsAdapter.updateFavorites(favoriteIds)
         }
     }
 
