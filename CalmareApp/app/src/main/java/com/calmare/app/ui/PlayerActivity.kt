@@ -368,7 +368,8 @@ class PlayerActivity : AppCompatActivity() {
 
     private fun toggleLoop() {
         isLooping = !isLooping
-        mediaPlayer?.isLooping = isLooping
+        // NÃO aplica loop no MediaPlayer (gerenciamos manualmente para garantir anúncios)
+        // mediaPlayer?.isLooping = isLooping
 
         // Destaque visual quando ativo (verde) ou desativado (branco)
         if (isLooping) {
@@ -452,45 +453,55 @@ class PlayerActivity : AppCompatActivity() {
                 }
 
                 setOnCompletionListener {
-                    // Quando o áudio termina (sem loop)
-                    if (!this@PlayerActivity.isLooping) {
-                        // Sessão Rápida Respiração: mostra apenas rewarded de 30s
-                        if (this@PlayerActivity.isQuickBreathingSession) {
-                            // Pausa e mostra anúncio de 30s
-                            if (this@PlayerActivity.isPlaying) {
-                                this@PlayerActivity.pausePlayback()
-                            }
-                            if (!this@PlayerActivity.isUserPremium) {
-                                Toast.makeText(
-                                    this@PlayerActivity,
-                                    "🎬 Assista ao anúncio para continuar!",
-                                    Toast.LENGTH_LONG
-                                ).show()
-                                this@PlayerActivity.showRewardedAd()
-                            }
-                            // Volta ao início
+                    // Quando o áudio termina, SEMPRE processa anúncios (mesmo com loop ativo)
+
+                    // Sessão Rápida Respiração: mostra apenas rewarded de 30s
+                    if (this@PlayerActivity.isQuickBreathingSession) {
+                        // Pausa e mostra anúncio de 30s (SEMPRE, mesmo com loop)
+                        if (this@PlayerActivity.isPlaying) {
+                            this@PlayerActivity.pausePlayback()
+                        }
+                        if (!this@PlayerActivity.isUserPremium) {
+                            Toast.makeText(
+                                this@PlayerActivity,
+                                "🎬 Assista ao anúncio para continuar!",
+                                Toast.LENGTH_LONG
+                            ).show()
+                            this@PlayerActivity.showRewardedAd()
+                        }
+                        // Volta ao início e recomeça se loop ativo
+                        it.seekTo(0)
+                        this@PlayerActivity.seekBar.progress = 0
+                        this@PlayerActivity.tvCurrentTime.text = this@PlayerActivity.formatTime(0)
+                        // Se loop está ativo, recomeça automaticamente
+                        if (this@PlayerActivity.isLooping && this@PlayerActivity.isUserPremium) {
+                            this@PlayerActivity.startPlayback()
+                        }
+                    } else {
+                        // Resto do app: sistema normal de ações
+                        // Registra ação (música terminou) e mostra anúncio (SEMPRE, mesmo com loop)
+                        this@PlayerActivity.registerAction()
+
+                        // Decide o que fazer após mostrar anúncio
+                        if (this@PlayerActivity.isLooping) {
+                            // Loop ativo: volta ao início e recomeça
                             it.seekTo(0)
                             this@PlayerActivity.seekBar.progress = 0
                             this@PlayerActivity.tvCurrentTime.text = this@PlayerActivity.formatTime(0)
+                            this@PlayerActivity.startPlayback()
+                        } else if (this@PlayerActivity.isAutoPlayEnabled &&
+                            this@PlayerActivity.currentIndex < this@PlayerActivity.playlist.size - 1) {
+                            // Sem loop, mas com autoplay: vai pra próxima faixa
+                            this@PlayerActivity.currentIndex++
+                            this@PlayerActivity.loadAndPlaySound(this@PlayerActivity.playlist[this@PlayerActivity.currentIndex], autoPlay = true)
                         } else {
-                            // Resto do app: sistema normal de ações
-                            // Registra ação (música terminou) e mostra anúncio
-                            this@PlayerActivity.registerAction()
-
-                            // Se reprodução automática está ativa E há próxima faixa, vai para ela
-                            if (this@PlayerActivity.isAutoPlayEnabled &&
-                                this@PlayerActivity.currentIndex < this@PlayerActivity.playlist.size - 1) {
-                                this@PlayerActivity.currentIndex++
-                                this@PlayerActivity.loadAndPlaySound(this@PlayerActivity.playlist[this@PlayerActivity.currentIndex], autoPlay = true)
-                            } else {
-                                // Caso contrário, volta ao início e pausa
-                                it.seekTo(0)
-                                this@PlayerActivity.isPlaying = false
-                                this@PlayerActivity.btnPlayPause.setImageResource(android.R.drawable.ic_media_play)
-                                this@PlayerActivity.handler.removeCallbacks(this@PlayerActivity.updateProgressRunnable)
-                                this@PlayerActivity.seekBar.progress = 0
-                                this@PlayerActivity.tvCurrentTime.text = this@PlayerActivity.formatTime(0)
-                            }
+                            // Sem loop e sem próxima: volta ao início e pausa
+                            it.seekTo(0)
+                            this@PlayerActivity.isPlaying = false
+                            this@PlayerActivity.btnPlayPause.setImageResource(android.R.drawable.ic_media_play)
+                            this@PlayerActivity.handler.removeCallbacks(this@PlayerActivity.updateProgressRunnable)
+                            this@PlayerActivity.seekBar.progress = 0
+                            this@PlayerActivity.tvCurrentTime.text = this@PlayerActivity.formatTime(0)
                         }
                     }
                 }
