@@ -127,8 +127,12 @@
     <string name="error_generic">Ocorreu um erro. Tente novamente.</string>
     <string name="reminder_scheduled">✅ Lembrete agendado para %1$s</string>
     <string name="reminders_activated">✅ Lembretes ativados!\n🌅 8h  |  ☀️ 12h  |  🌙 20h</string>
+    <string name="meditations">Meditações</string>
     <string name="missed_meditations">Meditações Perdidas</string>
     <string name="no_missed_meditations">Nenhuma meditação perdida! 😊</string>
+    <string name="configure_reminders">⏰ Configurar Lembretes</string>
+    <string name="setting_notifications_desc">Ligar notificações e permissões</string>
+    <string name="setting_configure_reminders_desc">Escolher horários dos lembretes</string>
 
     <!-- Privacy & Terms (Base text - você deve expandir) -->
     <string name="privacy_policy_text">POLÍTICA DE PRIVACIDADE\n\nSua privacidade é importante para nós.\n\n[Adicione aqui o texto completo da política de privacidade]</string>

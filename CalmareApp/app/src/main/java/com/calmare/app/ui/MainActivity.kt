@@ -117,7 +117,7 @@ class MainActivity : AppCompatActivity() {
 
         if (missedList.isEmpty()) {
             AlertDialog.Builder(this)
-                .setTitle(getString(R.string.missed_meditations))
+                .setTitle(getString(R.string.meditations))
                 .setMessage(getString(R.string.no_missed_meditations))
                 .setPositiveButton("OK", null)
                 .show()
@@ -129,7 +129,7 @@ class MainActivity : AppCompatActivity() {
         }.toTypedArray()
 
         AlertDialog.Builder(this)
-            .setTitle("${getString(R.string.missed_meditations)} (${missedList.size})")
+            .setTitle("${getString(R.string.meditations)} (${missedList.size})")
             .setItems(items, null)
             .setPositiveButton("Limpar Tudo") { _, _ ->
                 badgeManager.clearAllMissedMeditations()

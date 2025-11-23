@@ -138,7 +138,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="4dp"
-                                android:text="Lembretes de meditação"
+                                android:text="@string/setting_notifications_desc"
                                 android:textAppearance="@style/TextAppearance.Calmare.Caption" />
 
                         </LinearLayout>
@@ -149,6 +149,49 @@
                             android:layout_height="wrap_content"
                             app:thumbTint="@color/switch_thumb_color"
                             app:trackTint="@color/switch_track_color" />
+
+                    </LinearLayout>
+
+                    <!-- Configure Reminders -->
+                    <LinearLayout
+                        android:id="@+id/btn_configure_reminders"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="16dp"
+                        android:gravity="center_vertical"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:background="?attr/selectableItemBackground">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/configure_reminders"
+                                android:textAppearance="@style/TextAppearance.Calmare.Body"
+                                android:textColor="@color/text_primary" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="4dp"
+                                android:text="@string/setting_configure_reminders_desc"
+                                android:textAppearance="@style/TextAppearance.Calmare.Caption" />
+
+                        </LinearLayout>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="›"
+                            android:textSize="24sp"
+                            android:textColor="@color/text_secondary" />
 
                     </LinearLayout>
 

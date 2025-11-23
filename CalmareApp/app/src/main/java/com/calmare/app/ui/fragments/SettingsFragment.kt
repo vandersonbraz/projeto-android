@@ -44,27 +44,40 @@ class SettingsFragment : Fragment() {
     private lateinit var btnPremium: Button
     private lateinit var tvPremiumStatus: TextView
     private lateinit var cardPremium: MaterialCardView
+    private lateinit var btnConfigureReminders: View
 
     private var isTogglingProgrammatically = false
+    private var isRequestingPermissionForReminders = false
 
     // Permission launcher para Android 13+
     private val notificationPermissionLauncher = registerForActivityResult(
         ActivityResultContracts.RequestPermission()
     ) { isGranted ->
         if (isGranted) {
-            // Permissão concedida, mostra o time picker
-            showAddReminderDialog()
+            if (isRequestingPermissionForReminders) {
+                // Permissão concedida para configurar lembretes
+                showManageRemindersDialog()
+            } else {
+                // Permissão concedida apenas para ativar notificações
+                preferencesManager.setNotificationsEnabled(true)
+                Toast.makeText(
+                    requireContext(),
+                    "✅ Notificações ativadas!",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
         } else {
-            // Permissão negada, desliga o switch
+            // Permissão negada
             isTogglingProgrammatically = true
             switchNotifications.isChecked = false
             isTogglingProgrammatically = false
             Toast.makeText(
                 requireContext(),
-                "Permissão de notificação necessária para lembretes",
+                "Permissão de notificação necessária",
                 Toast.LENGTH_SHORT
             ).show()
         }
+        isRequestingPermissionForReminders = false
     }
 
     override fun onCreateView(
@@ -95,6 +108,7 @@ class SettingsFragment : Fragment() {
         btnPremium = view.findViewById(R.id.btn_premium)
         tvPremiumStatus = view.findViewById(R.id.tv_premium_status)
         cardPremium = view.findViewById(R.id.card_premium)
+        btnConfigureReminders = view.findViewById(R.id.btn_configure_reminders)
 
         setupListeners()
         loadSettings()
@@ -102,17 +116,29 @@ class SettingsFragment : Fragment() {
     }
 
     private fun setupListeners() {
-        // Notification toggle - agora mostra gerenciamento de lembretes
+        // Notification toggle - apenas liga/desliga notificações e pede permissões
         switchNotifications.setOnCheckedChangeListener { _, isChecked ->
             if (isTogglingProgrammatically) return@setOnCheckedChangeListener
 
             if (isChecked) {
-                // Usuário quer ativar notificações
-                handleNotificationToggleOn()
+                // Usuário quer ativar notificações - pede permissão
+                checkNotificationPermission()
             } else {
-                // Usuário quer desativar - mostra confirmação
-                showDisableRemindersDialog()
+                // Usuário quer desativar notificações
+                lifecycleScope.launch {
+                    preferencesManager.setNotificationsEnabled(false)
+                    Toast.makeText(
+                        requireContext(),
+                        "Notificações desativadas",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
             }
+        }
+
+        // Botão Configure Reminders - abre gerenciamento de lembretes
+        btnConfigureReminders.setOnClickListener {
+            openConfigureReminders()
         }
 
         // Auto-play toggle
@@ -137,19 +163,9 @@ class SettingsFragment : Fragment() {
         }
     }
 
-    private fun handleNotificationToggleOn() {
-        // Verifica se já tem lembretes configurados
-        val existingReminders = reminderStorage.getReminders()
-        if (existingReminders.isNotEmpty()) {
-            // Já tem lembretes, mostra gerenciamento
-            showManageRemindersDialog()
-        } else {
-            // Primeira vez, pede permissão e mostra time picker
-            checkNotificationPermissionAndShowPicker()
-        }
-    }
-
-    private fun checkNotificationPermissionAndShowPicker() {
+    private fun checkNotificationPermission() {
+        // Apenas pede permissão, não abre time picker
+        isRequestingPermissionForReminders = false
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             when {
                 ContextCompat.checkSelfPermission(
@@ -157,7 +173,14 @@ class SettingsFragment : Fragment() {
                     Manifest.permission.POST_NOTIFICATIONS
                 ) == PackageManager.PERMISSION_GRANTED -> {
                     // Permissão já concedida
-                    showAddReminderDialog()
+                    lifecycleScope.launch {
+                        preferencesManager.setNotificationsEnabled(true)
+                        Toast.makeText(
+                            requireContext(),
+                            "✅ Notificações ativadas!",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
                 }
                 else -> {
                     // Pede permissão
@@ -166,16 +189,49 @@ class SettingsFragment : Fragment() {
             }
         } else {
             // Android < 13 não precisa de permissão runtime
-            showAddReminderDialog()
+            lifecycleScope.launch {
+                preferencesManager.setNotificationsEnabled(true)
+                Toast.makeText(
+                    requireContext(),
+                    "✅ Notificações ativadas!",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        }
+    }
+
+    private fun openConfigureReminders() {
+        // Primeiro verifica se tem permissão
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            when {
+                ContextCompat.checkSelfPermission(
+                    requireContext(),
+                    Manifest.permission.POST_NOTIFICATIONS
+                ) == PackageManager.PERMISSION_GRANTED -> {
+                    // Permissão já concedida, abre gerenciamento
+                    showManageRemindersDialog()
+                }
+                else -> {
+                    // Pede permissão para poder configurar lembretes
+                    isRequestingPermissionForReminders = true
+                    notificationPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
+                }
+            }
+        } else {
+            // Android < 13 não precisa de permissão runtime
+            showManageRemindersDialog()
         }
     }
 
     private fun updateNotificationSwitch() {
-        // Atualiza o switch baseado se tem lembretes configurados
-        val hasReminders = reminderStorage.getReminders().isNotEmpty()
-        isTogglingProgrammatically = true
-        switchNotifications.isChecked = hasReminders
-        isTogglingProgrammatically = false
+        // Atualiza o switch baseado se notificações estão ativadas
+        lifecycleScope.launch {
+            preferencesManager.notificationsEnabled.collect { enabled ->
+                isTogglingProgrammatically = true
+                switchNotifications.isChecked = enabled
+                isTogglingProgrammatically = false
+            }
+        }
     }
 
     private fun showAddReminderDialog() {
