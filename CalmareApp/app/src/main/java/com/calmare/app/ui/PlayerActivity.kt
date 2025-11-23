@@ -31,6 +31,7 @@ class PlayerActivity : AppCompatActivity() {
     private var isAudioPrepared = false
     private var isAutoPlayEnabled = false  // Reprodução automática da próxima faixa
     private var shouldAutoPlayOnPrepared = false  // Flag temporária para autoplay ao preparar
+    private var isUserPremium = false  // Status premium do usuário (para áudio em segundo plano)
 
     private lateinit var tvTitle: TextView
     private lateinit var tvCategory: TextView
@@ -128,6 +129,9 @@ class PlayerActivity : AppCompatActivity() {
 
         // Observe premium status
         billingManager.initialize()
+        billingManager.isPremium.observe(this) { premium ->
+            isUserPremium = premium
+        }
 
         // Prepare media player
         prepareMediaPlayer()
@@ -460,8 +464,19 @@ class PlayerActivity : AppCompatActivity() {
         }
     }
 
-    // onPause() removido - permite áudio em segundo plano
-    // O áudio continua tocando mesmo quando a tela é bloqueada ou app minimizado
+    override fun onPause() {
+        super.onPause()
+        // Áudio em segundo plano é EXCLUSIVO para usuários PREMIUM
+        if (!isUserPremium && isPlaying) {
+            pausePlayback()
+            Toast.makeText(
+                this,
+                "⭐ PREMIUM: Ouça em segundo plano seus áudios favoritos! Assine por R$ 14,90/mês",
+                Toast.LENGTH_LONG
+            ).show()
+        }
+        // Se é premium, o áudio continua tocando em segundo plano
+    }
 
     override fun onDestroy() {
         super.onDestroy()
