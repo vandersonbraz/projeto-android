@@ -133,6 +133,9 @@
     <string name="configure_reminders">⏰ Configurar Lembretes</string>
     <string name="setting_notifications_desc">Ligar notificações e permissões</string>
     <string name="setting_configure_reminders_desc">Escolher horários dos lembretes</string>
+    <string name="notifications_enabled">✅ Notificações ativadas!</string>
+    <string name="notifications_disabled">Notificações desativadas</string>
+    <string name="notification_permission_required">Permissão de notificação necessária</string>
 
     <!-- Privacy & Terms (Base text - você deve expandir) -->
     <string name="privacy_policy_text">POLÍTICA DE PRIVACIDADE\n\nSua privacidade é importante para nós.\n\n[Adicione aqui o texto completo da política de privacidade]</string>

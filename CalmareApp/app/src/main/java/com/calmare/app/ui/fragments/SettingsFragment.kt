@@ -59,12 +59,14 @@ class SettingsFragment : Fragment() {
                 showManageRemindersDialog()
             } else {
                 // Permissão concedida apenas para ativar notificações
-                preferencesManager.setNotificationsEnabled(true)
-                Toast.makeText(
-                    requireContext(),
-                    "✅ Notificações ativadas!",
-                    Toast.LENGTH_SHORT
-                ).show()
+                lifecycleScope.launch {
+                    preferencesManager.setNotificationsEnabled(true)
+                    Toast.makeText(
+                        requireContext(),
+                        getString(R.string.notifications_enabled),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
             }
         } else {
             // Permissão negada
@@ -73,7 +75,7 @@ class SettingsFragment : Fragment() {
             isTogglingProgrammatically = false
             Toast.makeText(
                 requireContext(),
-                "Permissão de notificação necessária",
+                getString(R.string.notification_permission_required),
                 Toast.LENGTH_SHORT
             ).show()
         }
@@ -129,7 +131,7 @@ class SettingsFragment : Fragment() {
                     preferencesManager.setNotificationsEnabled(false)
                     Toast.makeText(
                         requireContext(),
-                        "Notificações desativadas",
+                        getString(R.string.notifications_disabled),
                         Toast.LENGTH_SHORT
                     ).show()
                 }
@@ -177,7 +179,7 @@ class SettingsFragment : Fragment() {
                         preferencesManager.setNotificationsEnabled(true)
                         Toast.makeText(
                             requireContext(),
-                            "✅ Notificações ativadas!",
+                            getString(R.string.notifications_enabled),
                             Toast.LENGTH_SHORT
                         ).show()
                     }
@@ -193,7 +195,7 @@ class SettingsFragment : Fragment() {
                 preferencesManager.setNotificationsEnabled(true)
                 Toast.makeText(
                     requireContext(),
-                    "✅ Notificações ativadas!",
+                    getString(R.string.notifications_enabled),
                     Toast.LENGTH_SHORT
                 ).show()
             }
@@ -355,34 +357,6 @@ class SettingsFragment : Fragment() {
         if (remainingReminders.isNotEmpty()) {
             showManageRemindersDialog()
         }
-    }
-
-    private fun showDisableRemindersDialog() {
-        val reminders = reminderStorage.getReminders()
-        if (reminders.isEmpty()) {
-            // Não tem lembretes, só desliga o switch
-            return
-        }
-
-        AlertDialog.Builder(requireContext())
-            .setTitle("Desativar Lembretes")
-            .setMessage("Deseja remover todos os ${reminders.size} lembretes configurados?")
-            .setPositiveButton("Sim") { _, _ ->
-                disableAllReminders()
-            }
-            .setNegativeButton("Cancelar") { _, _ ->
-                // Usuário cancelou, volta o switch para ligado
-                isTogglingProgrammatically = true
-                switchNotifications.isChecked = true
-                isTogglingProgrammatically = false
-            }
-            .setOnCancelListener {
-                // Usuário cancelou, volta o switch para ligado
-                isTogglingProgrammatically = true
-                switchNotifications.isChecked = true
-                isTogglingProgrammatically = false
-            }
-            .show()
     }
 
     private fun disableAllReminders() {
