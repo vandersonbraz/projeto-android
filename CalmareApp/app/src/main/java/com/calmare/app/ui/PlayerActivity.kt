@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import com.calmare.app.R
 import com.calmare.app.managers.BillingManager
 import java.io.IOException
@@ -30,7 +31,7 @@ class PlayerActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_player)
 
-        billingManager = BillingManager(this)
+        billingManager = BillingManager(this, lifecycleScope)
 
         // Get intent extras
         soundTitle = intent.getStringExtra("SOUND_TITLE") ?: "Som Relaxante"

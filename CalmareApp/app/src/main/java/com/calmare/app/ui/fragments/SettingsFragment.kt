@@ -9,6 +9,7 @@ import android.widget.Button
 import android.widget.FrameLayout
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import com.calmare.app.R
 import com.calmare.app.managers.AdManager
 import com.calmare.app.managers.BillingManager
@@ -40,7 +41,7 @@ class SettingsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         adManager = AdManager(requireContext())
-        billingManager = BillingManager(requireContext())
+        billingManager = BillingManager(requireContext(), lifecycleScope)
 
         // Carrega banner de anúncio
         val adContainer = view.findViewById<FrameLayout>(R.id.ad_container)

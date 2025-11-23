@@ -46,7 +46,7 @@ class SoundsFragment : Fragment() {
         adManager.loadBannerAd(adContainer)
 
         // Setup RecyclerView
-        recyclerView = view.findViewById(R.id.rv_sounds)
+        recyclerView = view.findViewById(R.id.recycler_sounds)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
         soundsAdapter = SoundsAdapter(
