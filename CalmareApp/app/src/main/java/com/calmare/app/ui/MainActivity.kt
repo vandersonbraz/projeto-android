@@ -1,16 +1,11 @@
 package com.calmare.app.ui
 
-import android.Manifest
-import android.app.TimePickerDialog
 import android.content.Intent
-import android.content.pm.PackageManager
-import android.os.Build
 import android.os.Bundle
-import android.widget.Toast
+import android.view.View
+import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.calmare.app.R
@@ -20,18 +15,15 @@ import com.calmare.app.ui.fragments.FavoritesFragment
 import com.calmare.app.ui.fragments.HomeFragment
 import com.calmare.app.ui.fragments.SettingsFragment
 import com.calmare.app.ui.fragments.SoundsFragment
-import com.calmare.app.utils.ReminderManager
+import com.calmare.app.utils.NotificationBadgeManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var adManager: AdManager
     private lateinit var billingManager: BillingManager
-    private lateinit var reminderManager: ReminderManager
-
-    companion object {
-        private const val NOTIFICATION_PERMISSION_CODE = 100
-    }
+    private lateinit var badgeManager: NotificationBadgeManager
+    private lateinit var notificationBadge: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,10 +40,13 @@ class MainActivity : AppCompatActivity() {
             initialize()
         }
 
-        reminderManager = ReminderManager(this)
+        badgeManager = NotificationBadgeManager(this)
+        notificationBadge = findViewById(R.id.notification_badge)
 
         setupNavigation()
         setupPremiumButton()
+        setupNotificationBell()
+        updateBadge()
 
         // Carrega o fragment inicial (Home)
         if (savedInstanceState == null) {
@@ -99,116 +94,54 @@ class MainActivity : AppCompatActivity() {
         findViewById<android.view.View>(R.id.btn_premium_badge)?.setOnClickListener {
             startActivity(Intent(this, PremiumActivity::class.java))
         }
+    }
 
-        // Configura o botão do sino (notificações/lembretes)
-        findViewById<android.view.View>(R.id.btn_notifications)?.setOnClickListener {
-            showNotificationReminderDialog()
+    private fun setupNotificationBell() {
+        findViewById<android.view.View>(R.id.btn_notifications_container)?.setOnClickListener {
+            showMissedMeditations()
         }
     }
 
-    private fun showNotificationReminderDialog() {
-        // Verifica permissão de notificações (Android 13+)
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            if (ContextCompat.checkSelfPermission(
-                    this,
-                    Manifest.permission.POST_NOTIFICATIONS
-                ) != PackageManager.PERMISSION_GRANTED
-            ) {
-                // Pede permissão
-                ActivityCompat.requestPermissions(
-                    this,
-                    arrayOf(Manifest.permission.POST_NOTIFICATIONS),
-                    NOTIFICATION_PERMISSION_CODE
-                )
-                return
-            }
+    private fun updateBadge() {
+        val count = badgeManager.getUnreadCount()
+        if (count > 0) {
+            notificationBadge.text = if (count > 99) "99+" else count.toString()
+            notificationBadge.visibility = View.VISIBLE
+        } else {
+            notificationBadge.visibility = View.GONE
         }
-
-        // Mostra opções de lembretes
-        showReminderOptionsDialog()
     }
 
-    private fun showReminderOptionsDialog() {
-        val options = arrayOf(
-            "🕐 Escolher Horário Personalizado",
-            "❌ Desativar Todos os Lembretes"
-        )
+    private fun showMissedMeditations() {
+        val missedList = badgeManager.getMissedMeditations()
+
+        if (missedList.isEmpty()) {
+            AlertDialog.Builder(this)
+                .setTitle(getString(R.string.missed_meditations))
+                .setMessage(getString(R.string.no_missed_meditations))
+                .setPositiveButton("OK", null)
+                .show()
+            return
+        }
+
+        val items = missedList.map {
+            "⏰ ${it.time} - ${it.title}"
+        }.toTypedArray()
 
         AlertDialog.Builder(this)
-            .setTitle("🔔 Lembretes de Meditação")
-            .setItems(options) { _, which ->
-                when (which) {
-                    0 -> showCustomTimePickerDialog()
-                    1 -> deactivateAllReminders()
-                }
+            .setTitle("${getString(R.string.missed_meditations)} (${missedList.size})")
+            .setItems(items, null)
+            .setPositiveButton("Limpar Tudo") { _, _ ->
+                badgeManager.clearAllMissedMeditations()
+                updateBadge()
             }
-            .setNeutralButton("Cancelar", null)
+            .setNegativeButton("Fechar", null)
             .show()
     }
 
-    private fun activateDefaultReminders() {
-        reminderManager.scheduleDefaultReminders()
-        Toast.makeText(
-            this,
-            "✅ Lembretes ativados!\n🌅 8h  |  ☀️ 12h  |  🌙 20h",
-            Toast.LENGTH_LONG
-        ).show()
-    }
-
-    private fun showCustomTimePickerDialog() {
-        val calendar = java.util.Calendar.getInstance()
-        TimePickerDialog(
-            this,
-            { _, hourOfDay, minute ->
-                reminderManager.scheduleReminder(
-                    hourOfDay,
-                    minute,
-                    "🧘 Hora de Meditar",
-                    "Reserve alguns minutos para sua paz interior"
-                )
-                val timeFormatted = String.format(java.util.Locale.getDefault(), "%02d:%02d", hourOfDay, minute)
-                Toast.makeText(
-                    this,
-                    getString(R.string.reminder_scheduled, timeFormatted),
-                    Toast.LENGTH_SHORT
-                ).show()
-            },
-            calendar.get(java.util.Calendar.HOUR_OF_DAY),
-            calendar.get(java.util.Calendar.MINUTE),
-            true
-        ).show()
-    }
-
-    private fun deactivateAllReminders() {
-        // Cancela horários padrão
-        reminderManager.cancelReminder(8, 0)
-        reminderManager.cancelReminder(12, 0)
-        reminderManager.cancelReminder(20, 0)
-
-        Toast.makeText(
-            this,
-            "🔕 Todos os lembretes foram desativados",
-            Toast.LENGTH_SHORT
-        ).show()
-    }
-
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (requestCode == NOTIFICATION_PERMISSION_CODE) {
-            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                showReminderOptionsDialog()
-            } else {
-                Toast.makeText(
-                    this,
-                    "⚠️ Permissão de notificações necessária para lembretes",
-                    Toast.LENGTH_LONG
-                ).show()
-            }
-        }
+    override fun onResume() {
+        super.onResume()
+        updateBadge()
     }
 
     override fun onDestroy() {

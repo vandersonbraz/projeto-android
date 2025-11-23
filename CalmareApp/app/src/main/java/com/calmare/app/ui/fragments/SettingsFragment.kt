@@ -1,6 +1,10 @@
 package com.calmare.app.ui.fragments
 
+import android.Manifest
+import android.app.TimePickerDialog
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,6 +12,10 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.FrameLayout
 import android.widget.TextView
+import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AlertDialog
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.calmare.app.R
@@ -15,15 +23,20 @@ import com.calmare.app.data.PreferencesManager
 import com.calmare.app.managers.AdManager
 import com.calmare.app.managers.BillingManager
 import com.calmare.app.ui.PremiumActivity
+import com.calmare.app.utils.ReminderManager
+import com.calmare.app.utils.ReminderStorage
 import com.google.android.material.card.MaterialCardView
 import com.google.android.material.switchmaterial.SwitchMaterial
 import kotlinx.coroutines.launch
+import java.util.Calendar
 
 class SettingsFragment : Fragment() {
 
     private lateinit var adManager: AdManager
     private lateinit var billingManager: BillingManager
     private lateinit var preferencesManager: PreferencesManager
+    private lateinit var reminderManager: ReminderManager
+    private lateinit var reminderStorage: ReminderStorage
 
     private lateinit var switchNotifications: SwitchMaterial
     private lateinit var switchAutoPlay: SwitchMaterial
@@ -31,6 +44,28 @@ class SettingsFragment : Fragment() {
     private lateinit var btnPremium: Button
     private lateinit var tvPremiumStatus: TextView
     private lateinit var cardPremium: MaterialCardView
+
+    private var isTogglingProgrammatically = false
+
+    // Permission launcher para Android 13+
+    private val notificationPermissionLauncher = registerForActivityResult(
+        ActivityResultContracts.RequestPermission()
+    ) { isGranted ->
+        if (isGranted) {
+            // Permissão concedida, mostra o time picker
+            showAddReminderDialog()
+        } else {
+            // Permissão negada, desliga o switch
+            isTogglingProgrammatically = true
+            switchNotifications.isChecked = false
+            isTogglingProgrammatically = false
+            Toast.makeText(
+                requireContext(),
+                "Permissão de notificação necessária para lembretes",
+                Toast.LENGTH_SHORT
+            ).show()
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -46,6 +81,8 @@ class SettingsFragment : Fragment() {
         adManager = AdManager(requireContext())
         billingManager = BillingManager(requireContext(), lifecycleScope)
         preferencesManager = PreferencesManager(requireContext())
+        reminderManager = ReminderManager(requireContext())
+        reminderStorage = ReminderStorage(requireContext())
 
         // Carrega banner de anúncio
         val adContainer = view.findViewById<FrameLayout>(R.id.ad_container)
@@ -61,12 +98,21 @@ class SettingsFragment : Fragment() {
 
         setupListeners()
         loadSettings()
+        updateNotificationSwitch()
     }
 
     private fun setupListeners() {
-        // Notification toggle
+        // Notification toggle - agora mostra gerenciamento de lembretes
         switchNotifications.setOnCheckedChangeListener { _, isChecked ->
-            saveNotificationSetting(isChecked)
+            if (isTogglingProgrammatically) return@setOnCheckedChangeListener
+
+            if (isChecked) {
+                // Usuário quer ativar notificações
+                handleNotificationToggleOn()
+            } else {
+                // Usuário quer desativar - mostra confirmação
+                showDisableRemindersDialog()
+            }
         }
 
         // Auto-play toggle
@@ -91,13 +137,221 @@ class SettingsFragment : Fragment() {
         }
     }
 
+    private fun handleNotificationToggleOn() {
+        // Verifica se já tem lembretes configurados
+        val existingReminders = reminderStorage.getReminders()
+        if (existingReminders.isNotEmpty()) {
+            // Já tem lembretes, mostra gerenciamento
+            showManageRemindersDialog()
+        } else {
+            // Primeira vez, pede permissão e mostra time picker
+            checkNotificationPermissionAndShowPicker()
+        }
+    }
+
+    private fun checkNotificationPermissionAndShowPicker() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            when {
+                ContextCompat.checkSelfPermission(
+                    requireContext(),
+                    Manifest.permission.POST_NOTIFICATIONS
+                ) == PackageManager.PERMISSION_GRANTED -> {
+                    // Permissão já concedida
+                    showAddReminderDialog()
+                }
+                else -> {
+                    // Pede permissão
+                    notificationPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
+                }
+            }
+        } else {
+            // Android < 13 não precisa de permissão runtime
+            showAddReminderDialog()
+        }
+    }
+
+    private fun updateNotificationSwitch() {
+        // Atualiza o switch baseado se tem lembretes configurados
+        val hasReminders = reminderStorage.getReminders().isNotEmpty()
+        isTogglingProgrammatically = true
+        switchNotifications.isChecked = hasReminders
+        isTogglingProgrammatically = false
+    }
+
+    private fun showAddReminderDialog() {
+        val calendar = Calendar.getInstance()
+        val hour = calendar.get(Calendar.HOUR_OF_DAY)
+        val minute = calendar.get(Calendar.MINUTE)
+
+        TimePickerDialog(
+            requireContext(),
+            { _, selectedHour, selectedMinute ->
+                // Adiciona o novo lembrete
+                addReminder(selectedHour, selectedMinute)
+            },
+            hour,
+            minute,
+            true // Formato 24 horas
+        ).show()
+    }
+
+    private fun addReminder(hour: Int, minute: Int) {
+        // Verifica se já existe
+        val existingReminders = reminderStorage.getReminders()
+        if (existingReminders.any { it.hour == hour && it.minute == minute }) {
+            Toast.makeText(
+                requireContext(),
+                "Lembrete já existe para este horário",
+                Toast.LENGTH_SHORT
+            ).show()
+            return
+        }
+
+        // Adiciona ao storage
+        reminderStorage.addReminder(hour, minute)
+
+        // Agenda o alarme
+        reminderManager.scheduleReminder(
+            hour, minute,
+            "🧘 Hora de Meditar",
+            "Reserve alguns minutos para sua paz interior"
+        )
+
+        // Atualiza o switch
+        updateNotificationSwitch()
+
+        // Mostra confirmação
+        Toast.makeText(
+            requireContext(),
+            String.format(java.util.Locale.getDefault(), "✅ Lembrete agendado para %02d:%02d", hour, minute),
+            Toast.LENGTH_SHORT
+        ).show()
+
+        // Pergunta se quer adicionar mais
+        AlertDialog.Builder(requireContext())
+            .setTitle("Lembrete Adicionado")
+            .setMessage("Deseja adicionar outro horário?")
+            .setPositiveButton("Sim") { _, _ ->
+                showAddReminderDialog()
+            }
+            .setNegativeButton("Não", null)
+            .show()
+    }
+
+    private fun showManageRemindersDialog() {
+        val reminders = reminderStorage.getReminders()
+        if (reminders.isEmpty()) {
+            showAddReminderDialog()
+            return
+        }
+
+        val items = reminders.map {
+            String.format(java.util.Locale.getDefault(), "⏰ %02d:%02d", it.hour, it.minute)
+        }.toTypedArray()
+
+        AlertDialog.Builder(requireContext())
+            .setTitle("Lembretes Configurados (${reminders.size})")
+            .setItems(items) { _, which ->
+                // Ao clicar em um lembrete, pergunta se quer deletar
+                val reminder = reminders[which]
+                showDeleteReminderDialog(reminder.hour, reminder.minute)
+            }
+            .setPositiveButton("Adicionar Novo") { _, _ ->
+                showAddReminderDialog()
+            }
+            .setNegativeButton("Fechar", null)
+            .show()
+    }
+
+    private fun showDeleteReminderDialog(hour: Int, minute: Int) {
+        AlertDialog.Builder(requireContext())
+            .setTitle("Remover Lembrete")
+            .setMessage(String.format(
+                java.util.Locale.getDefault(),
+                "Deseja remover o lembrete de %02d:%02d?",
+                hour, minute
+            ))
+            .setPositiveButton("Remover") { _, _ ->
+                deleteReminder(hour, minute)
+            }
+            .setNegativeButton("Cancelar", null)
+            .show()
+    }
+
+    private fun deleteReminder(hour: Int, minute: Int) {
+        // Remove do storage
+        reminderStorage.removeReminder(hour, minute)
+
+        // Cancela o alarme
+        reminderManager.cancelReminder(hour, minute)
+
+        // Atualiza o switch
+        updateNotificationSwitch()
+
+        Toast.makeText(
+            requireContext(),
+            "Lembrete removido",
+            Toast.LENGTH_SHORT
+        ).show()
+
+        // Se ainda tem lembretes, mostra a lista novamente
+        val remainingReminders = reminderStorage.getReminders()
+        if (remainingReminders.isNotEmpty()) {
+            showManageRemindersDialog()
+        }
+    }
+
+    private fun showDisableRemindersDialog() {
+        val reminders = reminderStorage.getReminders()
+        if (reminders.isEmpty()) {
+            // Não tem lembretes, só desliga o switch
+            return
+        }
+
+        AlertDialog.Builder(requireContext())
+            .setTitle("Desativar Lembretes")
+            .setMessage("Deseja remover todos os ${reminders.size} lembretes configurados?")
+            .setPositiveButton("Sim") { _, _ ->
+                disableAllReminders()
+            }
+            .setNegativeButton("Cancelar") { _, _ ->
+                // Usuário cancelou, volta o switch para ligado
+                isTogglingProgrammatically = true
+                switchNotifications.isChecked = true
+                isTogglingProgrammatically = false
+            }
+            .setOnCancelListener {
+                // Usuário cancelou, volta o switch para ligado
+                isTogglingProgrammatically = true
+                switchNotifications.isChecked = true
+                isTogglingProgrammatically = false
+            }
+            .show()
+    }
+
+    private fun disableAllReminders() {
+        val reminders = reminderStorage.getReminders()
+
+        // Cancela todos os alarmes
+        reminders.forEach { reminder ->
+            reminderManager.cancelReminder(reminder.hour, reminder.minute)
+        }
+
+        // Limpa o storage
+        reminderStorage.clearAllReminders()
+
+        // Atualiza o switch
+        updateNotificationSwitch()
+
+        Toast.makeText(
+            requireContext(),
+            "Todos os lembretes foram removidos",
+            Toast.LENGTH_SHORT
+        ).show()
+    }
+
     private fun loadSettings() {
         // Carrega configurações do DataStore
-        lifecycleScope.launch {
-            preferencesManager.notificationsEnabled.collect { enabled ->
-                switchNotifications.isChecked = enabled
-            }
-        }
         lifecycleScope.launch {
             preferencesManager.autoPlayEnabled.collect { enabled ->
                 switchAutoPlay.isChecked = enabled
@@ -107,12 +361,6 @@ class SettingsFragment : Fragment() {
             preferencesManager.downloadWifiOnly.collect { enabled ->
                 switchDownloadWifi.isChecked = enabled
             }
-        }
-    }
-
-    private fun saveNotificationSetting(enabled: Boolean) {
-        lifecycleScope.launch {
-            preferencesManager.setNotificationsEnabled(enabled)
         }
     }
 
