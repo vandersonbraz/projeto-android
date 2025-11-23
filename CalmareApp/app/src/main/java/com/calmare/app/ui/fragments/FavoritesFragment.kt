@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
-import android.widget.TextView
+import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -21,7 +21,7 @@ class FavoritesFragment : Fragment() {
     private lateinit var adManager: AdManager
     private lateinit var soundsAdapter: SoundsAdapter
     private lateinit var recyclerView: RecyclerView
-    private lateinit var tvEmpty: TextView
+    private lateinit var emptyLayout: LinearLayout
 
     private var favoriteSounds = emptyList<Sound>()
 
@@ -44,7 +44,7 @@ class FavoritesFragment : Fragment() {
 
         // Setup RecyclerView
         recyclerView = view.findViewById(R.id.rv_favorites)
-        tvEmpty = view.findViewById(R.id.tv_empty_favorites)
+        emptyLayout = view.findViewById(R.id.tv_empty_favorites)
 
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
@@ -70,10 +70,10 @@ class FavoritesFragment : Fragment() {
     private fun updateUI() {
         if (favoriteSounds.isEmpty()) {
             recyclerView.visibility = View.GONE
-            tvEmpty.visibility = View.VISIBLE
+            emptyLayout.visibility = View.VISIBLE
         } else {
             recyclerView.visibility = View.VISIBLE
-            tvEmpty.visibility = View.GONE
+            emptyLayout.visibility = View.GONE
             soundsAdapter.updateSounds(favoriteSounds)
         }
     }
