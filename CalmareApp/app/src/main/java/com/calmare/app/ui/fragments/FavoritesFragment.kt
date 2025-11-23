@@ -93,8 +93,9 @@ class FavoritesFragment : Fragment() {
         val intent = Intent(requireContext(), PlayerActivity::class.java).apply {
             putExtra("SOUND_ID", sound.id)
             putExtra("SOUND_TITLE", sound.title)
+            putExtra("SOUND_CATEGORY", sound.category)
+            putExtra("SOUND_DURATION", sound.duration)
             putExtra("SOUND_URL", sound.audioUrl)
-            putExtra("DURATION", sound.duration)
             putExtra("IS_PREMIUM", sound.isPremium)
         }
         startActivity(intent)

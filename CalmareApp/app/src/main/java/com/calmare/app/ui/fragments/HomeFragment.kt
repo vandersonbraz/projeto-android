@@ -133,9 +133,11 @@ class HomeFragment : Fragment() {
 
         val adapter = SoundsHorizontalAdapter(popularSounds) { sound ->
             val intent = Intent(requireContext(), PlayerActivity::class.java).apply {
+                putExtra("SOUND_ID", sound.id)
                 putExtra("SOUND_TITLE", sound.title)
+                putExtra("SOUND_CATEGORY", sound.category)
+                putExtra("SOUND_DURATION", sound.duration)
                 putExtra("SOUND_URL", sound.audioUrl)
-                putExtra("DURATION", sound.duration)
                 putExtra("IS_PREMIUM", sound.isPremium)
             }
             startActivity(intent)
@@ -159,9 +161,11 @@ class HomeFragment : Fragment() {
 
         val adapter = SoundsHorizontalAdapter(meditations) { sound ->
             val intent = Intent(requireContext(), PlayerActivity::class.java).apply {
+                putExtra("SOUND_ID", sound.id)
                 putExtra("SOUND_TITLE", sound.title)
+                putExtra("SOUND_CATEGORY", sound.category)
+                putExtra("SOUND_DURATION", sound.duration)
                 putExtra("SOUND_URL", sound.audioUrl)
-                putExtra("DURATION", sound.duration)
                 putExtra("IS_PREMIUM", sound.isPremium)
             }
             startActivity(intent)
@@ -176,10 +180,21 @@ class HomeFragment : Fragment() {
     }
 
     private fun openPlayer(title: String, duration: Int) {
-        val intent = Intent(requireContext(), PlayerActivity::class.java).apply {
-            putExtra("SOUND_TITLE", title)
-            putExtra("DURATION", duration)
+        // Busca o som "Respiração Consciente" no repositório
+        val sound = SoundsRepository.sounds.find { it.id == 5 } // ID 5 = Respiração Consciente
+
+        if (sound != null) {
+            val intent = Intent(requireContext(), PlayerActivity::class.java).apply {
+                putExtra("SOUND_ID", sound.id)
+                putExtra("SOUND_TITLE", sound.title)
+                putExtra("SOUND_CATEGORY", sound.category)
+                putExtra("SOUND_DURATION", sound.duration)
+                putExtra("SOUND_URL", sound.audioUrl)
+                putExtra("IS_PREMIUM", sound.isPremium)
+            }
+            startActivity(intent)
+        } else {
+            Toast.makeText(requireContext(), "Som não encontrado", Toast.LENGTH_SHORT).show()
         }
-        startActivity(intent)
     }
 }

@@ -20,6 +20,7 @@ import com.calmare.app.ui.PlayerActivity
 import com.calmare.app.ui.adapters.SoundsAdapter
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 
 class SoundsFragment : Fragment() {
@@ -101,8 +102,9 @@ class SoundsFragment : Fragment() {
         val intent = Intent(requireContext(), PlayerActivity::class.java).apply {
             putExtra("SOUND_ID", sound.id)
             putExtra("SOUND_TITLE", sound.title)
+            putExtra("SOUND_CATEGORY", sound.category)
+            putExtra("SOUND_DURATION", sound.duration)
             putExtra("SOUND_URL", sound.audioUrl)
-            putExtra("DURATION", sound.duration)
             putExtra("IS_PREMIUM", sound.isPremium)
         }
         startActivity(intent)
@@ -110,10 +112,8 @@ class SoundsFragment : Fragment() {
 
     private fun toggleFavorite(sound: Sound) {
         lifecycleScope.launch {
-            val favorites = mutableSetOf<Int>()
-            preferencesManager.favoriteSoundIds.collect { ids ->
-                favorites.addAll(ids)
-            }
+            // Usa .first() ao invés de .collect() para pegar apenas o valor atual
+            val favorites = preferencesManager.favoriteSoundIds.first()
 
             if (favorites.contains(sound.id)) {
                 preferencesManager.removeFavorite(sound.id)

@@ -196,7 +196,6 @@ class PlayerActivity : AppCompatActivity() {
         mediaPlayer?.let {
             if (it.isPlaying) {
                 val current = it.currentPosition / 1000
-                val duration = it.duration / 1000
                 val progress = ((it.currentPosition.toFloat() / it.duration) * 100).toInt()
 
                 tvCurrentTime.text = formatTime(current)
@@ -241,7 +240,8 @@ class PlayerActivity : AppCompatActivity() {
 
                 setOnPreparedListener {
                     tvTotalTime.text = formatTime(duration / 1000)
-                    startPlayback()
+                    // Player começa pausado - usuário precisa clicar em Play
+                    btnPlayPause.isEnabled = true
                 }
 
                 setOnErrorListener { _, _, _ ->
