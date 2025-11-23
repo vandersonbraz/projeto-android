@@ -16,6 +16,14 @@ import com.calmare.app.R
 import com.calmare.app.data.PreferencesManager
 import com.calmare.app.data.Sound
 import com.calmare.app.managers.BillingManager
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.AdView
+import com.google.android.gms.ads.LoadAdError
+import com.google.android.gms.ads.MobileAds
+import com.google.android.gms.ads.interstitial.InterstitialAd
+import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
+import com.google.android.gms.ads.rewarded.RewardedAd
+import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback
 import kotlinx.coroutines.launch
 import java.io.IOException
 import java.util.concurrent.TimeUnit
@@ -32,6 +40,15 @@ class PlayerActivity : AppCompatActivity() {
     private var isAutoPlayEnabled = false  // Reprodução automática da próxima faixa
     private var shouldAutoPlayOnPrepared = false  // Flag temporária para autoplay ao preparar
     private var isUserPremium = false  // Status premium do usuário (para áudio em segundo plano)
+
+    // Sistema de anúncios
+    private lateinit var adViewBanner: AdView
+    private var interstitialAd: InterstitialAd? = null
+    private var rewardedAd: RewardedAd? = null
+
+    // Sistema de créditos (5 pulos grátis)
+    private var skipCredits = 5  // Créditos para pular/avançar/retroceder
+    private val MAX_CREDITS = 5
 
     private lateinit var tvTitle: TextView
     private lateinit var tvCategory: TextView
@@ -131,7 +148,11 @@ class PlayerActivity : AppCompatActivity() {
         billingManager.initialize()
         billingManager.isPremium.observe(this) { premium ->
             isUserPremium = premium
+            updateAdsVisibility()  // Atualiza visibilidade dos anúncios
         }
+
+        // Initialize ads
+        initializeAds()
 
         // Prepare media player
         prepareMediaPlayer()
@@ -220,6 +241,11 @@ class PlayerActivity : AppCompatActivity() {
     }
 
     private fun seekBy(milliseconds: Int) {
+        // Verifica créditos antes de permitir avançar/retroceder
+        if (!checkSkipCredits()) {
+            return
+        }
+
         mediaPlayer?.let {
             val newPosition = (it.currentPosition + milliseconds).coerceIn(0, it.duration)
             it.seekTo(newPosition)
@@ -228,6 +254,11 @@ class PlayerActivity : AppCompatActivity() {
     }
 
     private fun playPreviousTrack() {
+        // Verifica créditos antes de permitir pular faixa
+        if (!checkSkipCredits()) {
+            return
+        }
+
         if (playlist.isEmpty()) {
             Toast.makeText(this, "⏮️ Nenhuma playlist disponível", Toast.LENGTH_SHORT).show()
             return
@@ -244,6 +275,11 @@ class PlayerActivity : AppCompatActivity() {
     }
 
     private fun playNextTrack() {
+        // Verifica créditos antes de permitir pular faixa
+        if (!checkSkipCredits()) {
+            return
+        }
+
         if (playlist.isEmpty()) {
             Toast.makeText(this, "⏭️ Nenhuma playlist disponível", Toast.LENGTH_SHORT).show()
             return
@@ -388,6 +424,9 @@ class PlayerActivity : AppCompatActivity() {
                 setOnCompletionListener {
                     // Quando o áudio termina (sem loop)
                     if (!this@PlayerActivity.isLooping) {
+                        // Mostra intersticial antes de ir para próxima faixa (só para gratuitos)
+                        this@PlayerActivity.showInterstitialAd()
+
                         // Se reprodução automática está ativa E há próxima faixa, vai para ela
                         if (this@PlayerActivity.isAutoPlayEnabled &&
                             this@PlayerActivity.currentIndex < this@PlayerActivity.playlist.size - 1) {
@@ -461,6 +500,147 @@ class PlayerActivity : AppCompatActivity() {
                 btnPlayPause.setImageResource(android.R.drawable.ic_media_play)
                 handler.removeCallbacks(updateProgressRunnable)
             }
+        }
+    }
+
+    // ========== SISTEMA DE ANÚNCIOS ==========
+
+    private fun initializeAds() {
+        // Inicializa Mobile Ads SDK
+        MobileAds.initialize(this) {}
+
+        // Inicializa banner
+        adViewBanner = findViewById(R.id.adView_banner)
+        if (!isUserPremium) {
+            val adRequest = AdRequest.Builder().build()
+            adViewBanner.loadAd(adRequest)
+        }
+
+        // Carrega intersticial
+        loadInterstitialAd()
+
+        // Carrega rewarded ad
+        loadRewardedAd()
+    }
+
+    private fun updateAdsVisibility() {
+        // Premium: oculta banner e não mostra anúncios
+        if (isUserPremium) {
+            adViewBanner.visibility = android.view.View.GONE
+            skipCredits = Int.MAX_VALUE  // Créditos ilimitados para premium
+            updateSkipButtonsState()
+        } else {
+            adViewBanner.visibility = android.view.View.VISIBLE
+            if (skipCredits == Int.MAX_VALUE) {
+                skipCredits = MAX_CREDITS  // Restaura créditos para gratuitos
+            }
+            updateSkipButtonsState()
+        }
+    }
+
+    private fun loadInterstitialAd() {
+        val adRequest = AdRequest.Builder().build()
+        InterstitialAd.load(
+            this,
+            "ca-app-pub-3940256099942544/1033173712",  // Test ID do intersticial
+            adRequest,
+            object : InterstitialAdLoadCallback() {
+                override fun onAdLoaded(ad: InterstitialAd) {
+                    interstitialAd = ad
+                }
+                override fun onAdFailedToLoad(error: LoadAdError) {
+                    interstitialAd = null
+                }
+            }
+        )
+    }
+
+    private fun loadRewardedAd() {
+        val adRequest = AdRequest.Builder().build()
+        RewardedAd.load(
+            this,
+            "ca-app-pub-3940256099942544/5224354917",  // Test ID do rewarded
+            adRequest,
+            object : RewardedAdLoadCallback() {
+                override fun onAdLoaded(ad: RewardedAd) {
+                    rewardedAd = ad
+                }
+                override fun onAdFailedToLoad(error: LoadAdError) {
+                    rewardedAd = null
+                }
+            }
+        )
+    }
+
+    private fun showInterstitialAd() {
+        // Só mostra se não for premium
+        if (!isUserPremium && interstitialAd != null) {
+            interstitialAd?.show(this)
+            loadInterstitialAd()  // Carrega o próximo
+        }
+    }
+
+    private fun showRewardedAd() {
+        if (rewardedAd != null) {
+            rewardedAd?.show(this) { rewardItem ->
+                // Usuário assistiu ao anúncio completo, recarrega créditos
+                skipCredits = MAX_CREDITS
+                updateSkipButtonsState()
+                Toast.makeText(
+                    this,
+                    "✅ +5 pulos desbloqueados!",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+            loadRewardedAd()  // Carrega o próximo
+        } else {
+            Toast.makeText(
+                this,
+                "⏳ Carregando anúncio, aguarde...",
+                Toast.LENGTH_SHORT
+            ).show()
+            loadRewardedAd()
+        }
+    }
+
+    private fun checkSkipCredits(): Boolean {
+        if (isUserPremium) {
+            return true  // Premium tem acesso ilimitado
+        }
+
+        if (skipCredits > 0) {
+            skipCredits--
+            updateSkipButtonsState()
+            return true
+        } else {
+            // Sem créditos, mostra diálogo
+            Toast.makeText(
+                this,
+                "🎬 Assista um anúncio para desbloquear +5 pulos!",
+                Toast.LENGTH_LONG
+            ).show()
+            showRewardedAd()
+            return false
+        }
+    }
+
+    private fun updateSkipButtonsState() {
+        val enabled = isUserPremium || skipCredits > 0
+        btnPreviousTrack.isEnabled = enabled
+        btnNextTrack.isEnabled = enabled
+        btnRewind.isEnabled = enabled
+        btnForward.isEnabled = enabled
+
+        // Atualiza opacidade visual
+        val alpha = if (enabled) 1.0f else 0.3f
+        btnPreviousTrack.alpha = alpha
+        btnNextTrack.alpha = alpha
+        btnRewind.alpha = alpha
+        btnForward.alpha = alpha
+
+        // Atualiza título com créditos restantes (só para gratuitos)
+        if (!isUserPremium && skipCredits < Int.MAX_VALUE) {
+            supportActionBar?.subtitle = "Pulos restantes: $skipCredits"
         }
     }
 
