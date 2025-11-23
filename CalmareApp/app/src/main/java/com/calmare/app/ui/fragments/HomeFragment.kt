@@ -125,7 +125,11 @@ class HomeFragment : Fragment() {
             startActivity(intent)
         }
 
-        recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        recyclerView.layoutManager = LinearLayoutManager(
+            requireContext(),
+            LinearLayoutManager.HORIZONTAL,
+            false
+        )
         recyclerView.adapter = adapter
     }
 

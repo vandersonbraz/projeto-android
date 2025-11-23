@@ -102,10 +102,13 @@
 
             <!-- Monthly Plan Card -->
             <androidx.cardview.widget.CardView
+                android:id="@+id/card_plan_monthly"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:cardCornerRadius="16dp"
                 app:cardElevation="2dp"
+                android:clickable="true"
+                android:focusable="true"
                 android:layout_marginBottom="12dp">
 
                 <LinearLayout
@@ -129,6 +132,124 @@
                         android:textStyle="bold"
                         android:textColor="@color/primary"
                         android:layout_marginTop="8dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/billing_monthly"
+                        android:textSize="12sp"
+                        android:textColor="@color/text_secondary"
+                        android:layout_marginTop="4dp" />
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <!-- Annual Plan Card (RECOMENDADO) -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/card_plan_annual"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="4dp"
+                app:cardBackgroundColor="@color/primary_light"
+                android:clickable="true"
+                android:focusable="true"
+                android:layout_marginBottom="12dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="20dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/plan_annual"
+                            android:textStyle="bold"
+                            android:textSize="18sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/save_badge"
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/accent"
+                            android:background="@drawable/bg_premium_badge"
+                            android:paddingHorizontal="8dp"
+                            android:paddingVertical="4dp" />
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/price_annual_month"
+                        android:textSize="24sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/primary"
+                        android:layout_marginTop="8dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/price_annual_total"
+                        android:textSize="12sp"
+                        android:textColor="@color/text_secondary"
+                        android:layout_marginTop="4dp" />
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <!-- Lifetime Plan Card -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/card_plan_lifetime"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="2dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:layout_marginBottom="12dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="20dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/plan_lifetime"
+                        android:textStyle="bold"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/price_lifetime"
+                        android:textSize="24sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/primary"
+                        android:layout_marginTop="8dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/billing_lifetime"
+                        android:textSize="12sp"
+                        android:textColor="@color/text_secondary"
+                        android:layout_marginTop="4dp" />
 
                 </LinearLayout>
 
