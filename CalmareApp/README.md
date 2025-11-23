@@ -4,24 +4,25 @@
 
 ## 📥 **DOWNLOAD DIRETO**
 
-### 🎯 **PROJETO COMPLETO - v2.5 FINAL (BUILD OK):**
+### 🎯 **PROJETO COMPLETO - v2.6 FINAL (BUILD OK):**
 
-**[⬇️ BAIXAR AQUI - v2.5-FINAL (136 KB)](https://github.com/vandersonbraz/projeto-android/raw/claude/android-monetization-app-01BXuLECEMMS2JfQUs6Cpqsf/CalmareApp/Calmare-App-v2.5-FINAL.zip)**
+**[⬇️ BAIXAR AQUI - v2.6-FINAL (137 KB)](https://github.com/vandersonbraz/projeto-android/raw/claude/android-monetization-app-01BXuLECEMMS2JfQUs6Cpqsf/CalmareApp/Calmare-App-v2.6-FINAL.zip)**
 
-**🔥 NOVIDADES v2.5 FINAL:**
-**🎯 SISTEMA DE ANÚNCIOS CORRIGIDO (EXATAMENTE COMO PEDIDO!):**
+**🔥 NOVIDADES v2.6 FINAL:**
+**🎯 DIFERENCIAÇÃO CORRETA: Sessão Rápida vs Meditação:**
+**✅ Sessão Rápida (home): botões pular ESCONDIDOS (sem playlist)**
+**✅ Meditação→Respiração: botões pular VISÍVEIS (playlist normal)**
+**✅ Detecção inteligente: verifica título + tamanho da playlist**
+**🎯 SISTEMA DE ANÚNCIOS (6 AÇÕES):**
 **✅ Pulos 1-5: intersticial 5s DEPOIS de cada pulo**
 **✅ Pulo 6: rewarded 30s ANTES de tocar a próxima (BLOQUEIA tudo!)**
 **✅ Loop infinito: 1→2→3→4→5→6(rewarded)→7→8→9→10→11→12(rewarded)→...**
-**✅ Após rewarded: usuário continua ouvindo (contador reseta)**
-**🔁 LOOP INFINITO NAS CATEGORIAS (100% FUNCIONAL!):**
+**🔁 LOOP INFINITO NAS CATEGORIAS:**
 **✅ Categoria com 8 músicas: 1→2→3→4→5→6→7→8→volta pra 1→2→3...**
 **✅ Anúncios continuam funcionando no loop (não para nunca)**
-**✅ Se categoria tem 1 música: anúncios aparecem normalmente**
-**🫁 Sessão Rápida Respiração PERFEITA:**
+**🫁 Sessão Rápida Respiração:**
 **✅ Respiração termina → rewarded 30s → recomeça se loop ativo**
-**✅ Loop desativado: botão Play FUNCIONA corretamente (bug corrigido!)**
-**✅ Botões pular/voltar ESCONDIDOS na respiração**
+**✅ Loop desativado: botão Play FUNCIONA corretamente**
 **✅ Forward/rewind funcionam SEM anúncios**
 **✅ Sistema de anúncios em LOOP INFINITO (ações 1-4: intersticial, ação 5: rewarded)**
 **✅ Tela Premium com 3 benefícios destacados (✅ Sem anúncios, ✅ Segundo plano, ✅ Pulos ilimitados)**

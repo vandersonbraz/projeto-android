@@ -138,7 +138,10 @@ class PlayerActivity : AppCompatActivity() {
         loadAutoPlayState()
 
         // Detecta se é Sessão Rápida - Respiração
-        isQuickBreathingSession = soundTitle.contains("Respiração", ignoreCase = true)
+        // Sessão Rápida: vem com playlist vazia ou só 1 item E é Respiração
+        // Meditação normal: vem com playlist completa (vários itens)
+        isQuickBreathingSession = soundTitle.contains("Respiração", ignoreCase = true) &&
+                                  (playlist.isEmpty() || playlist.size == 1)
 
         // Se for sessão rápida, esconde botões de pular faixa
         if (isQuickBreathingSession) {
@@ -344,7 +347,10 @@ class PlayerActivity : AppCompatActivity() {
         isPremium = sound.isPremium
 
         // Detecta se é Sessão Rápida - Respiração
-        isQuickBreathingSession = soundTitle.contains("Respiração", ignoreCase = true)
+        // Sessão Rápida: vem com playlist vazia ou só 1 item E é Respiração
+        // Meditação normal: vem com playlist completa (vários itens)
+        isQuickBreathingSession = soundTitle.contains("Respiração", ignoreCase = true) &&
+                                  (playlist.isEmpty() || playlist.size == 1)
 
         // Se for sessão rápida, esconde botões de pular faixa
         if (isQuickBreathingSession) {
