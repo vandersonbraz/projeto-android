@@ -4,9 +4,9 @@
 
 ## 📥 **DOWNLOAD DIRETO**
 
-### 🎯 **PROJETO COMPLETO - v1.5 FINAL (BUILD OK):**
+### 🎯 **PROJETO COMPLETO - v1.6 FINAL (BUILD OK):**
 
-**[⬇️ BAIXAR AQUI - v1.5-FINAL (133 KB)](https://github.com/vandersonbraz/projeto-android/raw/claude/android-monetization-app-01BXuLECEMMS2JfQUs6Cpqsf/CalmareApp/Calmare-App-v1.5-FINAL.zip)**
+**[⬇️ BAIXAR AQUI - v1.6-FINAL (133 KB)](https://github.com/vandersonbraz/projeto-android/raw/claude/android-monetization-app-01BXuLECEMMS2JfQUs6Cpqsf/CalmareApp/Calmare-App-v1.6-FINAL.zip)**
 
 **✅ Projeto Android Studio completo**
 **✅ Badge do sino: "Meditações" (centralizado, sem "Perdidas")**
@@ -19,6 +19,8 @@
 **✅ Loop desativado: botão BRANCO (igual ao volume); ativado: VERDE**
 **✅ Reprodução controlada: SÓ toca quando usuário clica em Play**
 **✅ Próxima faixa automática: pula para próxima SE reprodução automática ativa**
+**✅ Player inteligente: se está tocando, ao pular faixa continua tocando automaticamente**
+**✅ Áudio em segundo plano: continua tocando com tela bloqueada ou app minimizado**
 **✅ Sem mensagens de "carregando" - experiência fluida**
 **✅ Rewind/Forward funcionam sempre (independente do loop)**
 **✅ ZERO avisos de depreciação - API atualizada para Android 13+**
