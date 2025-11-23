@@ -83,6 +83,28 @@ class MainActivity : AppCompatActivity() {
         findViewById<android.view.View>(R.id.btn_premium_badge)?.setOnClickListener {
             startActivity(Intent(this, PremiumActivity::class.java))
         }
+
+        // Configura o botão do sino (notificações/lembretes)
+        findViewById<android.view.View>(R.id.btn_notifications)?.setOnClickListener {
+            showNotificationReminderDialog()
+        }
+    }
+
+    private fun showNotificationReminderDialog() {
+        android.app.AlertDialog.Builder(this)
+            .setTitle("🔔 Lembretes de Meditação")
+            .setMessage("Configure lembretes diários para lembrar você de meditar!\n\n" +
+                    "• Escolha seus horários favoritos\n" +
+                    "• Receba notificações personalizadas\n" +
+                    "• Nunca perca sua prática diária\n\n" +
+                    "Funcionalidade completa em breve! ✨")
+            .setPositiveButton("OK") { dialog, _ ->
+                dialog.dismiss()
+            }
+            .setNeutralButton("Ir para Configurações") { _, _ ->
+                startActivity(Intent(this, SettingsActivity::class.java))
+            }
+            .show()
     }
 
     override fun onDestroy() {

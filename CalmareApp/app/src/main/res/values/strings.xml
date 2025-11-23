@@ -49,8 +49,8 @@
     <string name="btn_subscribe_now">ASSINAR AGORA</string>
 
     <!-- Premium/Subscription -->
-    <string name="premium_title">Calmare\nPREMIUM</string>
-    <string name="premium_subtitle">Desbloqueie todo o potencial\nda sua paz interior</string>
+    <string name="premium_title">Calmare PREMIUM</string>
+    <string name="premium_subtitle">Desbloqueie todo o potencial da sua paz interior</string>
     <string name="benefits_title">BENEFÍCIOS:</string>
     <string name="benefit_unlimited_sounds">Acesso ilimitado a 300+ sons</string>
     <string name="benefit_all_meditations">Todas as meditações guiadas</string>
