@@ -6,10 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
+import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.calmare.app.R
+import com.calmare.app.data.PreferencesManager
 import com.calmare.app.data.Sound
 import com.calmare.app.data.SoundsRepository
 import com.calmare.app.managers.AdManager
@@ -17,10 +20,12 @@ import com.calmare.app.ui.PlayerActivity
 import com.calmare.app.ui.adapters.SoundsAdapter
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
+import kotlinx.coroutines.launch
 
 class SoundsFragment : Fragment() {
 
     private lateinit var adManager: AdManager
+    private lateinit var preferencesManager: PreferencesManager
     private lateinit var soundsAdapter: SoundsAdapter
     private lateinit var recyclerView: RecyclerView
     private lateinit var chipGroup: ChipGroup
@@ -40,6 +45,7 @@ class SoundsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         adManager = AdManager(requireContext())
+        preferencesManager = PreferencesManager(requireContext())
 
         // Carrega banner de anúncio
         val adContainer = view.findViewById<FrameLayout>(R.id.ad_container)
@@ -103,7 +109,27 @@ class SoundsFragment : Fragment() {
     }
 
     private fun toggleFavorite(sound: Sound) {
-        // TODO: Implementar sistema de favoritos com DataStore
-        // Por enquanto apenas mostra que foi clicado
+        lifecycleScope.launch {
+            val favorites = mutableSetOf<Int>()
+            preferencesManager.favoriteSoundIds.collect { ids ->
+                favorites.addAll(ids)
+            }
+
+            if (favorites.contains(sound.id)) {
+                preferencesManager.removeFavorite(sound.id)
+                Toast.makeText(
+                    requireContext(),
+                    "Removido dos favoritos",
+                    Toast.LENGTH_SHORT
+                ).show()
+            } else {
+                preferencesManager.addFavorite(sound.id)
+                Toast.makeText(
+                    requireContext(),
+                    "Adicionado aos favoritos ❤️",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        }
     }
 }

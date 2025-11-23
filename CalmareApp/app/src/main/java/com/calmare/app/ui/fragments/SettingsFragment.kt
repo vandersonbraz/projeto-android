@@ -11,16 +11,19 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.calmare.app.R
+import com.calmare.app.data.PreferencesManager
 import com.calmare.app.managers.AdManager
 import com.calmare.app.managers.BillingManager
 import com.calmare.app.ui.PremiumActivity
 import com.google.android.material.card.MaterialCardView
 import com.google.android.material.switchmaterial.SwitchMaterial
+import kotlinx.coroutines.launch
 
 class SettingsFragment : Fragment() {
 
     private lateinit var adManager: AdManager
     private lateinit var billingManager: BillingManager
+    private lateinit var preferencesManager: PreferencesManager
 
     private lateinit var switchNotifications: SwitchMaterial
     private lateinit var switchAutoPlay: SwitchMaterial
@@ -42,6 +45,7 @@ class SettingsFragment : Fragment() {
 
         adManager = AdManager(requireContext())
         billingManager = BillingManager(requireContext(), lifecycleScope)
+        preferencesManager = PreferencesManager(requireContext())
 
         // Carrega banner de anúncio
         val adContainer = view.findViewById<FrameLayout>(R.id.ad_container)
@@ -88,23 +92,40 @@ class SettingsFragment : Fragment() {
     }
 
     private fun loadSettings() {
-        // TODO: Carregar configurações do DataStore
-        // Por enquanto usa valores padrão
-        switchNotifications.isChecked = true
-        switchAutoPlay.isChecked = false
-        switchDownloadWifi.isChecked = true
+        // Carrega configurações do DataStore
+        lifecycleScope.launch {
+            preferencesManager.notificationsEnabled.collect { enabled ->
+                switchNotifications.isChecked = enabled
+            }
+        }
+        lifecycleScope.launch {
+            preferencesManager.autoPlayEnabled.collect { enabled ->
+                switchAutoPlay.isChecked = enabled
+            }
+        }
+        lifecycleScope.launch {
+            preferencesManager.downloadWifiOnly.collect { enabled ->
+                switchDownloadWifi.isChecked = enabled
+            }
+        }
     }
 
     private fun saveNotificationSetting(enabled: Boolean) {
-        // TODO: Salvar no DataStore
+        lifecycleScope.launch {
+            preferencesManager.setNotificationsEnabled(enabled)
+        }
     }
 
     private fun saveAutoPlaySetting(enabled: Boolean) {
-        // TODO: Salvar no DataStore
+        lifecycleScope.launch {
+            preferencesManager.setAutoPlayEnabled(enabled)
+        }
     }
 
     private fun saveDownloadWifiSetting(enabled: Boolean) {
-        // TODO: Salvar no DataStore
+        lifecycleScope.launch {
+            preferencesManager.setDownloadWifiOnly(enabled)
+        }
     }
 
     private fun updatePremiumUI(isPremium: Boolean) {

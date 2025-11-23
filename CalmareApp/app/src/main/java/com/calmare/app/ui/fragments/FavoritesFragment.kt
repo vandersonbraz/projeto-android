@@ -8,17 +8,22 @@ import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.calmare.app.R
+import com.calmare.app.data.PreferencesManager
 import com.calmare.app.data.Sound
+import com.calmare.app.data.SoundsRepository
 import com.calmare.app.managers.AdManager
 import com.calmare.app.ui.PlayerActivity
 import com.calmare.app.ui.adapters.SoundsAdapter
+import kotlinx.coroutines.launch
 
 class FavoritesFragment : Fragment() {
 
     private lateinit var adManager: AdManager
+    private lateinit var preferencesManager: PreferencesManager
     private lateinit var soundsAdapter: SoundsAdapter
     private lateinit var recyclerView: RecyclerView
     private lateinit var emptyLayout: LinearLayout
@@ -37,6 +42,7 @@ class FavoritesFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         adManager = AdManager(requireContext())
+        preferencesManager = PreferencesManager(requireContext())
 
         // Carrega banner de anúncio
         val adContainer = view.findViewById<FrameLayout>(R.id.ad_container)
@@ -61,10 +67,15 @@ class FavoritesFragment : Fragment() {
     }
 
     private fun loadFavorites() {
-        // TODO: Carregar favoritos do DataStore
-        // Por enquanto mostra lista vazia
-        favoriteSounds = emptyList()
-        updateUI()
+        lifecycleScope.launch {
+            preferencesManager.favoriteSoundIds.collect { favoriteIds ->
+                // Carrega os sons que estão nos favoritos
+                favoriteSounds = SoundsRepository.sounds.filter { sound ->
+                    favoriteIds.contains(sound.id)
+                }
+                updateUI()
+            }
+        }
     }
 
     private fun updateUI() {
@@ -90,9 +101,9 @@ class FavoritesFragment : Fragment() {
     }
 
     private fun removeFavorite(sound: Sound) {
-        // TODO: Remover dos favoritos no DataStore
-        // Por enquanto apenas atualiza a UI
-        favoriteSounds = favoriteSounds.filter { it.id != sound.id }
-        updateUI()
+        lifecycleScope.launch {
+            preferencesManager.removeFavorite(sound.id)
+            // A UI será atualizada automaticamente pelo Flow no loadFavorites()
+        }
     }
 }

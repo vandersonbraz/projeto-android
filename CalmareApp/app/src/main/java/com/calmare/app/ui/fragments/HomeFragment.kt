@@ -7,14 +7,19 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.FrameLayout
+import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import com.calmare.app.R
+import com.calmare.app.data.PreferencesManager
 import com.calmare.app.managers.AdManager
 import com.calmare.app.ui.PlayerActivity
+import kotlinx.coroutines.launch
 
 class HomeFragment : Fragment() {
 
     private lateinit var adManager: AdManager
+    private lateinit var preferencesManager: PreferencesManager
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -28,6 +33,7 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         adManager = AdManager(requireContext())
+        preferencesManager = PreferencesManager(requireContext())
 
         // Carrega banner de anúncio
         val adContainer = view.findViewById<FrameLayout>(R.id.ad_banner_container)
@@ -39,7 +45,7 @@ class HomeFragment : Fragment() {
             openPlayer("Respiração 5 Minutos", 300)
         }
 
-        // Setup mood trackers (opcional - podem ser implementados depois)
+        // Setup mood trackers
         setupMoodTrackers(view)
     }
 
@@ -52,10 +58,17 @@ class HomeFragment : Fragment() {
             R.id.mood_5 to "Triste"
         )
 
-        moods.forEach { (id, _) ->
+        moods.forEach { (id, moodName) ->
             view.findViewById<View>(id)?.setOnClickListener {
-                // TODO: Salvar humor do usuário no DataStore
-                // Por enquanto apenas registra o clique
+                // Salva humor no DataStore
+                lifecycleScope.launch {
+                    preferencesManager.saveMood(moodName)
+                    Toast.makeText(
+                        requireContext(),
+                        "Você está se sentindo: $moodName 😊",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
             }
         }
     }
