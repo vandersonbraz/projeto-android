@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="140dp"
+    android:layout_height="160dp"
+    android:layout_marginEnd="12dp"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="4dp"
+    android:clickable="true"
+    android:focusable="true"
+    app:cardBackgroundColor="@color/card_background">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:padding="12dp">
+
+        <!-- Emoji/Icon -->
+        <TextView
+            android:id="@+id/tv_sound_emoji"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="🌧️"
+            android:textSize="48sp" />
+
+        <!-- Title -->
+        <TextView
+            android:id="@+id/tv_sound_title_horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Chuva"
+            android:textSize="14sp"
+            android:textColor="@color/text_primary"
+            android:fontFamily="sans-serif-medium"
+            android:maxLines="2"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:textAlignment="center" />
+
+        <!-- Duration -->
+        <TextView
+            android:id="@+id/tv_duration_horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="10 min"
+            android:textSize="12sp"
+            android:textColor="@color/text_secondary" />
+
+        <!-- Premium badge -->
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip_premium_horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_marginTop="4dp"
+            android:text="PREMIUM"
+            android:textSize="9sp"
+            android:textColor="@color/white"
+            app:chipBackgroundColor="@color/accent"
+            app:chipMinHeight="20dp"
+            android:visibility="gone"
+            style="@style/Widget.Material3.Chip.Assist" />
+
+    </LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>

@@ -10,10 +10,14 @@ import android.widget.FrameLayout
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.calmare.app.R
 import com.calmare.app.data.PreferencesManager
+import com.calmare.app.data.SoundsRepository
 import com.calmare.app.managers.AdManager
 import com.calmare.app.ui.PlayerActivity
+import com.calmare.app.ui.adapters.SoundsHorizontalAdapter
 import kotlinx.coroutines.launch
 
 class HomeFragment : Fragment() {
@@ -47,6 +51,12 @@ class HomeFragment : Fragment() {
 
         // Setup mood trackers
         setupMoodTrackers(view)
+
+        // Setup popular sounds
+        setupPopularSounds(view)
+
+        // Setup guided meditations
+        setupGuidedMeditations(view)
     }
 
     private fun setupMoodTrackers(view: View) {
@@ -71,6 +81,52 @@ class HomeFragment : Fragment() {
                 }
             }
         }
+    }
+
+    private fun setupPopularSounds(view: View) {
+        val recyclerView = view.findViewById<RecyclerView>(R.id.rv_popular_sounds)
+
+        // Get the 4 most popular sounds (non-premium)
+        val popularSounds = SoundsRepository.sounds.filter { !it.isPremium }.take(4)
+
+        val adapter = SoundsHorizontalAdapter(popularSounds) { sound ->
+            val intent = Intent(requireContext(), PlayerActivity::class.java).apply {
+                putExtra("SOUND_TITLE", sound.title)
+                putExtra("SOUND_URL", sound.audioUrl)
+                putExtra("DURATION", sound.duration)
+                putExtra("IS_PREMIUM", sound.isPremium)
+            }
+            startActivity(intent)
+        }
+
+        recyclerView.layoutManager = LinearLayoutManager(
+            requireContext(),
+            LinearLayoutManager.HORIZONTAL,
+            false
+        )
+        recyclerView.adapter = adapter
+    }
+
+    private fun setupGuidedMeditations(view: View) {
+        val recyclerView = view.findViewById<RecyclerView>(R.id.rv_meditations)
+
+        // Get meditation sounds
+        val meditations = SoundsRepository.sounds.filter {
+            it.category == "Meditação"
+        }
+
+        val adapter = SoundsHorizontalAdapter(meditations) { sound ->
+            val intent = Intent(requireContext(), PlayerActivity::class.java).apply {
+                putExtra("SOUND_TITLE", sound.title)
+                putExtra("SOUND_URL", sound.audioUrl)
+                putExtra("DURATION", sound.duration)
+                putExtra("IS_PREMIUM", sound.isPremium)
+            }
+            startActivity(intent)
+        }
+
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        recyclerView.adapter = adapter
     }
 
     private fun openPlayer(title: String, duration: Int) {
