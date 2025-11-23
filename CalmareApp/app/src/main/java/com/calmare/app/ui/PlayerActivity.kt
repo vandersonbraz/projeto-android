@@ -94,6 +94,9 @@ class PlayerActivity : AppCompatActivity() {
         updateAlbumArt()
         loadFavoriteState()
 
+        // Botão começa como Play (não Pause)
+        btnPlayPause.setImageResource(android.R.drawable.ic_media_play)
+
         // Setup buttons
         setupClickListeners()
 
@@ -163,7 +166,15 @@ class PlayerActivity : AppCompatActivity() {
     }
 
     private fun updateFavoriteButton() {
-        btnFavorite.alpha = if (isFavorite) 1.0f else 0.5f
+        if (isFavorite) {
+            // Vermelho quando favoritado
+            btnFavorite.setColorFilter(getColor(R.color.error))
+            btnFavorite.alpha = 1.0f
+        } else {
+            // Cinza quando não favoritado
+            btnFavorite.setColorFilter(getColor(R.color.text_secondary))
+            btnFavorite.alpha = 0.5f
+        }
     }
 
     private fun seekBy(milliseconds: Int) {

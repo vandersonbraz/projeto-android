@@ -39,8 +39,8 @@ class SoundsAdapter(
         holder.tvDuration.text = formatDuration(sound.duration)
         holder.tvCategory.text = sound.category
 
-        // Mostra badge premium se necessário
-        holder.chipPremium.visibility = if (sound.isPremium) View.VISIBLE else View.GONE
+        // Premium removido - todos os sons são gratuitos agora
+        holder.chipPremium.visibility = View.GONE
 
         // Click listeners
         holder.itemView.setOnClickListener {

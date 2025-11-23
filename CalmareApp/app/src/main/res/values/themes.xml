@@ -121,4 +121,10 @@
         <item name="cardElevation">4dp</item>
         <item name="contentPadding">16dp</item>
     </style>
+
+    <!-- Switch Style - ON = Verde, OFF = Cinza -->
+    <style name="Widget.Calmare.Switch" parent="Widget.Material3.CompoundButton.MaterialSwitch">
+        <item name="thumbTint">@color/switch_thumb_color</item>
+        <item name="trackTint">@color/switch_track_color</item>
+    </style>
 </resources>

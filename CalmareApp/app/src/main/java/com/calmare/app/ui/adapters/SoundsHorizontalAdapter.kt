@@ -35,8 +35,8 @@ class SoundsHorizontalAdapter(
         holder.tvTitle.text = sound.title
         holder.tvDuration.text = formatDuration(sound.duration)
 
-        // Show premium badge if needed
-        holder.chipPremium.visibility = if (sound.isPremium) View.VISIBLE else View.GONE
+        // Premium removido - todos os sons são gratuitos agora
+        holder.chipPremium.visibility = View.GONE
 
         // Click listener
         holder.itemView.setOnClickListener {

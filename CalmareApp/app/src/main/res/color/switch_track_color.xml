@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Track color when checked (ON) - verde claro -->
+    <item android:color="#80D2A0" android:state_checked="true"/>
+    <!-- Track color when unchecked (OFF) - cinza claro -->
+    <item android:color="@color/border_light"/>
+</selector>

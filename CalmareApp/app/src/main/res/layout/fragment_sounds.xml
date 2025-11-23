@@ -47,13 +47,14 @@
             android:layout_height="wrap_content"
             app:singleSelection="true"
             app:singleLine="true"
-            app:chipSpacingHorizontal="8dp">
+            app:chipSpacingHorizontal="6dp">
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/chip_all"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Todos"
+                android:textSize="13sp"
                 android:checked="true"
                 style="@style/Widget.Material3.Chip.Filter" />
 
@@ -62,6 +63,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Natureza"
+                android:textSize="13sp"
                 style="@style/Widget.Material3.Chip.Filter" />
 
             <com.google.android.material.chip.Chip
@@ -69,6 +71,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Meditação"
+                android:textSize="13sp"
                 style="@style/Widget.Material3.Chip.Filter" />
 
             <com.google.android.material.chip.Chip
@@ -76,6 +79,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Música"
+                android:textSize="13sp"
                 style="@style/Widget.Material3.Chip.Filter" />
         </com.google.android.material.chip.ChipGroup>
 

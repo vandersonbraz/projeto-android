@@ -46,7 +46,7 @@ class HomeFragment : Fragment() {
 
         // Setup quick session button
         view.findViewById<Button>(R.id.btn_start_quick_session)?.setOnClickListener {
-            openPlayer("Respiração 5 Minutos", 300)
+            openPlayer()
         }
 
         // 🎬 BOTÕES DE TESTE DE ANÚNCIOS (Remover antes de publicar)
@@ -179,7 +179,7 @@ class HomeFragment : Fragment() {
         recyclerView.adapter = adapter
     }
 
-    private fun openPlayer(title: String, duration: Int) {
+    private fun openPlayer() {
         // Busca o som "Respiração Consciente" no repositório
         val sound = SoundsRepository.sounds.find { it.id == 5 } // ID 5 = Respiração Consciente
 
