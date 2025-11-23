@@ -62,6 +62,7 @@ class PlayerActivity : AppCompatActivity() {
     private lateinit var btnPreviousTrack: ImageButton
     private lateinit var btnNextTrack: ImageButton
     private lateinit var btnLoop: ImageButton
+    private lateinit var btnStop: ImageButton
     private lateinit var btnVolume: ImageButton
 
     private var soundId: Int = 0
@@ -124,6 +125,7 @@ class PlayerActivity : AppCompatActivity() {
         btnPreviousTrack = findViewById(R.id.btn_previous_track)
         btnNextTrack = findViewById(R.id.btn_next_track)
         btnLoop = findViewById(R.id.btn_loop)
+        btnStop = findViewById(R.id.btn_stop)
         btnVolume = findViewById(R.id.btn_volume)
 
         // Setup UI
@@ -176,6 +178,8 @@ class PlayerActivity : AppCompatActivity() {
         btnNextTrack.setOnClickListener { playNextTrack() }
 
         btnLoop.setOnClickListener { toggleLoop() }
+
+        btnStop.setOnClickListener { stopPlayback() }
 
         btnVolume.setOnClickListener {
             val audioManager = getSystemService(AUDIO_SERVICE) as AudioManager
@@ -565,6 +569,21 @@ class PlayerActivity : AppCompatActivity() {
                 btnPlayPause.setImageResource(android.R.drawable.ic_media_play)
                 handler.removeCallbacks(updateProgressRunnable)
             }
+        }
+    }
+
+    private fun stopPlayback() {
+        mediaPlayer?.let {
+            if (it.isPlaying) {
+                it.pause()
+            }
+            it.seekTo(0)
+            isPlaying = false
+            btnPlayPause.setImageResource(android.R.drawable.ic_media_play)
+            handler.removeCallbacks(updateProgressRunnable)
+            seekBar.progress = 0
+            tvCurrentTime.text = formatTime(0)
+            Toast.makeText(this, "⏹️ Reprodução parada", Toast.LENGTH_SHORT).show()
         }
     }
 

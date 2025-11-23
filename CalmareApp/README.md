@@ -4,15 +4,17 @@
 
 ## 📥 **DOWNLOAD DIRETO**
 
-### 🎯 **PROJETO COMPLETO - v2.8 FINAL (BUILD OK):**
+### 🎯 **PROJETO COMPLETO - v2.9 FINAL (BUILD OK):**
 
-**[⬇️ BAIXAR AQUI - v2.8-FINAL (136 KB)](https://github.com/vandersonbraz/projeto-android/raw/claude/android-monetization-app-01BXuLECEMMS2JfQUs6Cpqsf/CalmareApp/Calmare-App-v2.8-FINAL.zip)**
+**[⬇️ BAIXAR AQUI - v2.9-FINAL (137 KB)](https://github.com/vandersonbraz/projeto-android/raw/claude/android-monetization-app-01BXuLECEMMS2JfQUs6Cpqsf/CalmareApp/Calmare-App-v2.9-FINAL.zip)**
 
-**🔥 NOVIDADES v2.8 FINAL:**
-**🎯 INTERFACE SIMPLIFICADA E LIMPA:**
-**✅ Botões avançar/retroceder 15s REMOVIDOS (atrapa lhavam)**
-**✅ Player focado: apenas botões pular faixa + play/pause + loop + volume**
-**✅ Layout mais limpo e profissional**
+**🔥 NOVIDADES v2.9 FINAL:**
+**⏹️ BOTÃO STOP ADICIONADO:**
+**✅ Novo botão STOP (⏹️) - para e volta ao início**
+**✅ Layout: Loop | Stop | Volume (3 botões)**
+**✅ Botão vermelho para destaque visual**
+**🎯 INTERFACE COMPLETA:**
+**✅ Player com TODOS os controles: pular faixa + play/pause + stop + loop + volume**
 **🎯 FUNCIONALIDADES MANTIDAS:**
 **✅ Sistema de 6 ações funcionando perfeitamente**
 **✅ Detecção confiável de Sessão Rápida (flag IS_QUICK_SESSION)**
