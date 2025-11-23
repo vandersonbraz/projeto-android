@@ -235,7 +235,8 @@ class PlayerActivity : AppCompatActivity() {
         }
 
         currentIndex--
-        loadAndPlaySound(playlist[currentIndex])
+        // Se estava tocando, a próxima faixa toca automaticamente
+        loadAndPlaySound(playlist[currentIndex], autoPlay = isPlaying)
     }
 
     private fun playNextTrack() {
@@ -250,7 +251,8 @@ class PlayerActivity : AppCompatActivity() {
         }
 
         currentIndex++
-        loadAndPlaySound(playlist[currentIndex])
+        // Se estava tocando, a próxima faixa toca automaticamente
+        loadAndPlaySound(playlist[currentIndex], autoPlay = isPlaying)
     }
 
     private fun loadAndPlaySound(sound: Sound, autoPlay: Boolean = false) {
@@ -458,10 +460,8 @@ class PlayerActivity : AppCompatActivity() {
         }
     }
 
-    override fun onPause() {
-        super.onPause()
-        pausePlayback()
-    }
+    // onPause() removido - permite áudio em segundo plano
+    // O áudio continua tocando mesmo quando a tela é bloqueada ou app minimizado
 
     override fun onDestroy() {
         super.onDestroy()
