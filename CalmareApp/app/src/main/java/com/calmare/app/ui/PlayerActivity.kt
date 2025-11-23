@@ -116,9 +116,9 @@ class PlayerActivity : AppCompatActivity() {
         // Botão começa como Play (não Pause)
         btnPlayPause.setImageResource(android.R.drawable.ic_media_play)
 
-        // Botão de loop começa DESATIVADO (cinza)
-        btnLoop.setColorFilter(getColor(R.color.text_secondary))
-        btnLoop.alpha = 0.4f
+        // Botão de loop começa DESATIVADO (branco igual ao volume)
+        btnLoop.setColorFilter(getColor(R.color.white))
+        btnLoop.alpha = 1.0f
 
         // Setup buttons
         setupClickListeners()
@@ -286,13 +286,13 @@ class PlayerActivity : AppCompatActivity() {
         isLooping = !isLooping
         mediaPlayer?.isLooping = isLooping
 
-        // Destaque visual quando ativo (verde) ou desativado (cinza)
+        // Destaque visual quando ativo (verde) ou desativado (branco)
         if (isLooping) {
             btnLoop.setColorFilter(getColor(R.color.success))  // Verde quando ativo
             btnLoop.alpha = 1.0f
         } else {
-            btnLoop.setColorFilter(getColor(R.color.text_secondary))  // Cinza quando desativado
-            btnLoop.alpha = 0.4f
+            btnLoop.setColorFilter(getColor(R.color.white))  // Branco quando desativado (igual ao volume)
+            btnLoop.alpha = 1.0f
         }
 
         val message = if (isLooping) "Loop ativado 🔁" else "Loop desativado"
