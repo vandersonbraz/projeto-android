@@ -129,13 +129,22 @@
     <string name="reminders_activated">✅ Lembretes ativados!\n🌅 8h  |  ☀️ 12h  |  🌙 20h</string>
     <string name="meditations">Meditações</string>
     <string name="missed_meditations">Meditações Perdidas</string>
-    <string name="no_missed_meditations">Nenhuma meditação perdida! 😊</string>
+    <string name="no_missed_meditations">Nenhuma notificação</string>
     <string name="configure_reminders">⏰ Configurar Lembretes</string>
     <string name="setting_notifications_desc">Ligar notificações e permissões</string>
     <string name="setting_configure_reminders_desc">Escolher horários dos lembretes</string>
     <string name="notifications_enabled">✅ Notificações ativadas!</string>
     <string name="notifications_disabled">Notificações desativadas</string>
     <string name="notification_permission_required">Permissão de notificação necessária</string>
+
+    <!-- Dialog buttons -->
+    <string name="btn_ok">OK</string>
+    <string name="btn_yes">Sim</string>
+    <string name="btn_no">Não</string>
+    <string name="btn_cancel">Cancelar</string>
+    <string name="btn_remove">Remover</string>
+    <string name="btn_clear_all">Limpar Tudo</string>
+    <string name="btn_add_new">Adicionar Novo</string>
 
     <!-- Privacy & Terms (Base text - você deve expandir) -->
     <string name="privacy_policy_text">POLÍTICA DE PRIVACIDADE\n\nSua privacidade é importante para nós.\n\n[Adicione aqui o texto completo da política de privacidade]</string>

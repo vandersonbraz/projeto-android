@@ -289,10 +289,10 @@ class SettingsFragment : Fragment() {
         AlertDialog.Builder(requireContext())
             .setTitle("Lembrete Adicionado")
             .setMessage("Deseja adicionar outro horário?")
-            .setPositiveButton("Sim") { _, _ ->
+            .setPositiveButton(getString(R.string.btn_yes)) { _, _ ->
                 showAddReminderDialog()
             }
-            .setNegativeButton("Não", null)
+            .setNegativeButton(getString(R.string.btn_no), null)
             .show()
     }
 
@@ -314,10 +314,10 @@ class SettingsFragment : Fragment() {
                 val reminder = reminders[which]
                 showDeleteReminderDialog(reminder.hour, reminder.minute)
             }
-            .setPositiveButton("Adicionar Novo") { _, _ ->
+            .setPositiveButton(getString(R.string.btn_add_new)) { _, _ ->
                 showAddReminderDialog()
             }
-            .setNegativeButton("Fechar", null)
+            .setNegativeButton(getString(R.string.btn_close), null)
             .show()
     }
 
@@ -329,10 +329,10 @@ class SettingsFragment : Fragment() {
                 "Deseja remover o lembrete de %02d:%02d?",
                 hour, minute
             ))
-            .setPositiveButton("Remover") { _, _ ->
+            .setPositiveButton(getString(R.string.btn_remove)) { _, _ ->
                 deleteReminder(hour, minute)
             }
-            .setNegativeButton("Cancelar", null)
+            .setNegativeButton(getString(R.string.btn_cancel), null)
             .show()
     }
 
@@ -357,27 +357,6 @@ class SettingsFragment : Fragment() {
         if (remainingReminders.isNotEmpty()) {
             showManageRemindersDialog()
         }
-    }
-
-    private fun disableAllReminders() {
-        val reminders = reminderStorage.getReminders()
-
-        // Cancela todos os alarmes
-        reminders.forEach { reminder ->
-            reminderManager.cancelReminder(reminder.hour, reminder.minute)
-        }
-
-        // Limpa o storage
-        reminderStorage.clearAllReminders()
-
-        // Atualiza o switch
-        updateNotificationSwitch()
-
-        Toast.makeText(
-            requireContext(),
-            "Todos os lembretes foram removidos",
-            Toast.LENGTH_SHORT
-        ).show()
     }
 
     private fun loadSettings() {

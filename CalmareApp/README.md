@@ -4,16 +4,17 @@
 
 ## 📥 **DOWNLOAD DIRETO**
 
-### 🎯 **PROJETO COMPLETO - v1.1 CORRIGIDO (BUILD OK):**
+### 🎯 **PROJETO COMPLETO - v1.1 SEM AVISOS (BUILD OK):**
 
-**[⬇️ BAIXAR AQUI - v1.1-FIXED (132 KB)](https://github.com/vandersonbraz/projeto-android/raw/claude/android-monetization-app-01BXuLECEMMS2JfQUs6Cpqsf/CalmareApp/Calmare-App-v1.1-FIXED.zip)**
+**[⬇️ BAIXAR AQUI - v1.1-NO-WARNINGS (132 KB)](https://github.com/vandersonbraz/projeto-android/raw/claude/android-monetization-app-01BXuLECEMMS2JfQUs6Cpqsf/CalmareApp/Calmare-App-v1.1-NO-WARNINGS.zip)**
 
 **✅ Projeto Android Studio completo**
 **✅ Badge do sino: "Meditações" (centralizado, sem "Perdidas")**
+**✅ Mensagem "nenhuma notificação" quando não há notificações**
 **✅ Botão de notificações: apenas liga/desliga e pede permissões**
 **✅ Novo botão "Configurar Lembretes": escolha horários de meditação**
-**✅ Erros de compilação CORRIGIDOS - strings em resources**
-**✅ Compila sem erros - pronto para usar!**
+**✅ TODOS os avisos corrigidos - strings em resources**
+**✅ Compila sem erros e sem avisos - 100% pronto!**
 
 ---
 

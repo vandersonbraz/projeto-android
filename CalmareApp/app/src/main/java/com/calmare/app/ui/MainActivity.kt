@@ -119,7 +119,7 @@ class MainActivity : AppCompatActivity() {
             AlertDialog.Builder(this)
                 .setTitle(getString(R.string.meditations))
                 .setMessage(getString(R.string.no_missed_meditations))
-                .setPositiveButton("OK", null)
+                .setPositiveButton(getString(R.string.btn_ok), null)
                 .show()
             return
         }
@@ -131,11 +131,11 @@ class MainActivity : AppCompatActivity() {
         AlertDialog.Builder(this)
             .setTitle("${getString(R.string.meditations)} (${missedList.size})")
             .setItems(items, null)
-            .setPositiveButton("Limpar Tudo") { _, _ ->
+            .setPositiveButton(getString(R.string.btn_clear_all)) { _, _ ->
                 badgeManager.clearAllMissedMeditations()
                 updateBadge()
             }
-            .setNegativeButton("Fechar", null)
+            .setNegativeButton(getString(R.string.btn_close), null)
             .show()
     }
 
