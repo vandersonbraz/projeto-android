@@ -29,6 +29,8 @@ class PlayerActivity : AppCompatActivity() {
     private var isLooping = false  // Começa DESATIVADO
     private var isFavorite = false
     private var isAudioPrepared = false
+    private var isAutoPlayEnabled = false  // Reprodução automática da próxima faixa
+    private var shouldAutoPlayOnPrepared = false  // Flag temporária para autoplay ao preparar
 
     private lateinit var tvTitle: TextView
     private lateinit var tvCategory: TextView
@@ -112,6 +114,7 @@ class PlayerActivity : AppCompatActivity() {
         tvTotalTime.text = formatTime(soundDuration)
         updateAlbumArt()
         loadFavoriteState()
+        loadAutoPlayState()
 
         // Botão começa como Play (não Pause)
         btnPlayPause.setImageResource(android.R.drawable.ic_media_play)
@@ -180,6 +183,14 @@ class PlayerActivity : AppCompatActivity() {
         }
     }
 
+    private fun loadAutoPlayState() {
+        lifecycleScope.launch {
+            preferencesManager.autoPlayEnabled.collect { enabled ->
+                isAutoPlayEnabled = enabled
+            }
+        }
+    }
+
     private fun toggleFavorite() {
         lifecycleScope.launch {
             if (isFavorite) {
@@ -242,7 +253,7 @@ class PlayerActivity : AppCompatActivity() {
         loadAndPlaySound(playlist[currentIndex])
     }
 
-    private fun loadAndPlaySound(sound: Sound) {
+    private fun loadAndPlaySound(sound: Sound, autoPlay: Boolean = false) {
         // Para o player atual
         mediaPlayer?.apply {
             if (isPlaying) {
@@ -276,9 +287,10 @@ class PlayerActivity : AppCompatActivity() {
         // Estado inicial
         isPlaying = false
         isAudioPrepared = false
+        shouldAutoPlayOnPrepared = autoPlay  // Define se deve tocar automaticamente
         btnPlayPause.setImageResource(android.R.drawable.ic_media_play)
 
-        // Prepara e toca novo áudio automaticamente
+        // Prepara novo áudio
         prepareMediaPlayer()
     }
 
@@ -360,22 +372,30 @@ class PlayerActivity : AppCompatActivity() {
                     tvTotalTime.text = formatTime(duration / 1000)
                     isAudioPrepared = true
                     btnPlayPause.isEnabled = true
-                    // Toca automaticamente quando pronto
-                    startPlayback()
+                    // Se shouldAutoPlayOnPrepared está true, toca automaticamente
+                    if (this@PlayerActivity.shouldAutoPlayOnPrepared) {
+                        this@PlayerActivity.shouldAutoPlayOnPrepared = false
+                        this@PlayerActivity.startPlayback()
+                    }
                 }
 
                 setOnCompletionListener {
                     // Quando o áudio termina (sem loop)
                     if (!this@PlayerActivity.isLooping) {
-                        // Volta ao início
-                        it.seekTo(0)
-                        // Muda para pausado
-                        this@PlayerActivity.isPlaying = false
-                        this@PlayerActivity.btnPlayPause.setImageResource(android.R.drawable.ic_media_play)
-                        this@PlayerActivity.handler.removeCallbacks(this@PlayerActivity.updateProgressRunnable)
-                        // Atualiza barra para 0
-                        this@PlayerActivity.seekBar.progress = 0
-                        this@PlayerActivity.tvCurrentTime.text = this@PlayerActivity.formatTime(0)
+                        // Se reprodução automática está ativa E há próxima faixa, vai para ela
+                        if (this@PlayerActivity.isAutoPlayEnabled &&
+                            this@PlayerActivity.currentIndex < this@PlayerActivity.playlist.size - 1) {
+                            this@PlayerActivity.currentIndex++
+                            this@PlayerActivity.loadAndPlaySound(this@PlayerActivity.playlist[this@PlayerActivity.currentIndex], autoPlay = true)
+                        } else {
+                            // Caso contrário, volta ao início e pausa
+                            it.seekTo(0)
+                            this@PlayerActivity.isPlaying = false
+                            this@PlayerActivity.btnPlayPause.setImageResource(android.R.drawable.ic_media_play)
+                            this@PlayerActivity.handler.removeCallbacks(this@PlayerActivity.updateProgressRunnable)
+                            this@PlayerActivity.seekBar.progress = 0
+                            this@PlayerActivity.tvCurrentTime.text = this@PlayerActivity.formatTime(0)
+                        }
                     }
                 }
 
