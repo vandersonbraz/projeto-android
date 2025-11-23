@@ -9,8 +9,8 @@
 **[⬇️ BAIXAR AQUI - v1.9-FINAL (135 KB)](https://github.com/vandersonbraz/projeto-android/raw/claude/android-monetization-app-01BXuLECEMMS2JfQUs6Cpqsf/CalmareApp/Calmare-App-v1.9-FINAL.zip)**
 
 **🔥 NOVIDADES v1.9 FINAL:**
-**✅ Rewarded ad FORÇADO após 5 pulos (pausa áudio automaticamente)**
-**✅ Tela Premium com 4 benefícios destacados (✅ Sem anúncios, ✅ Segundo plano, ✅ Pulos ilimitados, ✅ Sons premium)**
+**✅ Sistema de anúncios em LOOP INFINITO (ações 1-4: intersticial, ação 5: rewarded)**
+**✅ Tela Premium com 3 benefícios destacados (✅ Sem anúncios, ✅ Segundo plano, ✅ Pulos ilimitados)**
 **✅ Zero warnings de compilação - código 100% limpo**
 
 **✅ Projeto Android Studio completo**
@@ -28,13 +28,13 @@
 **⭐ Áudio em segundo plano PREMIUM: continua tocando para assinantes (R$ 14,90/mês)**
 **✅ Usuários gratuitos: mensagem promocional ao minimizar app**
 
-**💰 SISTEMA COMPLETO DE MONETIZAÇÃO:**
+**💰 SISTEMA LOOP INFINITO DE MONETIZAÇÃO:**
 **✅ Banner Ad: sempre visível no rodapé (remove se premium)**
-**✅ Intersticial: a cada faixa que termina (pulável após 5s)**
-**✅ Sistema de 5 pulos grátis: avançar/retroceder/pular faixas**
-**🔥 Rewarded Ad FORÇADO: após 5 pulos PAUSA o áudio e exige anúncio de 30s**
-**✅ Tela Premium atualizada: 4 benefícios com tiques verdes**
-**✅ Premium remove TODOS os anúncios + pulos ilimitados**
+**🔥 Intersticial (5s): aparece nas ações 1, 2, 3 e 4**
+**🔥 Rewarded (30s): aparece na ação 5, PAUSA áudio, reseta contador**
+**✅ Ações = pular/retroceder/avançar/música terminar**
+**✅ Loop infinito: 1→2→3→4→5(rewarded)→1→2→3→4→5...**
+**✅ Premium remove TODOS os anúncios + sem limites**
 
 **✅ Sem mensagens de "carregando" - experiência fluida**
 **✅ Rewind/Forward funcionam sempre (independente do loop)**
