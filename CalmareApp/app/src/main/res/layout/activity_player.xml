@@ -155,8 +155,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="32dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
         android:orientation="horizontal"
         android:gravity="center"
         app:layout_constraintTop_toBottomOf="@id/progress_layout">
@@ -164,20 +164,31 @@
         <!-- Botão Voltar 15s -->
         <ImageButton
             android:id="@+id/btn_rewind"
-            android:layout_width="56dp"
-            android:layout_height="56dp"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:src="@android:drawable/ic_media_rew"
             android:tint="@color/white"
             android:alpha="0.8"
             android:contentDescription="Voltar 15s" />
 
+        <!-- Botão Faixa Anterior -->
+        <ImageButton
+            android:id="@+id/btn_previous_track"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:layout_marginStart="8dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@android:drawable/ic_media_previous"
+            android:tint="@color/white"
+            android:contentDescription="Faixa Anterior" />
+
         <!-- Botão Play/Pause (Maior) -->
         <androidx.cardview.widget.CardView
             android:layout_width="80dp"
             android:layout_height="80dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginEnd="24dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
             app:cardCornerRadius="40dp"
             app:cardElevation="8dp"
             app:cardBackgroundColor="@color/white">
@@ -195,11 +206,22 @@
 
         </androidx.cardview.widget.CardView>
 
+        <!-- Botão Próxima Faixa -->
+        <ImageButton
+            android:id="@+id/btn_next_track"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:layout_marginEnd="8dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@android:drawable/ic_media_next"
+            android:tint="@color/white"
+            android:contentDescription="Próxima Faixa" />
+
         <!-- Botão Avançar 15s -->
         <ImageButton
             android:id="@+id/btn_forward"
-            android:layout_width="56dp"
-            android:layout_height="56dp"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:src="@android:drawable/ic_media_ff"
             android:tint="@color/white"

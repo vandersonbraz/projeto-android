@@ -40,6 +40,8 @@ class PlayerActivity : AppCompatActivity() {
     private lateinit var btnFavorite: ImageButton
     private lateinit var btnRewind: ImageButton
     private lateinit var btnForward: ImageButton
+    private lateinit var btnPreviousTrack: ImageButton
+    private lateinit var btnNextTrack: ImageButton
     private lateinit var btnLoop: ImageButton
     private lateinit var btnVolume: ImageButton
 
@@ -85,6 +87,8 @@ class PlayerActivity : AppCompatActivity() {
         btnFavorite = findViewById(R.id.btn_favorite_player)
         btnRewind = findViewById(R.id.btn_rewind)
         btnForward = findViewById(R.id.btn_forward)
+        btnPreviousTrack = findViewById(R.id.btn_previous_track)
+        btnNextTrack = findViewById(R.id.btn_next_track)
         btnLoop = findViewById(R.id.btn_loop)
         btnVolume = findViewById(R.id.btn_volume)
 
@@ -122,6 +126,10 @@ class PlayerActivity : AppCompatActivity() {
         btnRewind.setOnClickListener { seekBy(-15000) }
 
         btnForward.setOnClickListener { seekBy(15000) }
+
+        btnPreviousTrack.setOnClickListener { playPreviousTrack() }
+
+        btnNextTrack.setOnClickListener { playNextTrack() }
 
         btnLoop.setOnClickListener { toggleLoop() }
 
@@ -183,21 +191,23 @@ class PlayerActivity : AppCompatActivity() {
     }
 
     private fun seekBy(milliseconds: Int) {
-        // Só permite avançar/retroceder se o looping estiver desativado
-        if (isLooping) {
-            Toast.makeText(
-                this,
-                "⚠️ Desative o loop para avançar/retroceder",
-                Toast.LENGTH_SHORT
-            ).show()
-            return
-        }
-
         mediaPlayer?.let {
             val newPosition = (it.currentPosition + milliseconds).coerceIn(0, it.duration)
             it.seekTo(newPosition)
             updateProgress()
         }
+    }
+
+    private fun playPreviousTrack() {
+        // Botão de faixa anterior sempre funciona (independente do loop)
+        // TODO: Implementar navegação para faixa anterior quando houver playlist
+        Toast.makeText(this, "⏮️ Primeira faixa da playlist", Toast.LENGTH_SHORT).show()
+    }
+
+    private fun playNextTrack() {
+        // Botão de próxima faixa sempre funciona (independente do loop)
+        // TODO: Implementar navegação para próxima faixa quando houver playlist
+        Toast.makeText(this, "⏭️ Última faixa da playlist", Toast.LENGTH_SHORT).show()
     }
 
     private fun toggleLoop() {

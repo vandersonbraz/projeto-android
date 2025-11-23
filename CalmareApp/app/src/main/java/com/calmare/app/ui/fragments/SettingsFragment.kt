@@ -287,8 +287,8 @@ class SettingsFragment : Fragment() {
 
         // Pergunta se quer adicionar mais
         AlertDialog.Builder(requireContext())
-            .setTitle("Lembrete Adicionado")
-            .setMessage("Deseja adicionar outro horário?")
+            .setTitle(getString(R.string.reminder_added_title))
+            .setMessage(getString(R.string.reminder_added_message))
             .setPositiveButton(getString(R.string.btn_yes)) { _, _ ->
                 showAddReminderDialog()
             }
@@ -308,7 +308,7 @@ class SettingsFragment : Fragment() {
         }.toTypedArray()
 
         AlertDialog.Builder(requireContext())
-            .setTitle("Lembretes Configurados (${reminders.size})")
+            .setTitle(getString(R.string.reminders_configured_title, reminders.size))
             .setItems(items) { _, which ->
                 // Ao clicar em um lembrete, pergunta se quer deletar
                 val reminder = reminders[which]
@@ -323,12 +323,8 @@ class SettingsFragment : Fragment() {
 
     private fun showDeleteReminderDialog(hour: Int, minute: Int) {
         AlertDialog.Builder(requireContext())
-            .setTitle("Remover Lembrete")
-            .setMessage(String.format(
-                java.util.Locale.getDefault(),
-                "Deseja remover o lembrete de %02d:%02d?",
-                hour, minute
-            ))
+            .setTitle(getString(R.string.remove_reminder_title))
+            .setMessage(getString(R.string.remove_reminder_message, hour, minute))
             .setPositiveButton(getString(R.string.btn_remove)) { _, _ ->
                 deleteReminder(hour, minute)
             }
