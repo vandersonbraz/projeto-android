@@ -52,7 +52,7 @@ class HomeFragment : Fragment() {
             R.id.mood_5 to "Triste"
         )
 
-        moods.forEach { (id, mood) ->
+        moods.forEach { (id, _) ->
             view.findViewById<View>(id)?.setOnClickListener {
                 // TODO: Salvar humor do usuário no DataStore
                 // Por enquanto apenas registra o clique

@@ -79,4 +79,11 @@
         android:clipToPadding="false"
         android:paddingBottom="16dp" />
 
+    <!-- Ad Container -->
+    <FrameLayout
+        android:id="@+id/ad_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center" />
+
 </LinearLayout>
