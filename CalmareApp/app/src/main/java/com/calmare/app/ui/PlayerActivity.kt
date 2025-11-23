@@ -59,8 +59,6 @@ class PlayerActivity : AppCompatActivity() {
     private lateinit var btnPlayPause: ImageButton
     private lateinit var btnBack: ImageButton
     private lateinit var btnFavorite: ImageButton
-    private lateinit var btnRewind: ImageButton
-    private lateinit var btnForward: ImageButton
     private lateinit var btnPreviousTrack: ImageButton
     private lateinit var btnNextTrack: ImageButton
     private lateinit var btnLoop: ImageButton
@@ -123,8 +121,6 @@ class PlayerActivity : AppCompatActivity() {
         btnPlayPause = findViewById(R.id.btn_play_pause)
         btnBack = findViewById(R.id.btn_back)
         btnFavorite = findViewById(R.id.btn_favorite_player)
-        btnRewind = findViewById(R.id.btn_rewind)
-        btnForward = findViewById(R.id.btn_forward)
         btnPreviousTrack = findViewById(R.id.btn_previous_track)
         btnNextTrack = findViewById(R.id.btn_next_track)
         btnLoop = findViewById(R.id.btn_loop)
@@ -174,10 +170,6 @@ class PlayerActivity : AppCompatActivity() {
         btnPlayPause.setOnClickListener { togglePlayPause() }
 
         btnFavorite.setOnClickListener { toggleFavorite() }
-
-        btnRewind.setOnClickListener { seekBy(-15000) }
-
-        btnForward.setOnClickListener { seekBy(15000) }
 
         btnPreviousTrack.setOnClickListener { playPreviousTrack() }
 
@@ -247,19 +239,6 @@ class PlayerActivity : AppCompatActivity() {
             // Cinza quando não favoritado
             btnFavorite.setColorFilter(getColor(R.color.text_secondary))
             btnFavorite.alpha = 0.5f
-        }
-    }
-
-    private fun seekBy(milliseconds: Int) {
-        mediaPlayer?.let {
-            val newPosition = (it.currentPosition + milliseconds).coerceIn(0, it.duration)
-            it.seekTo(newPosition)
-            updateProgress()
-        }
-        // Sessão rápida respiração: forward/rewind funcionam SEM anúncios
-        if (!isQuickBreathingSession) {
-            // Registra ação e mostra anúncio
-            registerAction()
         }
     }
 

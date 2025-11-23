@@ -4,16 +4,19 @@
 
 ## 📥 **DOWNLOAD DIRETO**
 
-### 🎯 **PROJETO COMPLETO - v2.7 FINAL (BUILD OK):**
+### 🎯 **PROJETO COMPLETO - v2.8 FINAL (BUILD OK):**
 
-**[⬇️ BAIXAR AQUI - v2.7-FINAL (137 KB)](https://github.com/vandersonbraz/projeto-android/raw/claude/android-monetization-app-01BXuLECEMMS2JfQUs6Cpqsf/CalmareApp/Calmare-App-v2.7-FINAL.zip)**
+**[⬇️ BAIXAR AQUI - v2.8-FINAL (136 KB)](https://github.com/vandersonbraz/projeto-android/raw/claude/android-monetization-app-01BXuLECEMMS2JfQUs6Cpqsf/CalmareApp/Calmare-App-v2.8-FINAL.zip)**
 
-**🔥 NOVIDADES v2.7 FINAL:**
-**🎯 CORREÇÃO CRÍTICA: Detecção de Sessão Rápida 100% confiável:**
-**✅ Usa flag IS_QUICK_SESSION no Intent (não depende mais do tamanho da playlist)**
-**✅ Respiração Consciente da categoria Meditação: funciona normalmente ✅**
-**✅ Sessão Rápida (home): botões escondidos, regras especiais ✅**
-**✅ Loop ativo: música recomeça AUTOMATICAMENTE (todas as músicas)**
+**🔥 NOVIDADES v2.8 FINAL:**
+**🎯 INTERFACE SIMPLIFICADA E LIMPA:**
+**✅ Botões avançar/retroceder 15s REMOVIDOS (atrapa lhavam)**
+**✅ Player focado: apenas botões pular faixa + play/pause + loop + volume**
+**✅ Layout mais limpo e profissional**
+**🎯 FUNCIONALIDADES MANTIDAS:**
+**✅ Sistema de 6 ações funcionando perfeitamente**
+**✅ Detecção confiável de Sessão Rápida (flag IS_QUICK_SESSION)**
+**✅ Loop ativo: música recomeça AUTOMATICAMENTE**
 **🎯 SISTEMA DE ANÚNCIOS (6 AÇÕES):**
 **✅ Pulos 1-5: intersticial 5s DEPOIS de cada pulo**
 **✅ Pulo 6: rewarded 30s ANTES de tocar a próxima (BLOQUEIA tudo!)**
