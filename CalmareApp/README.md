@@ -4,9 +4,9 @@
 
 ## 📥 **DOWNLOAD DIRETO**
 
-### 🎯 **PROJETO COMPLETO - v1.7 PREMIUM (BUILD OK):**
+### 🎯 **PROJETO COMPLETO - v1.8 MONETIZATION (BUILD OK):**
 
-**[⬇️ BAIXAR AQUI - v1.7-PREMIUM (134 KB)](https://github.com/vandersonbraz/projeto-android/raw/claude/android-monetization-app-01BXuLECEMMS2JfQUs6Cpqsf/CalmareApp/Calmare-App-v1.7-PREMIUM.zip)**
+**[⬇️ BAIXAR AQUI - v1.8-MONETIZATION (135 KB)](https://github.com/vandersonbraz/projeto-android/raw/claude/android-monetization-app-01BXuLECEMMS2JfQUs6Cpqsf/CalmareApp/Calmare-App-v1.8-MONETIZATION.zip)**
 
 **✅ Projeto Android Studio completo**
 **✅ Badge do sino: "Meditações" (centralizado, sem "Perdidas")**
@@ -22,6 +22,14 @@
 **✅ Player inteligente: se está tocando, ao pular faixa continua tocando automaticamente**
 **⭐ Áudio em segundo plano PREMIUM: continua tocando para assinantes (R$ 14,90/mês)**
 **✅ Usuários gratuitos: mensagem promocional ao minimizar app**
+
+**💰 SISTEMA COMPLETO DE MONETIZAÇÃO:**
+**✅ Banner Ad: sempre visível no rodapé (remove se premium)**
+**✅ Intersticial: a cada faixa que termina (pulável após 5s)**
+**✅ Sistema de 5 pulos grátis: avançar/retroceder/pular faixas**
+**✅ Rewarded Ad (30s): assista para desbloquear +5 pulos**
+**✅ Premium remove TODOS os anúncios + pulos ilimitados**
+
 **✅ Sem mensagens de "carregando" - experiência fluida**
 **✅ Rewind/Forward funcionam sempre (independente do loop)**
 **✅ ZERO avisos de depreciação - API atualizada para Android 13+**
