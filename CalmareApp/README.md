@@ -4,22 +4,23 @@
 
 ## 📥 **DOWNLOAD DIRETO**
 
-### 🎯 **PROJETO COMPLETO - v2.3 FINAL (BUILD OK):**
+### 🎯 **PROJETO COMPLETO - v2.4 FINAL (BUILD OK):**
 
-**[⬇️ BAIXAR AQUI - v2.3-FINAL (136 KB)](https://github.com/vandersonbraz/projeto-android/raw/claude/android-monetization-app-01BXuLECEMMS2JfQUs6Cpqsf/CalmareApp/Calmare-App-v2.3-FINAL.zip)**
+**[⬇️ BAIXAR AQUI - v2.4-FINAL (136 KB)](https://github.com/vandersonbraz/projeto-android/raw/claude/android-monetization-app-01BXuLECEMMS2JfQUs6Cpqsf/CalmareApp/Calmare-App-v2.4-FINAL.zip)**
 
-**🔥 NOVIDADES v2.3 FINAL:**
-**🎯 LOOP NÃO QUEBRA MAIS AS REGRAS DE ANÚNCIOS (CORRIGIDO!):**
-**✅ Loop ativado: música termina → ANÚNCIO SEMPRE APARECE → música recomeça**
-**✅ Sistema de 5 ações funciona COM LOOP (1-4: intersticial 5s, 5: rewarded 30s)**
-**✅ Sessão Rápida Respiração: COM LOOP também mostra rewarded de 30s ao terminar**
-**✅ Anúncios não podem ser evitados com o botão de loop**
-**🔁 Navegação em LOOP INFINITO nas playlists (sem mensagens chatas)**
-**✅ Categoria com +1 áudio: ao chegar na última, volta automaticamente pra primeira**
-**✅ Categoria com 1 áudio só: botões pular/voltar não fazem nada**
-**🫁 Sessão Rápida - Respiração com regras especiais de anúncios**
-**✅ Botões pular/voltar faixa ESCONDIDOS na respiração**
-**✅ Botões avançar/retroceder segundos funcionam SEM anúncios na respiração**
+**🔥 NOVIDADES v2.4 FINAL:**
+**🎯 SISTEMA DE ANÚNCIOS 100% FUNCIONAL (TUDO CORRIGIDO!):**
+**✅ Pular 4 músicas: intersticial 5s DEPOIS de cada pulo**
+**✅ Pular 5ª música: rewarded 30s ANTES de tocar a próxima (BLOQUEIA tudo!)**
+**✅ Após rewarded: usuário retoma de onde parou**
+**✅ Loop ativado: música termina → anúncio → música recomeça automaticamente**
+**✅ Autoplay ativado: música termina → anúncio → próxima música toca**
+**🫁 Sessão Rápida Respiração PERFEITA:**
+**✅ Respiração termina → rewarded 30s → recomeça se loop ativo**
+**✅ Loop desativado: botão muda pra Play corretamente**
+**✅ Botões pular/voltar ESCONDIDOS na respiração**
+**✅ Forward/rewind funcionam SEM anúncios**
+**🔁 Navegação em LOOP INFINITO nas playlists**
 **✅ Sistema de anúncios em LOOP INFINITO (ações 1-4: intersticial, ação 5: rewarded)**
 **✅ Tela Premium com 3 benefícios destacados (✅ Sem anúncios, ✅ Segundo plano, ✅ Pulos ilimitados)**
 **✅ Zero warnings de compilação - código 100% limpo**

@@ -276,17 +276,22 @@ class PlayerActivity : AppCompatActivity() {
             return
         }
 
-        // Loop infinito: se está na primeira, vai pra última
-        if (currentIndex <= 0) {
-            currentIndex = playlist.size - 1
+        // Salva estado atual
+        val wasPlayingBeforeAd = isPlaying
+
+        // Calcula próximo índice
+        val nextIndex = if (currentIndex <= 0) {
+            playlist.size - 1
         } else {
-            currentIndex--
+            currentIndex - 1
         }
 
-        // Se estava tocando, a próxima faixa toca automaticamente
-        loadAndPlaySound(playlist[currentIndex], autoPlay = isPlaying)
-        // Registra ação e mostra anúncio
-        registerAction()
+        // PRIMEIRO: Registra ação e mostra anúncio (pode bloquear se for ação 5)
+        registerAction {
+            // DEPOIS do anúncio: Muda de faixa
+            currentIndex = nextIndex
+            loadAndPlaySound(playlist[currentIndex], autoPlay = wasPlayingBeforeAd)
+        }
     }
 
     private fun playNextTrack() {
@@ -300,17 +305,22 @@ class PlayerActivity : AppCompatActivity() {
             return
         }
 
-        // Loop infinito: se está na última, volta pra primeira
-        if (currentIndex >= playlist.size - 1) {
-            currentIndex = 0
+        // Salva estado atual
+        val wasPlayingBeforeAd = isPlaying
+
+        // Calcula próximo índice
+        val nextIndex = if (currentIndex >= playlist.size - 1) {
+            0
         } else {
-            currentIndex++
+            currentIndex + 1
         }
 
-        // Se estava tocando, a próxima faixa toca automaticamente
-        loadAndPlaySound(playlist[currentIndex], autoPlay = isPlaying)
-        // Registra ação e mostra anúncio
-        registerAction()
+        // PRIMEIRO: Registra ação e mostra anúncio (pode bloquear se for ação 5)
+        registerAction {
+            // DEPOIS do anúncio: Muda de faixa
+            currentIndex = nextIndex
+            loadAndPlaySound(playlist[currentIndex], autoPlay = wasPlayingBeforeAd)
+        }
     }
 
     private fun loadAndPlaySound(sound: Sound, autoPlay: Boolean = false) {
@@ -457,51 +467,68 @@ class PlayerActivity : AppCompatActivity() {
 
                     // Sessão Rápida Respiração: mostra apenas rewarded de 30s
                     if (this@PlayerActivity.isQuickBreathingSession) {
+                        // Volta ao início
+                        it.seekTo(0)
+                        this@PlayerActivity.seekBar.progress = 0
+                        this@PlayerActivity.tvCurrentTime.text = this@PlayerActivity.formatTime(0)
+
                         // Pausa e mostra anúncio de 30s (SEMPRE, mesmo com loop)
-                        if (this@PlayerActivity.isPlaying) {
-                            this@PlayerActivity.pausePlayback()
-                        }
+                        this@PlayerActivity.pausePlayback()
+
                         if (!this@PlayerActivity.isUserPremium) {
                             Toast.makeText(
                                 this@PlayerActivity,
                                 "🎬 Assista ao anúncio para continuar!",
                                 Toast.LENGTH_LONG
                             ).show()
-                            this@PlayerActivity.showRewardedAd()
-                        }
-                        // Volta ao início e recomeça se loop ativo
-                        it.seekTo(0)
-                        this@PlayerActivity.seekBar.progress = 0
-                        this@PlayerActivity.tvCurrentTime.text = this@PlayerActivity.formatTime(0)
-                        // Se loop está ativo, recomeça automaticamente
-                        if (this@PlayerActivity.isLooping && this@PlayerActivity.isUserPremium) {
-                            this@PlayerActivity.startPlayback()
+                            // Mostra anúncio e DEPOIS decide se retoma playback
+                            this@PlayerActivity.showRewardedAd {
+                                // Callback executado APÓS o anúncio
+                                if (this@PlayerActivity.isLooping) {
+                                    this@PlayerActivity.startPlayback()
+                                } else {
+                                    this@PlayerActivity.btnPlayPause.setImageResource(android.R.drawable.ic_media_play)
+                                }
+                            }
+                        } else {
+                            // Premium não vê anúncio
+                            if (this@PlayerActivity.isLooping) {
+                                this@PlayerActivity.startPlayback()
+                            } else {
+                                this@PlayerActivity.btnPlayPause.setImageResource(android.R.drawable.ic_media_play)
+                            }
                         }
                     } else {
                         // Resto do app: sistema normal de ações
-                        // Registra ação (música terminou) e mostra anúncio (SEMPRE, mesmo com loop)
-                        this@PlayerActivity.registerAction()
+                        // Salva estado antes de registrar ação (porque pode pausar no anúncio de 30s)
+                        val shouldContinuePlaying = true
+                        val wasLooping = this@PlayerActivity.isLooping
+                        val hadNextTrack = this@PlayerActivity.isAutoPlayEnabled &&
+                            this@PlayerActivity.currentIndex < this@PlayerActivity.playlist.size - 1
 
-                        // Decide o que fazer após mostrar anúncio
-                        if (this@PlayerActivity.isLooping) {
-                            // Loop ativo: volta ao início e recomeça
-                            it.seekTo(0)
-                            this@PlayerActivity.seekBar.progress = 0
-                            this@PlayerActivity.tvCurrentTime.text = this@PlayerActivity.formatTime(0)
-                            this@PlayerActivity.startPlayback()
-                        } else if (this@PlayerActivity.isAutoPlayEnabled &&
-                            this@PlayerActivity.currentIndex < this@PlayerActivity.playlist.size - 1) {
-                            // Sem loop, mas com autoplay: vai pra próxima faixa
-                            this@PlayerActivity.currentIndex++
-                            this@PlayerActivity.loadAndPlaySound(this@PlayerActivity.playlist[this@PlayerActivity.currentIndex], autoPlay = true)
-                        } else {
-                            // Sem loop e sem próxima: volta ao início e pausa
-                            it.seekTo(0)
-                            this@PlayerActivity.isPlaying = false
-                            this@PlayerActivity.btnPlayPause.setImageResource(android.R.drawable.ic_media_play)
-                            this@PlayerActivity.handler.removeCallbacks(this@PlayerActivity.updateProgressRunnable)
-                            this@PlayerActivity.seekBar.progress = 0
-                            this@PlayerActivity.tvCurrentTime.text = this@PlayerActivity.formatTime(0)
+                        // Registra ação (música terminou) e mostra anúncio (SEMPRE, mesmo com loop)
+                        this@PlayerActivity.registerAction {
+                            // Callback executado APÓS anúncio (se houver)
+                            // Decide o que fazer após mostrar anúncio
+                            if (wasLooping) {
+                                // Loop ativo: volta ao início e recomeça
+                                it.seekTo(0)
+                                this@PlayerActivity.seekBar.progress = 0
+                                this@PlayerActivity.tvCurrentTime.text = this@PlayerActivity.formatTime(0)
+                                this@PlayerActivity.startPlayback()
+                            } else if (hadNextTrack) {
+                                // Sem loop, mas com autoplay: vai pra próxima faixa
+                                this@PlayerActivity.currentIndex++
+                                this@PlayerActivity.loadAndPlaySound(this@PlayerActivity.playlist[this@PlayerActivity.currentIndex], autoPlay = shouldContinuePlaying)
+                            } else {
+                                // Sem loop e sem próxima: volta ao início e pausa
+                                it.seekTo(0)
+                                this@PlayerActivity.isPlaying = false
+                                this@PlayerActivity.btnPlayPause.setImageResource(android.R.drawable.ic_media_play)
+                                this@PlayerActivity.handler.removeCallbacks(this@PlayerActivity.updateProgressRunnable)
+                                this@PlayerActivity.seekBar.progress = 0
+                                this@PlayerActivity.tvCurrentTime.text = this@PlayerActivity.formatTime(0)
+                            }
                         }
                     }
                 }
@@ -636,7 +663,7 @@ class PlayerActivity : AppCompatActivity() {
         }
     }
 
-    private fun showRewardedAd() {
+    private fun showRewardedAd(onAdClosed: (() -> Unit)? = null) {
         if (rewardedAd != null) {
             rewardedAd?.show(this) { _ ->
                 // Usuário assistiu ao anúncio completo, reseta contador
@@ -646,21 +673,27 @@ class PlayerActivity : AppCompatActivity() {
                     "✅ Continue ouvindo suas músicas!",
                     Toast.LENGTH_SHORT
                 ).show()
+                // Executa callback após anúncio (se fornecido)
+                onAdClosed?.invoke()
             }
             loadRewardedAd()  // Carrega o próximo
         } else {
+            // Se não tem anúncio carregado, reseta contador e executa callback imediatamente
+            actionCounter = 0
             Toast.makeText(
                 this,
                 "⏳ Carregando anúncio, aguarde...",
                 Toast.LENGTH_SHORT
             ).show()
             loadRewardedAd()
+            onAdClosed?.invoke()
         }
     }
 
-    private fun registerAction() {
+    private fun registerAction(onComplete: (() -> Unit)? = null) {
         // Premium não vê anúncios
         if (isUserPremium) {
+            onComplete?.invoke()
             return
         }
 
@@ -676,10 +709,14 @@ class PlayerActivity : AppCompatActivity() {
                 "🎬 Assista ao anúncio para continuar ouvindo!",
                 Toast.LENGTH_LONG
             ).show()
-            showRewardedAd()
+            // Mostra rewarded e executa callback APÓS o anúncio
+            showRewardedAd {
+                onComplete?.invoke()
+            }
         } else {
-            // Ações 1-4: mostra intersticial de 5s
+            // Ações 1-4: mostra intersticial de 5s (não bloqueia, callback imediato)
             showInterstitialAd()
+            onComplete?.invoke()
         }
     }
 
