@@ -18,7 +18,9 @@
             android:layout_height="wrap_content"
             android:text="@string/home_greeting_default"
             android:textAppearance="@style/TextAppearance.Calmare.Heading2"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:textSize="26sp"
+            android:fontFamily="sans-serif-medium" />
 
         <TextView
             android:layout_width="wrap_content"

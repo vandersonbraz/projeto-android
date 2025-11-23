@@ -52,34 +52,34 @@
             <com.google.android.material.chip.Chip
                 android:id="@+id/chip_all"
                 android:layout_width="wrap_content"
-                android:layout_height="32dp"
+                android:layout_height="36dp"
                 android:text="Todos"
-                android:textSize="12sp"
+                android:textSize="13sp"
                 android:checked="true"
                 style="@style/Widget.Material3.Chip.Filter" />
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/chip_nature"
                 android:layout_width="wrap_content"
-                android:layout_height="32dp"
+                android:layout_height="36dp"
                 android:text="Natureza"
-                android:textSize="12sp"
+                android:textSize="13sp"
                 style="@style/Widget.Material3.Chip.Filter" />
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/chip_meditation"
                 android:layout_width="wrap_content"
-                android:layout_height="32dp"
+                android:layout_height="36dp"
                 android:text="Meditação"
-                android:textSize="12sp"
+                android:textSize="13sp"
                 style="@style/Widget.Material3.Chip.Filter" />
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/chip_music"
                 android:layout_width="wrap_content"
-                android:layout_height="32dp"
+                android:layout_height="36dp"
                 android:text="Música"
-                android:textSize="12sp"
+                android:textSize="13sp"
                 style="@style/Widget.Material3.Chip.Filter" />
         </com.google.android.material.chip.ChipGroup>
 
