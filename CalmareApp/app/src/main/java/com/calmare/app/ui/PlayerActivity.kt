@@ -77,6 +77,9 @@ class PlayerActivity : AppCompatActivity() {
     private var playlist: List<Sound> = emptyList()
     private var currentIndex: Int = 0
 
+    // Sessão Rápida - Respiração (regras especiais de anúncios)
+    private var isQuickBreathingSession = false
+
     private val handler = Handler(Looper.getMainLooper())
     private val updateProgressRunnable = object : Runnable {
         override fun run() {
@@ -133,6 +136,15 @@ class PlayerActivity : AppCompatActivity() {
         updateAlbumArt()
         loadFavoriteState()
         loadAutoPlayState()
+
+        // Detecta se é Sessão Rápida - Respiração
+        isQuickBreathingSession = soundTitle.contains("Respiração", ignoreCase = true)
+
+        // Se for sessão rápida, esconde botões de pular faixa
+        if (isQuickBreathingSession) {
+            btnPreviousTrack.visibility = android.view.View.GONE
+            btnNextTrack.visibility = android.view.View.GONE
+        }
 
         // Botão começa como Play (não Pause)
         btnPlayPause.setImageResource(android.R.drawable.ic_media_play)
@@ -246,11 +258,19 @@ class PlayerActivity : AppCompatActivity() {
             it.seekTo(newPosition)
             updateProgress()
         }
-        // Registra ação e mostra anúncio
-        registerAction()
+        // Sessão rápida respiração: forward/rewind funcionam SEM anúncios
+        if (!isQuickBreathingSession) {
+            // Registra ação e mostra anúncio
+            registerAction()
+        }
     }
 
     private fun playPreviousTrack() {
+        // Sessão rápida respiração: botões de pular não fazem nada
+        if (isQuickBreathingSession) {
+            return
+        }
+
         if (playlist.isEmpty()) {
             Toast.makeText(this, "⏮️ Nenhuma playlist disponível", Toast.LENGTH_SHORT).show()
             return
@@ -269,6 +289,11 @@ class PlayerActivity : AppCompatActivity() {
     }
 
     private fun playNextTrack() {
+        // Sessão rápida respiração: botões de pular não fazem nada
+        if (isQuickBreathingSession) {
+            return
+        }
+
         if (playlist.isEmpty()) {
             Toast.makeText(this, "⏭️ Nenhuma playlist disponível", Toast.LENGTH_SHORT).show()
             return
@@ -305,6 +330,18 @@ class PlayerActivity : AppCompatActivity() {
         soundDuration = sound.duration
         soundUrl = sound.audioUrl
         isPremium = sound.isPremium
+
+        // Detecta se é Sessão Rápida - Respiração
+        isQuickBreathingSession = soundTitle.contains("Respiração", ignoreCase = true)
+
+        // Se for sessão rápida, esconde botões de pular faixa
+        if (isQuickBreathingSession) {
+            btnPreviousTrack.visibility = android.view.View.GONE
+            btnNextTrack.visibility = android.view.View.GONE
+        } else {
+            btnPreviousTrack.visibility = android.view.View.VISIBLE
+            btnNextTrack.visibility = android.view.View.VISIBLE
+        }
 
         // Atualiza UI
         tvTitle.text = soundTitle
@@ -415,22 +452,43 @@ class PlayerActivity : AppCompatActivity() {
                 setOnCompletionListener {
                     // Quando o áudio termina (sem loop)
                     if (!this@PlayerActivity.isLooping) {
-                        // Registra ação (música terminou) e mostra anúncio
-                        this@PlayerActivity.registerAction()
-
-                        // Se reprodução automática está ativa E há próxima faixa, vai para ela
-                        if (this@PlayerActivity.isAutoPlayEnabled &&
-                            this@PlayerActivity.currentIndex < this@PlayerActivity.playlist.size - 1) {
-                            this@PlayerActivity.currentIndex++
-                            this@PlayerActivity.loadAndPlaySound(this@PlayerActivity.playlist[this@PlayerActivity.currentIndex], autoPlay = true)
-                        } else {
-                            // Caso contrário, volta ao início e pausa
+                        // Sessão Rápida Respiração: mostra apenas rewarded de 30s
+                        if (this@PlayerActivity.isQuickBreathingSession) {
+                            // Pausa e mostra anúncio de 30s
+                            if (this@PlayerActivity.isPlaying) {
+                                this@PlayerActivity.pausePlayback()
+                            }
+                            if (!this@PlayerActivity.isUserPremium) {
+                                Toast.makeText(
+                                    this@PlayerActivity,
+                                    "🎬 Assista ao anúncio para continuar!",
+                                    Toast.LENGTH_LONG
+                                ).show()
+                                this@PlayerActivity.showRewardedAd()
+                            }
+                            // Volta ao início
                             it.seekTo(0)
-                            this@PlayerActivity.isPlaying = false
-                            this@PlayerActivity.btnPlayPause.setImageResource(android.R.drawable.ic_media_play)
-                            this@PlayerActivity.handler.removeCallbacks(this@PlayerActivity.updateProgressRunnable)
                             this@PlayerActivity.seekBar.progress = 0
                             this@PlayerActivity.tvCurrentTime.text = this@PlayerActivity.formatTime(0)
+                        } else {
+                            // Resto do app: sistema normal de ações
+                            // Registra ação (música terminou) e mostra anúncio
+                            this@PlayerActivity.registerAction()
+
+                            // Se reprodução automática está ativa E há próxima faixa, vai para ela
+                            if (this@PlayerActivity.isAutoPlayEnabled &&
+                                this@PlayerActivity.currentIndex < this@PlayerActivity.playlist.size - 1) {
+                                this@PlayerActivity.currentIndex++
+                                this@PlayerActivity.loadAndPlaySound(this@PlayerActivity.playlist[this@PlayerActivity.currentIndex], autoPlay = true)
+                            } else {
+                                // Caso contrário, volta ao início e pausa
+                                it.seekTo(0)
+                                this@PlayerActivity.isPlaying = false
+                                this@PlayerActivity.btnPlayPause.setImageResource(android.R.drawable.ic_media_play)
+                                this@PlayerActivity.handler.removeCallbacks(this@PlayerActivity.updateProgressRunnable)
+                                this@PlayerActivity.seekBar.progress = 0
+                                this@PlayerActivity.tvCurrentTime.text = this@PlayerActivity.formatTime(0)
+                            }
                         }
                     }
                 }

@@ -4,11 +4,17 @@
 
 ## 📥 **DOWNLOAD DIRETO**
 
-### 🎯 **PROJETO COMPLETO - v2.0 FINAL (BUILD OK):**
+### 🎯 **PROJETO COMPLETO - v2.1 FINAL (BUILD OK):**
 
-**[⬇️ BAIXAR AQUI - v2.0-FINAL (135 KB)](https://github.com/vandersonbraz/projeto-android/raw/claude/android-monetization-app-01BXuLECEMMS2JfQUs6Cpqsf/CalmareApp/Calmare-App-v2.0-FINAL.zip)**
+**[⬇️ BAIXAR AQUI - v2.1-FINAL (133 KB)](https://github.com/vandersonbraz/projeto-android/raw/claude/android-monetization-app-01BXuLECEMMS2JfQUs6Cpqsf/CalmareApp/Calmare-App-v2.1-FINAL.zip)**
 
-**🔥 NOVIDADES v2.0 FINAL:**
+**🔥 NOVIDADES v2.1 FINAL:**
+**🫁 Sessão Rápida - Respiração com regras especiais de anúncios**
+**✅ Botões pular/voltar faixa ESCONDIDOS na respiração (não fazem nada)**
+**✅ Botões avançar/retroceder segundos funcionam SEM anúncios na respiração**
+**✅ Quando terminar respiração: apenas anúncio de 30 segundos (rewarded)**
+**✅ Sem anúncios de 5 segundos na sessão rápida**
+**✅ Resto do app mantém sistema normal de loop infinito (ações 1-5)**
 **✅ Sistema de anúncios em LOOP INFINITO (ações 1-4: intersticial, ação 5: rewarded)**
 **✅ Tela Premium com 3 benefícios destacados (✅ Sem anúncios, ✅ Segundo plano, ✅ Pulos ilimitados)**
 **✅ Zero warnings de compilação - código 100% limpo**
