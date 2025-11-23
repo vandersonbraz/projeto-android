@@ -582,7 +582,7 @@ class PlayerActivity : AppCompatActivity() {
 
     private fun showRewardedAd() {
         if (rewardedAd != null) {
-            rewardedAd?.show(this) { rewardItem ->
+            rewardedAd?.show(this) { _ ->
                 // Usuário assistiu ao anúncio completo, recarrega créditos
                 skipCredits = MAX_CREDITS
                 updateSkipButtonsState()
@@ -613,10 +613,13 @@ class PlayerActivity : AppCompatActivity() {
             updateSkipButtonsState()
             return true
         } else {
-            // Sem créditos, mostra diálogo
+            // Sem créditos: PAUSA o áudio e força anúncio de 30s
+            if (isPlaying) {
+                pausePlayback()
+            }
             Toast.makeText(
                 this,
-                "🎬 Assista um anúncio para desbloquear +5 pulos!",
+                "🎬 Assista ao anúncio de 30s para desbloquear +5 pulos!",
                 Toast.LENGTH_LONG
             ).show()
             showRewardedAd()
