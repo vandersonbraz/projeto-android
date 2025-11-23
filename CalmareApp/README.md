@@ -4,23 +4,25 @@
 
 ## 📥 **DOWNLOAD DIRETO**
 
-### 🎯 **PROJETO COMPLETO - v2.4 FINAL (BUILD OK):**
+### 🎯 **PROJETO COMPLETO - v2.5 FINAL (BUILD OK):**
 
-**[⬇️ BAIXAR AQUI - v2.4-FINAL (136 KB)](https://github.com/vandersonbraz/projeto-android/raw/claude/android-monetization-app-01BXuLECEMMS2JfQUs6Cpqsf/CalmareApp/Calmare-App-v2.4-FINAL.zip)**
+**[⬇️ BAIXAR AQUI - v2.5-FINAL (136 KB)](https://github.com/vandersonbraz/projeto-android/raw/claude/android-monetization-app-01BXuLECEMMS2JfQUs6Cpqsf/CalmareApp/Calmare-App-v2.5-FINAL.zip)**
 
-**🔥 NOVIDADES v2.4 FINAL:**
-**🎯 SISTEMA DE ANÚNCIOS 100% FUNCIONAL (TUDO CORRIGIDO!):**
-**✅ Pular 4 músicas: intersticial 5s DEPOIS de cada pulo**
-**✅ Pular 5ª música: rewarded 30s ANTES de tocar a próxima (BLOQUEIA tudo!)**
-**✅ Após rewarded: usuário retoma de onde parou**
-**✅ Loop ativado: música termina → anúncio → música recomeça automaticamente**
-**✅ Autoplay ativado: música termina → anúncio → próxima música toca**
+**🔥 NOVIDADES v2.5 FINAL:**
+**🎯 SISTEMA DE ANÚNCIOS CORRIGIDO (EXATAMENTE COMO PEDIDO!):**
+**✅ Pulos 1-5: intersticial 5s DEPOIS de cada pulo**
+**✅ Pulo 6: rewarded 30s ANTES de tocar a próxima (BLOQUEIA tudo!)**
+**✅ Loop infinito: 1→2→3→4→5→6(rewarded)→7→8→9→10→11→12(rewarded)→...**
+**✅ Após rewarded: usuário continua ouvindo (contador reseta)**
+**🔁 LOOP INFINITO NAS CATEGORIAS (100% FUNCIONAL!):**
+**✅ Categoria com 8 músicas: 1→2→3→4→5→6→7→8→volta pra 1→2→3...**
+**✅ Anúncios continuam funcionando no loop (não para nunca)**
+**✅ Se categoria tem 1 música: anúncios aparecem normalmente**
 **🫁 Sessão Rápida Respiração PERFEITA:**
 **✅ Respiração termina → rewarded 30s → recomeça se loop ativo**
-**✅ Loop desativado: botão muda pra Play corretamente**
+**✅ Loop desativado: botão Play FUNCIONA corretamente (bug corrigido!)**
 **✅ Botões pular/voltar ESCONDIDOS na respiração**
 **✅ Forward/rewind funcionam SEM anúncios**
-**🔁 Navegação em LOOP INFINITO nas playlists**
 **✅ Sistema de anúncios em LOOP INFINITO (ações 1-4: intersticial, ação 5: rewarded)**
 **✅ Tela Premium com 3 benefícios destacados (✅ Sem anúncios, ✅ Segundo plano, ✅ Pulos ilimitados)**
 **✅ Zero warnings de compilação - código 100% limpo**

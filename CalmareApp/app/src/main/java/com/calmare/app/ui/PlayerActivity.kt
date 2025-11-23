@@ -46,9 +46,9 @@ class PlayerActivity : AppCompatActivity() {
     private var interstitialAd: InterstitialAd? = null
     private var rewardedAd: RewardedAd? = null
 
-    // Contador de ações (a cada 5 ações mostra rewarded)
+    // Contador de ações (a cada 6 ações mostra rewarded)
     private var actionCounter = 0  // Conta ações: pular, retroceder, avançar, completar música
-    private val MAX_ACTIONS = 5
+    private val MAX_ACTIONS = 6
 
     private lateinit var tvTitle: TextView
     private lateinit var tvCategory: TextView
@@ -487,6 +487,8 @@ class PlayerActivity : AppCompatActivity() {
                                 if (this@PlayerActivity.isLooping) {
                                     this@PlayerActivity.startPlayback()
                                 } else {
+                                    // Sem loop: garante que está pausado e botão correto
+                                    this@PlayerActivity.isPlaying = false
                                     this@PlayerActivity.btnPlayPause.setImageResource(android.R.drawable.ic_media_play)
                                 }
                             }
@@ -495,6 +497,8 @@ class PlayerActivity : AppCompatActivity() {
                             if (this@PlayerActivity.isLooping) {
                                 this@PlayerActivity.startPlayback()
                             } else {
+                                // Sem loop: garante que está pausado e botão correto
+                                this@PlayerActivity.isPlaying = false
                                 this@PlayerActivity.btnPlayPause.setImageResource(android.R.drawable.ic_media_play)
                             }
                         }
@@ -503,25 +507,29 @@ class PlayerActivity : AppCompatActivity() {
                         // Salva estado antes de registrar ação (porque pode pausar no anúncio de 30s)
                         val shouldContinuePlaying = true
                         val wasLooping = this@PlayerActivity.isLooping
-                        val hadNextTrack = this@PlayerActivity.isAutoPlayEnabled &&
-                            this@PlayerActivity.currentIndex < this@PlayerActivity.playlist.size - 1
+                        val hasAutoPlay = this@PlayerActivity.isAutoPlayEnabled
+                        val hasMultipleTracks = this@PlayerActivity.playlist.size > 1
 
                         // Registra ação (música terminou) e mostra anúncio (SEMPRE, mesmo com loop)
                         this@PlayerActivity.registerAction {
                             // Callback executado APÓS anúncio (se houver)
                             // Decide o que fazer após mostrar anúncio
                             if (wasLooping) {
-                                // Loop ativo: volta ao início e recomeça
+                                // Loop da MÚSICA ativo: volta ao início da MESMA música e recomeça
                                 it.seekTo(0)
                                 this@PlayerActivity.seekBar.progress = 0
                                 this@PlayerActivity.tvCurrentTime.text = this@PlayerActivity.formatTime(0)
                                 this@PlayerActivity.startPlayback()
-                            } else if (hadNextTrack) {
-                                // Sem loop, mas com autoplay: vai pra próxima faixa
+                            } else if (hasAutoPlay && hasMultipleTracks) {
+                                // Autoplay ativo E tem mais de 1 música: vai pra próxima (loop infinito na playlist)
                                 this@PlayerActivity.currentIndex++
+                                // Se chegou no fim, volta pra primeira (loop infinito)
+                                if (this@PlayerActivity.currentIndex >= this@PlayerActivity.playlist.size) {
+                                    this@PlayerActivity.currentIndex = 0
+                                }
                                 this@PlayerActivity.loadAndPlaySound(this@PlayerActivity.playlist[this@PlayerActivity.currentIndex], autoPlay = shouldContinuePlaying)
                             } else {
-                                // Sem loop e sem próxima: volta ao início e pausa
+                                // Sem loop e sem autoplay (ou só tem 1 música): volta ao início e pausa
                                 it.seekTo(0)
                                 this@PlayerActivity.isPlaying = false
                                 this@PlayerActivity.btnPlayPause.setImageResource(android.R.drawable.ic_media_play)
@@ -700,7 +708,7 @@ class PlayerActivity : AppCompatActivity() {
         actionCounter++
 
         if (actionCounter >= MAX_ACTIONS) {
-            // 5ª ação: PAUSA e mostra rewarded de 30s
+            // 6ª ação: PAUSA e mostra rewarded de 30s
             if (isPlaying) {
                 pausePlayback()
             }
@@ -714,7 +722,7 @@ class PlayerActivity : AppCompatActivity() {
                 onComplete?.invoke()
             }
         } else {
-            // Ações 1-4: mostra intersticial de 5s (não bloqueia, callback imediato)
+            // Ações 1-5: mostra intersticial de 5s (não bloqueia, callback imediato)
             showInterstitialAd()
             onComplete?.invoke()
         }
