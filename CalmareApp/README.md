@@ -4,11 +4,11 @@
 
 ## 📥 **DOWNLOAD DIRETO**
 
-### 🎯 **PROJETO COMPLETO - v1.9 FINAL (BUILD OK):**
+### 🎯 **PROJETO COMPLETO - v2.0 FINAL (BUILD OK):**
 
-**[⬇️ BAIXAR AQUI - v1.9-FINAL (135 KB)](https://github.com/vandersonbraz/projeto-android/raw/claude/android-monetization-app-01BXuLECEMMS2JfQUs6Cpqsf/CalmareApp/Calmare-App-v1.9-FINAL.zip)**
+**[⬇️ BAIXAR AQUI - v2.0-FINAL (135 KB)](https://github.com/vandersonbraz/projeto-android/raw/claude/android-monetization-app-01BXuLECEMMS2JfQUs6Cpqsf/CalmareApp/Calmare-App-v2.0-FINAL.zip)**
 
-**🔥 NOVIDADES v1.9 FINAL:**
+**🔥 NOVIDADES v2.0 FINAL:**
 **✅ Sistema de anúncios em LOOP INFINITO (ações 1-4: intersticial, ação 5: rewarded)**
 **✅ Tela Premium com 3 benefícios destacados (✅ Sem anúncios, ✅ Segundo plano, ✅ Pulos ilimitados)**
 **✅ Zero warnings de compilação - código 100% limpo**
