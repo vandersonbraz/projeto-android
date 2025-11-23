@@ -31,44 +31,55 @@
             android:textColor="@color/text_secondary" />
     </LinearLayout>
 
-    <!-- Search/Filter (opcional, pode implementar depois) -->
-    <com.google.android.material.chip.ChipGroup
-        android:id="@+id/chip_group_categories"
+    <!-- Filtros de Categoria -->
+    <HorizontalScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="16dp"
-        app:singleSelection="true"
-        app:chipSpacingHorizontal="8dp">
+        android:scrollbars="none"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp">
 
-        <com.google.android.material.chip.Chip
-            android:id="@+id/chip_all"
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/chip_group_categories"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Todos"
-            android:checked="true"
-            style="@style/Widget.Material3.Chip.Filter" />
+            app:singleSelection="true"
+            app:singleLine="true"
+            app:chipSpacingHorizontal="8dp">
 
-        <com.google.android.material.chip.Chip
-            android:id="@+id/chip_nature"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Natureza"
-            style="@style/Widget.Material3.Chip.Filter" />
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_all"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Todos"
+                android:checked="true"
+                style="@style/Widget.Material3.Chip.Filter" />
 
-        <com.google.android.material.chip.Chip
-            android:id="@+id/chip_meditation"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Meditação"
-            style="@style/Widget.Material3.Chip.Filter" />
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_nature"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Natureza"
+                style="@style/Widget.Material3.Chip.Filter" />
 
-        <com.google.android.material.chip.Chip
-            android:id="@+id/chip_music"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Música"
-            style="@style/Widget.Material3.Chip.Filter" />
-    </com.google.android.material.chip.ChipGroup>
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_meditation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Meditação"
+                style="@style/Widget.Material3.Chip.Filter" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_music"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Música"
+                style="@style/Widget.Material3.Chip.Filter" />
+        </com.google.android.material.chip.ChipGroup>
+
+    </HorizontalScrollView>
 
     <!-- Lista de Sons -->
     <androidx.recyclerview.widget.RecyclerView
