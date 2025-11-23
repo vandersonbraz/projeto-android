@@ -2,6 +2,10 @@
 
 **App completo de alta monetização pronto para publicar na Google Play Store!**
 
+## 📥 **DOWNLOAD DIRETO**
+
+**[⬇️ BAIXAR ZIP COMPLETO (133 KB)](https://github.com/vandersonbraz/projeto-android/raw/claude/android-monetization-app-01BXuLECEMMS2JfQUs6Cpqsf/CalmareApp/Calmare-App-v1.0-Complete.zip)**
+
 ---
 
 ## 📱 SOBRE O APP
@@ -12,6 +16,17 @@
 - ✅ **Google Play Billing** (Assinaturas mensais/anuais + compras únicas)
 - ✅ **Design Premium** (roxo moderno, UX clean)
 - ✅ **Nicho Health & Wellness** (alto potencial de ganho)
+
+### 🆕 **NOVIDADES v1.0** (Novembro 2025):
+
+- 🔔 **Sistema de Badge de Notificações**: Sino mostra quantidade de meditações perdidas em tempo real
+- ⏰ **Lembretes Múltiplos**: Configure quantos lembretes quiser para meditar
+- ⚙️ **Gerenciamento em Settings**: Adicione, visualize e delete lembretes individuais
+- 🔐 **Permissões Inteligentes**: Fluxo completo de request de permissões (Android 13+)
+- 🔊 **Notificações com Som**: Som padrão + vibração personalizada
+- ⏱️ **Sincronização Precisa**: Alarmes exatos sincronizados ao segundo
+- 💾 **Armazenamento Persistente**: Lembretes salvos sobrevivem a reinicializações
+- 🎵 **Loop-aware Autoplay**: Próximo som só funciona se loop estiver desligado
 
 ---
 
