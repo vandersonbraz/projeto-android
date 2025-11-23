@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.calmare.app.R
 import com.calmare.app.data.PreferencesManager
+import com.calmare.app.data.Sound
 import com.calmare.app.managers.BillingManager
 import kotlinx.coroutines.launch
 import java.io.IOException
@@ -52,6 +53,10 @@ class PlayerActivity : AppCompatActivity() {
     private var soundUrl: String = ""
     private var isPremium: Boolean = false
 
+    // Playlist navigation
+    private var playlist: List<Sound> = emptyList()
+    private var currentIndex: Int = 0
+
     private val handler = Handler(Looper.getMainLooper())
     private val updateProgressRunnable = object : Runnable {
         override fun run() {
@@ -74,6 +79,10 @@ class PlayerActivity : AppCompatActivity() {
         soundDuration = intent.getIntExtra("SOUND_DURATION", 600)
         soundUrl = intent.getStringExtra("SOUND_URL") ?: ""
         isPremium = intent.getBooleanExtra("IS_PREMIUM", false)
+
+        // Get playlist and current index
+        playlist = intent.getParcelableArrayListExtra<Sound>("PLAYLIST") ?: emptyList()
+        currentIndex = intent.getIntExtra("CURRENT_INDEX", 0)
 
         // Initialize views
         tvTitle = findViewById(R.id.track_title)
@@ -199,15 +208,75 @@ class PlayerActivity : AppCompatActivity() {
     }
 
     private fun playPreviousTrack() {
-        // Botão de faixa anterior sempre funciona (independente do loop)
-        // TODO: Implementar navegação para faixa anterior quando houver playlist
-        Toast.makeText(this, "⏮️ Primeira faixa da playlist", Toast.LENGTH_SHORT).show()
+        if (playlist.isEmpty()) {
+            Toast.makeText(this, "⏮️ Nenhuma playlist disponível", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        if (currentIndex <= 0) {
+            Toast.makeText(this, "⏮️ Já está na primeira faixa", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        currentIndex--
+        loadAndPlaySound(playlist[currentIndex])
     }
 
     private fun playNextTrack() {
-        // Botão de próxima faixa sempre funciona (independente do loop)
-        // TODO: Implementar navegação para próxima faixa quando houver playlist
-        Toast.makeText(this, "⏭️ Última faixa da playlist", Toast.LENGTH_SHORT).show()
+        if (playlist.isEmpty()) {
+            Toast.makeText(this, "⏭️ Nenhuma playlist disponível", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        if (currentIndex >= playlist.size - 1) {
+            Toast.makeText(this, "⏭️ Já está na última faixa", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        currentIndex++
+        loadAndPlaySound(playlist[currentIndex])
+    }
+
+    private fun loadAndPlaySound(sound: Sound) {
+        // Para o player atual
+        mediaPlayer?.apply {
+            if (isPlaying) {
+                stop()
+            }
+            reset()
+            release()
+        }
+        mediaPlayer = null
+        handler.removeCallbacks(updateProgressRunnable)
+
+        // Atualiza variáveis do som
+        soundId = sound.id
+        soundTitle = sound.title
+        soundCategory = sound.category
+        soundDuration = sound.duration
+        soundUrl = sound.audioUrl
+        isPremium = sound.isPremium
+
+        // Atualiza UI
+        tvTitle.text = soundTitle
+        tvCategory.text = "$soundCategory • ${formatDuration(soundDuration)}"
+        tvTotalTime.text = formatTime(soundDuration)
+        updateAlbumArt()
+        loadFavoriteState()
+
+        // Reseta seekbar e tempo
+        seekBar.progress = 0
+        tvCurrentTime.text = formatTime(0)
+
+        // Estado inicial
+        isPlaying = false
+        isAudioPrepared = false
+        btnPlayPause.setImageResource(android.R.drawable.ic_media_play)
+
+        // Prepara novo áudio
+        prepareMediaPlayer()
+
+        Toast.makeText(this, "⏭️ ${sound.title}", Toast.LENGTH_SHORT).show()
     }
 
     private fun toggleLoop() {

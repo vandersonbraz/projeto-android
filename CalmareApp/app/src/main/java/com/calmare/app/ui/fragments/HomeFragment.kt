@@ -139,6 +139,7 @@ class HomeFragment : Fragment() {
         val popularSounds = SoundsRepository.sounds.filter { !it.isPremium }.take(4)
 
         val adapter = SoundsHorizontalAdapter(popularSounds) { sound ->
+            val currentIndex = popularSounds.indexOf(sound)
             val intent = Intent(requireContext(), PlayerActivity::class.java).apply {
                 putExtra("SOUND_ID", sound.id)
                 putExtra("SOUND_TITLE", sound.title)
@@ -146,6 +147,8 @@ class HomeFragment : Fragment() {
                 putExtra("SOUND_DURATION", sound.duration)
                 putExtra("SOUND_URL", sound.audioUrl)
                 putExtra("IS_PREMIUM", sound.isPremium)
+                putParcelableArrayListExtra("PLAYLIST", ArrayList(popularSounds))
+                putExtra("CURRENT_INDEX", currentIndex)
             }
             startActivity(intent)
         }
@@ -167,6 +170,7 @@ class HomeFragment : Fragment() {
         }
 
         val adapter = SoundsHorizontalAdapter(meditations) { sound ->
+            val currentIndex = meditations.indexOf(sound)
             val intent = Intent(requireContext(), PlayerActivity::class.java).apply {
                 putExtra("SOUND_ID", sound.id)
                 putExtra("SOUND_TITLE", sound.title)
@@ -174,6 +178,8 @@ class HomeFragment : Fragment() {
                 putExtra("SOUND_DURATION", sound.duration)
                 putExtra("SOUND_URL", sound.audioUrl)
                 putExtra("IS_PREMIUM", sound.isPremium)
+                putParcelableArrayListExtra("PLAYLIST", ArrayList(meditations))
+                putExtra("CURRENT_INDEX", currentIndex)
             }
             startActivity(intent)
         }

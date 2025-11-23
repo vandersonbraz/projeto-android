@@ -75,6 +75,10 @@ class SoundsAdapter(
         notifyDataSetChanged()
     }
 
+    fun getCurrentSounds(): List<Sound> {
+        return sounds
+    }
+
     private fun formatDuration(seconds: Int): String {
         val minutes = seconds / 60
         return "$minutes min"

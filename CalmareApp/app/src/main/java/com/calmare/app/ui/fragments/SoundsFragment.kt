@@ -106,6 +106,10 @@ class SoundsFragment : Fragment() {
     }
 
     private fun openPlayer(sound: Sound) {
+        // Pega a lista filtrada atual do adapter
+        val currentPlaylist = soundsAdapter.getCurrentSounds()
+        val currentIndex = currentPlaylist.indexOf(sound)
+
         val intent = Intent(requireContext(), PlayerActivity::class.java).apply {
             putExtra("SOUND_ID", sound.id)
             putExtra("SOUND_TITLE", sound.title)
@@ -113,6 +117,8 @@ class SoundsFragment : Fragment() {
             putExtra("SOUND_DURATION", sound.duration)
             putExtra("SOUND_URL", sound.audioUrl)
             putExtra("IS_PREMIUM", sound.isPremium)
+            putParcelableArrayListExtra("PLAYLIST", ArrayList(currentPlaylist))
+            putExtra("CURRENT_INDEX", currentIndex)
         }
         startActivity(intent)
     }

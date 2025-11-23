@@ -92,6 +92,7 @@ class FavoritesFragment : Fragment() {
     }
 
     private fun openPlayer(sound: Sound) {
+        val currentIndex = favoriteSounds.indexOf(sound)
         val intent = Intent(requireContext(), PlayerActivity::class.java).apply {
             putExtra("SOUND_ID", sound.id)
             putExtra("SOUND_TITLE", sound.title)
@@ -99,6 +100,8 @@ class FavoritesFragment : Fragment() {
             putExtra("SOUND_DURATION", sound.duration)
             putExtra("SOUND_URL", sound.audioUrl)
             putExtra("IS_PREMIUM", sound.isPremium)
+            putParcelableArrayListExtra("PLAYLIST", ArrayList(favoriteSounds))
+            putExtra("CURRENT_INDEX", currentIndex)
         }
         startActivity(intent)
     }

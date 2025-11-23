@@ -1,5 +1,9 @@
 package com.calmare.app.data
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
 data class Sound(
     val id: Int,
     val title: String,
@@ -8,7 +12,7 @@ data class Sound(
     val category: String,
     val audioUrl: String,
     val isPremium: Boolean = false
-)
+) : Parcelable
 
 object SoundsRepository {
     val sounds = listOf(
