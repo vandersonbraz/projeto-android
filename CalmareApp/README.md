@@ -4,25 +4,25 @@
 
 ## 📥 **DOWNLOAD DIRETO**
 
-### 🎯 **PROJETO COMPLETO - v2.10 FINAL (BUILD OK):**
+### 🎯 **PROJETO COMPLETO - v2.11 FINAL (BUILD OK):**
 
-**[⬇️ BAIXAR AQUI - v2.10-FINAL (273 KB)](https://github.com/vandersonbraz/projeto-android/raw/claude/android-monetization-app-01BXuLECEMMS2JfQUs6Cpqsf/CalmareApp/Calmare-App-v2.10-FINAL.zip)**
+**[⬇️ BAIXAR AQUI - v2.11-FINAL (137 KB)](https://github.com/vandersonbraz/projeto-android/raw/claude/android-monetization-app-01BXuLECEMMS2JfQUs6Cpqsf/CalmareApp/Calmare-App-v2.11-FINAL.zip)**
 
-**🔥 NOVIDADES v2.10 FINAL:**
+**🔥 NOVIDADES v2.11 FINAL:**
+**⏹️ ÍCONE STOP CORRIGIDO:**
+**✅ Botão STOP agora é um QUADRADINHO branco ⏹️ (não dois pausinhos)**
+**✅ Visual consistente: branco igual ao botão de volume**
+**✅ Ícone customizado (ic_stop.xml) - design limpo e profissional**
 **🔁 LOOP AUTOMÁTICO FUNCIONANDO 100%:**
 **✅ Loop agora funciona PERFEITAMENTE em TODAS as músicas**
 **✅ Callback inteligente: aguarda anúncio fechar antes de retomar playback**
 **✅ Intersticial (5s): música recomeça AUTOMATICAMENTE após o anúncio**
 **✅ Rewarded (30s): música recomeça AUTOMATICAMENTE após o anúncio**
 **✅ Funcionamento idêntico entre Sessão Rápida e músicas regulares**
-**⏹️ BOTÃO STOP:**
-**✅ Botão STOP (⏹️) - para e volta ao início**
-**✅ Layout: Loop | Stop | Volume (3 botões)**
-**✅ Botão vermelho para destaque visual**
-**🎯 FUNCIONALIDADES MANTIDAS:**
+**🎯 INTERFACE COMPLETA:**
+**✅ Layout: Loop (🔁) | Stop (⏹️) | Volume (🔊)**
+**✅ Todos os botões com visual consistente e profissional**
 **✅ Sistema de 6 ações funcionando perfeitamente**
-**✅ Detecção confiável de Sessão Rápida (flag IS_QUICK_SESSION)**
-**✅ Interface completa: pular faixa + play/pause + stop + loop + volume**
 **🎯 SISTEMA DE ANÚNCIOS (6 AÇÕES):**
 **✅ Pulos 1-5: intersticial 5s DEPOIS de cada pulo**
 **✅ Pulo 6: rewarded 30s ANTES de tocar a próxima (BLOQUEIA tudo!)**

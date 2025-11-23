@@ -244,8 +244,8 @@
             android:layout_width="56dp"
             android:layout_height="56dp"
             android:background="?attr/selectableItemBackgroundBorderless"
-            android:src="@android:drawable/ic_media_pause"
-            android:tint="@color/error"
+            android:src="@drawable/ic_stop"
+            android:tint="@color/white"
             android:alpha="1.0"
             android:contentDescription="Stop" />
 
