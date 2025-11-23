@@ -277,16 +277,16 @@ class PlayerActivity : AppCompatActivity() {
 
                 setOnCompletionListener {
                     // Quando o áudio termina (sem loop)
-                    if (!isLooping) {
+                    if (!this@PlayerActivity.isLooping) {
                         // Volta ao início
                         it.seekTo(0)
                         // Muda para pausado
-                        isPlaying = false
-                        btnPlayPause.setImageResource(android.R.drawable.ic_media_play)
-                        handler.removeCallbacks(updateProgressRunnable)
+                        this@PlayerActivity.isPlaying = false
+                        this@PlayerActivity.btnPlayPause.setImageResource(android.R.drawable.ic_media_play)
+                        this@PlayerActivity.handler.removeCallbacks(this@PlayerActivity.updateProgressRunnable)
                         // Atualiza barra para 0
-                        seekBar.progress = 0
-                        tvCurrentTime.text = formatTime(0)
+                        this@PlayerActivity.seekBar.progress = 0
+                        this@PlayerActivity.tvCurrentTime.text = this@PlayerActivity.formatTime(0)
                     }
                 }
 
