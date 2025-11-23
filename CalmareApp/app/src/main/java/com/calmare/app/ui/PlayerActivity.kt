@@ -26,7 +26,7 @@ class PlayerActivity : AppCompatActivity() {
     private lateinit var preferencesManager: PreferencesManager
     private var mediaPlayer: MediaPlayer? = null
     private var isPlaying = false
-    private var isLooping = true
+    private var isLooping = false  // Começa DESATIVADO
     private var isFavorite = false
     private var isAudioPrepared = false
 
@@ -81,7 +81,12 @@ class PlayerActivity : AppCompatActivity() {
         isPremium = intent.getBooleanExtra("IS_PREMIUM", false)
 
         // Get playlist and current index
-        playlist = intent.getParcelableArrayListExtra<Sound>("PLAYLIST") ?: emptyList()
+        playlist = if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.TIRAMISU) {
+            intent.getParcelableArrayListExtra("PLAYLIST", Sound::class.java) ?: emptyList()
+        } else {
+            @Suppress("DEPRECATION")
+            intent.getParcelableArrayListExtra<Sound>("PLAYLIST") ?: emptyList()
+        }
         currentIndex = intent.getIntExtra("CURRENT_INDEX", 0)
 
         // Initialize views
@@ -111,9 +116,9 @@ class PlayerActivity : AppCompatActivity() {
         // Botão começa como Play (não Pause)
         btnPlayPause.setImageResource(android.R.drawable.ic_media_play)
 
-        // Botão de loop começa verde (ativo por padrão)
-        btnLoop.setColorFilter(getColor(R.color.success))
-        btnLoop.alpha = 1.0f
+        // Botão de loop começa DESATIVADO (cinza)
+        btnLoop.setColorFilter(getColor(R.color.text_secondary))
+        btnLoop.alpha = 0.4f
 
         // Setup buttons
         setupClickListeners()
@@ -353,7 +358,7 @@ class PlayerActivity : AppCompatActivity() {
                 )
 
                 setDataSource(soundUrl)
-                isLooping = true
+                isLooping = false  // Começa DESATIVADO
                 prepareAsync()
 
                 setOnPreparedListener {

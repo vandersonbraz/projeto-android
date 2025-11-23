@@ -4,8 +4,6 @@ import android.content.Context
 import android.content.SharedPreferences
 import org.json.JSONArray
 import org.json.JSONObject
-import java.text.SimpleDateFormat
-import java.util.Date
 import java.util.Locale
 
 data class MissedMeditation(
@@ -20,7 +18,6 @@ class NotificationBadgeManager(context: Context) {
 
     fun addMissedMeditation(hour: Int, minute: Int, title: String) {
         val missedList = getMissedMeditations().toMutableList()
-        val timeFormatter = SimpleDateFormat("HH:mm", Locale.getDefault())
         val timestamp = System.currentTimeMillis()
 
         missedList.add(MissedMeditation(
