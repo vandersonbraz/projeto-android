@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- App Name -->
-    <string name="app_name">Calmare</string>
+    <string name="app_name">Calmare ❤️</string>
 
     <!-- Navigation -->
     <string name="nav_home">Início</string>
@@ -11,8 +11,8 @@
 
     <!-- Home Screen -->
     <string name="home_greeting">Olá, %1$s! 👋</string>
-    <string name="home_greeting_default">Olá! 👋</string>
-    <string name="home_feeling">Como você está se sentindo?</string>
+    <string name="home_greeting_default">Bem-vindo ao Calmare ❤️</string>
+    <string name="home_feeling">Como você está se sentindo hoje?</string>
     <string name="section_quick_session">🎯 Sessão Rápida</string>
     <string name="section_popular_sounds">🎵 Sons Populares</string>
     <string name="section_guided_meditations">✨ Meditações Guiadas</string>

@@ -97,6 +97,10 @@ class PlayerActivity : AppCompatActivity() {
         // Botão começa como Play (não Pause)
         btnPlayPause.setImageResource(android.R.drawable.ic_media_play)
 
+        // Botão de loop começa verde (ativo por padrão)
+        btnLoop.setColorFilter(getColor(R.color.success))
+        btnLoop.alpha = 1.0f
+
         // Setup buttons
         setupClickListeners()
 
@@ -188,7 +192,16 @@ class PlayerActivity : AppCompatActivity() {
     private fun toggleLoop() {
         isLooping = !isLooping
         mediaPlayer?.isLooping = isLooping
-        btnLoop.alpha = if (isLooping) 1.0f else 0.4f
+
+        // Destaque visual quando ativo (verde) ou desativado (cinza)
+        if (isLooping) {
+            btnLoop.setColorFilter(getColor(R.color.success))  // Verde quando ativo
+            btnLoop.alpha = 1.0f
+        } else {
+            btnLoop.setColorFilter(getColor(R.color.text_secondary))  // Cinza quando desativado
+            btnLoop.alpha = 0.4f
+        }
+
         val message = if (isLooping) "Loop ativado 🔁" else "Loop desativado"
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
@@ -232,11 +245,15 @@ class PlayerActivity : AppCompatActivity() {
 
     private fun prepareMediaPlayer() {
         if (soundUrl.isEmpty()) {
-            Toast.makeText(this, "URL de áudio não disponível", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "⚠️ URL de áudio não disponível", Toast.LENGTH_LONG).show()
+            btnPlayPause.isEnabled = false
             return
         }
 
         try {
+            // Mostra mensagem de carregamento
+            Toast.makeText(this, "Carregando áudio...", Toast.LENGTH_SHORT).show()
+
             mediaPlayer = MediaPlayer().apply {
                 setAudioAttributes(
                     AudioAttributes.Builder()
@@ -253,17 +270,23 @@ class PlayerActivity : AppCompatActivity() {
                     tvTotalTime.text = formatTime(duration / 1000)
                     // Player começa pausado - usuário precisa clicar em Play
                     btnPlayPause.isEnabled = true
+                    Toast.makeText(this@PlayerActivity, "✅ Áudio pronto!", Toast.LENGTH_SHORT).show()
                 }
 
-                setOnErrorListener { _, _, _ ->
-                    Toast.makeText(this@PlayerActivity, "Erro ao carregar áudio", Toast.LENGTH_SHORT).show()
+                setOnErrorListener { _, what, extra ->
+                    Toast.makeText(
+                        this@PlayerActivity,
+                        "❌ Erro ao carregar áudio (código: $what/$extra)\nVerifique sua conexão",
+                        Toast.LENGTH_LONG
+                    ).show()
                     btnPlayPause.isEnabled = false
                     true
                 }
             }
         } catch (e: IOException) {
             e.printStackTrace()
-            Toast.makeText(this, "Erro: ${e.message}", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "❌ Erro: ${e.message}", Toast.LENGTH_LONG).show()
+            btnPlayPause.isEnabled = false
         }
     }
 

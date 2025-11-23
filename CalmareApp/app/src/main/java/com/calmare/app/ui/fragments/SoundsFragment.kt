@@ -67,6 +67,13 @@ class SoundsFragment : Fragment() {
         // Setup category filters
         chipGroup = view.findViewById(R.id.chip_group_categories)
         setupCategoryFilters()
+
+        // Observa mudanças nos favoritos e atualiza o adapter
+        lifecycleScope.launch {
+            preferencesManager.favoriteSoundIds.collect { favorites ->
+                soundsAdapter.updateFavorites(favorites)
+            }
+        }
     }
 
     private fun setupCategoryFilters() {

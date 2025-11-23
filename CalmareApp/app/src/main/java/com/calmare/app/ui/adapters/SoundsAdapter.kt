@@ -12,6 +12,7 @@ import com.google.android.material.chip.Chip
 
 class SoundsAdapter(
     private var sounds: List<Sound>,
+    private var favoriteSoundIds: Set<Int> = emptySet(),
     private val onSoundClick: (Sound) -> Unit,
     private val onFavoriteClick: (Sound) -> Unit
 ) : RecyclerView.Adapter<SoundsAdapter.SoundViewHolder>() {
@@ -42,6 +43,16 @@ class SoundsAdapter(
         // Premium removido - todos os sons são gratuitos agora
         holder.chipPremium.visibility = View.GONE
 
+        // Atualiza cor do coração (vermelho se favoritado, cinza se não)
+        val isFavorite = favoriteSoundIds.contains(sound.id)
+        if (isFavorite) {
+            holder.btnFavorite.setColorFilter(holder.itemView.context.getColor(R.color.error))
+            holder.btnFavorite.alpha = 1.0f
+        } else {
+            holder.btnFavorite.setColorFilter(holder.itemView.context.getColor(R.color.text_secondary))
+            holder.btnFavorite.alpha = 0.5f
+        }
+
         // Click listeners
         holder.itemView.setOnClickListener {
             onSoundClick(sound)
@@ -56,6 +67,11 @@ class SoundsAdapter(
 
     fun updateSounds(newSounds: List<Sound>) {
         sounds = newSounds
+        notifyDataSetChanged()
+    }
+
+    fun updateFavorites(newFavorites: Set<Int>) {
+        favoriteSoundIds = newFavorites
         notifyDataSetChanged()
     }
 
