@@ -224,7 +224,7 @@ class PlayerActivity : AppCompatActivity() {
     private fun formatTime(seconds: Int): String {
         val minutes = TimeUnit.SECONDS.toMinutes(seconds.toLong())
         val secs = seconds - TimeUnit.MINUTES.toSeconds(minutes)
-        return String.format("%d:%02d", minutes, secs)
+        return String.format(java.util.Locale.getDefault(), "%d:%02d", minutes, secs)
     }
 
     private fun updateProgress() {

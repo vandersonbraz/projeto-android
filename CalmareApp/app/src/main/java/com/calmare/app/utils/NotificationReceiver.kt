@@ -6,6 +6,7 @@ import android.app.PendingIntent
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.media.RingtoneManager
 import android.os.Build
 import androidx.core.app.NotificationCompat
 import com.calmare.app.R
@@ -18,6 +19,12 @@ class NotificationReceiver : BroadcastReceiver() {
         val message = intent.getStringExtra("message") ?: "Reserve alguns minutos para sua paz interior"
         val hour = intent.getIntExtra("hour", -1)
         val minute = intent.getIntExtra("minute", -1)
+
+        // Registra como meditação perdida
+        if (hour != -1 && minute != -1) {
+            val badgeManager = NotificationBadgeManager(context)
+            badgeManager.addMissedMeditation(hour, minute, title)
+        }
 
         showNotification(context, title, message)
 
@@ -41,6 +48,11 @@ class NotificationReceiver : BroadcastReceiver() {
             ).apply {
                 description = "Notificações para lembrar você de meditar"
                 enableVibration(true)
+                // Define som padrão de notificação
+                setSound(
+                    RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION),
+                    null
+                )
             }
             notificationManager.createNotificationChannel(channel)
         }
@@ -54,6 +66,9 @@ class NotificationReceiver : BroadcastReceiver() {
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
 
+        // Som de notificação
+        val soundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
+
         // Constrói a notificação
         val notification = NotificationCompat.Builder(context, channelId)
             .setSmallIcon(android.R.drawable.ic_lock_idle_alarm) // Trocar por ícone do app
@@ -63,6 +78,8 @@ class NotificationReceiver : BroadcastReceiver() {
             .setPriority(NotificationCompat.PRIORITY_HIGH)
             .setAutoCancel(true)
             .setContentIntent(pendingIntent)
+            .setSound(soundUri) // Adiciona som
+            .setVibrate(longArrayOf(0, 500, 200, 500)) // Vibração
             .build()
 
         notificationManager.notify(System.currentTimeMillis().toInt(), notification)

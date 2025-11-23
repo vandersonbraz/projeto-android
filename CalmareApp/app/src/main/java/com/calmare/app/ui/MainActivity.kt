@@ -166,9 +166,10 @@ class MainActivity : AppCompatActivity() {
                     "🧘 Hora de Meditar",
                     "Reserve alguns minutos para sua paz interior"
                 )
+                val timeFormatted = String.format(java.util.Locale.getDefault(), "%02d:%02d", hourOfDay, minute)
                 Toast.makeText(
                     this,
-                    "✅ Lembrete agendado para ${String.format("%02d:%02d", hourOfDay, minute)}",
+                    getString(R.string.reminder_scheduled, timeFormatted),
                     Toast.LENGTH_SHORT
                 ).show()
             },
