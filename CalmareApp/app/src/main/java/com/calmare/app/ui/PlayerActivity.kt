@@ -650,11 +650,25 @@ class PlayerActivity : AppCompatActivity() {
         )
     }
 
-    private fun showInterstitialAd() {
+    private fun showInterstitialAd(onAdClosed: (() -> Unit)? = null) {
         // Só mostra se não for premium
         if (!isUserPremium && interstitialAd != null) {
+            interstitialAd?.fullScreenContentCallback = object : com.google.android.gms.ads.FullScreenContentCallback() {
+                override fun onAdDismissedFullScreenContent() {
+                    // Ad fechado, executa callback
+                    onAdClosed?.invoke()
+                    loadInterstitialAd()  // Carrega o próximo
+                }
+                override fun onAdFailedToShowFullScreenContent(error: com.google.android.gms.ads.AdError) {
+                    // Se falhou, executa callback mesmo assim
+                    onAdClosed?.invoke()
+                    loadInterstitialAd()
+                }
+            }
             interstitialAd?.show(this)
-            loadInterstitialAd()  // Carrega o próximo
+        } else {
+            // Se não tem anúncio ou é premium, executa callback imediatamente
+            onAdClosed?.invoke()
         }
     }
 
@@ -709,9 +723,10 @@ class PlayerActivity : AppCompatActivity() {
                 onComplete?.invoke()
             }
         } else {
-            // Ações 1-5: mostra intersticial de 5s (não bloqueia, callback imediato)
-            showInterstitialAd()
-            onComplete?.invoke()
+            // Ações 1-5: mostra intersticial de 5s e executa callback APÓS o anúncio fechar
+            showInterstitialAd {
+                onComplete?.invoke()
+            }
         }
     }
 
