@@ -102,6 +102,7 @@ class PlayerActivity : AppCompatActivity() {
         soundDuration = intent.getIntExtra("SOUND_DURATION", 600)
         soundUrl = intent.getStringExtra("SOUND_URL") ?: ""
         isPremium = intent.getBooleanExtra("IS_PREMIUM", false)
+        isQuickBreathingSession = intent.getBooleanExtra("IS_QUICK_SESSION", false)
 
         // Get playlist and current index
         playlist = if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.TIRAMISU) {
@@ -137,13 +138,7 @@ class PlayerActivity : AppCompatActivity() {
         loadFavoriteState()
         loadAutoPlayState()
 
-        // Detecta se é Sessão Rápida - Respiração
-        // Sessão Rápida: vem com playlist vazia ou só 1 item E é Respiração
-        // Meditação normal: vem com playlist completa (vários itens)
-        isQuickBreathingSession = soundTitle.contains("Respiração", ignoreCase = true) &&
-                                  (playlist.isEmpty() || playlist.size == 1)
-
-        // Se for sessão rápida, esconde botões de pular faixa
+        // Se for sessão rápida (marcada pelo Intent), esconde botões de pular faixa
         if (isQuickBreathingSession) {
             btnPreviousTrack.visibility = android.view.View.GONE
             btnNextTrack.visibility = android.view.View.GONE
@@ -346,20 +341,8 @@ class PlayerActivity : AppCompatActivity() {
         soundUrl = sound.audioUrl
         isPremium = sound.isPremium
 
-        // Detecta se é Sessão Rápida - Respiração
-        // Sessão Rápida: vem com playlist vazia ou só 1 item E é Respiração
-        // Meditação normal: vem com playlist completa (vários itens)
-        isQuickBreathingSession = soundTitle.contains("Respiração", ignoreCase = true) &&
-                                  (playlist.isEmpty() || playlist.size == 1)
-
-        // Se for sessão rápida, esconde botões de pular faixa
-        if (isQuickBreathingSession) {
-            btnPreviousTrack.visibility = android.view.View.GONE
-            btnNextTrack.visibility = android.view.View.GONE
-        } else {
-            btnPreviousTrack.visibility = android.view.View.VISIBLE
-            btnNextTrack.visibility = android.view.View.VISIBLE
-        }
+        // isQuickBreathingSession não muda ao trocar de faixa
+        // (só é definido uma vez no onCreate pelo Intent)
 
         // Atualiza UI
         tvTitle.text = soundTitle

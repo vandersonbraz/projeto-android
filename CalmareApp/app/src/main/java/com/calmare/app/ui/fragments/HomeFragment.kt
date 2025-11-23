@@ -204,6 +204,7 @@ class HomeFragment : Fragment() {
                 putExtra("SOUND_DURATION", sound.duration)
                 putExtra("SOUND_URL", sound.audioUrl)
                 putExtra("IS_PREMIUM", sound.isPremium)
+                putExtra("IS_QUICK_SESSION", true)  // Marca como Sessão Rápida
             }
             startActivity(intent)
         } else {
