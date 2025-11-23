@@ -27,6 +27,7 @@ class PlayerActivity : AppCompatActivity() {
     private var isPlaying = false
     private var isLooping = true
     private var isFavorite = false
+    private var isAudioPrepared = false
 
     private lateinit var tvTitle: TextView
     private lateinit var tvCategory: TextView
@@ -269,8 +270,24 @@ class PlayerActivity : AppCompatActivity() {
                 setOnPreparedListener {
                     tvTotalTime.text = formatTime(duration / 1000)
                     // Player começa pausado - usuário precisa clicar em Play
+                    isAudioPrepared = true
                     btnPlayPause.isEnabled = true
                     Toast.makeText(this@PlayerActivity, "✅ Áudio pronto!", Toast.LENGTH_SHORT).show()
+                }
+
+                setOnCompletionListener {
+                    // Quando o áudio termina (sem loop)
+                    if (!isLooping) {
+                        // Volta ao início
+                        it.seekTo(0)
+                        // Muda para pausado
+                        isPlaying = false
+                        btnPlayPause.setImageResource(android.R.drawable.ic_media_play)
+                        handler.removeCallbacks(updateProgressRunnable)
+                        // Atualiza barra para 0
+                        seekBar.progress = 0
+                        tvCurrentTime.text = formatTime(0)
+                    }
                 }
 
                 setOnErrorListener { _, what, extra ->
@@ -299,12 +316,24 @@ class PlayerActivity : AppCompatActivity() {
     }
 
     private fun startPlayback() {
+        if (!isAudioPrepared) {
+            Toast.makeText(this, "⏳ Aguarde o áudio carregar...", Toast.LENGTH_SHORT).show()
+            return
+        }
+
         mediaPlayer?.let {
-            if (!it.isPlaying) {
-                it.start()
-                isPlaying = true
-                btnPlayPause.setImageResource(android.R.drawable.ic_media_pause)
-                handler.post(updateProgressRunnable)
+            try {
+                if (!it.isPlaying) {
+                    it.start()
+                    isPlaying = true
+                    btnPlayPause.setImageResource(android.R.drawable.ic_media_pause)
+                    handler.post(updateProgressRunnable)
+                }
+            } catch (e: IllegalStateException) {
+                e.printStackTrace()
+                Toast.makeText(this, "❌ Erro ao reproduzir. Tente novamente.", Toast.LENGTH_SHORT).show()
+                isAudioPrepared = false
+                btnPlayPause.isEnabled = false
             }
         }
     }

@@ -112,14 +112,16 @@ class HomeFragment : Fragment() {
 
         moods.forEach { (id, moodName) ->
             view.findViewById<View>(id)?.setOnClickListener {
-                // Salva humor no DataStore
+                // Mostra mensagem IMEDIATAMENTE
+                Toast.makeText(
+                    requireContext(),
+                    "Você está se sentindo: $moodName 😊",
+                    Toast.LENGTH_SHORT
+                ).show()
+
+                // Salva humor no DataStore em background
                 lifecycleScope.launch {
                     preferencesManager.saveMood(moodName)
-                    Toast.makeText(
-                        requireContext(),
-                        "Você está se sentindo: $moodName 😊",
-                        Toast.LENGTH_SHORT
-                    ).show()
                 }
             }
         }
