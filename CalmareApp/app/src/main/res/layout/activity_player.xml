@@ -208,14 +208,14 @@
 
     </LinearLayout>
 
-    <!-- Controles Secundários (Loop, Timer, Volume) -->
+    <!-- Controles Secundários (Loop e Volume) -->
     <LinearLayout
         android:id="@+id/secondary_controls"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
-        android:layout_marginStart="48dp"
-        android:layout_marginEnd="48dp"
+        android:layout_marginStart="80dp"
+        android:layout_marginEnd="80dp"
         android:layout_marginBottom="32dp"
         android:orientation="horizontal"
         android:gravity="center"
@@ -225,29 +225,13 @@
         <!-- Botão Loop/Repetir -->
         <ImageButton
             android:id="@+id/btn_loop"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:src="@android:drawable/ic_menu_rotate"
             android:tint="@color/white"
-            android:alpha="0.6"
+            android:alpha="1.0"
             android:contentDescription="Loop" />
-
-        <Space
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:layout_weight="1" />
-
-        <!-- Botão Timer -->
-        <ImageButton
-            android:id="@+id/btn_timer"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:src="@android:drawable/ic_menu_recent_history"
-            android:tint="@color/white"
-            android:alpha="0.6"
-            android:contentDescription="Timer" />
 
         <Space
             android:layout_width="0dp"
@@ -257,12 +241,12 @@
         <!-- Botão Volume -->
         <ImageButton
             android:id="@+id/btn_volume"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:src="@android:drawable/ic_lock_silent_mode_off"
             android:tint="@color/white"
-            android:alpha="0.6"
+            android:alpha="1.0"
             android:contentDescription="Volume" />
 
     </LinearLayout>

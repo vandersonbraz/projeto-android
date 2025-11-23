@@ -40,7 +40,6 @@ class PlayerActivity : AppCompatActivity() {
     private lateinit var btnRewind: ImageButton
     private lateinit var btnForward: ImageButton
     private lateinit var btnLoop: ImageButton
-    private lateinit var btnTimer: ImageButton
     private lateinit var btnVolume: ImageButton
 
     private var soundId: Int = 0
@@ -86,7 +85,6 @@ class PlayerActivity : AppCompatActivity() {
         btnRewind = findViewById(R.id.btn_rewind)
         btnForward = findViewById(R.id.btn_forward)
         btnLoop = findViewById(R.id.btn_loop)
-        btnTimer = findViewById(R.id.btn_timer)
         btnVolume = findViewById(R.id.btn_volume)
 
         // Setup UI
@@ -118,10 +116,6 @@ class PlayerActivity : AppCompatActivity() {
         btnForward.setOnClickListener { seekBy(15000) }
 
         btnLoop.setOnClickListener { toggleLoop() }
-
-        btnTimer.setOnClickListener {
-            Toast.makeText(this, "Timer: Em breve!", Toast.LENGTH_SHORT).show()
-        }
 
         btnVolume.setOnClickListener {
             val audioManager = getSystemService(AUDIO_SERVICE) as AudioManager

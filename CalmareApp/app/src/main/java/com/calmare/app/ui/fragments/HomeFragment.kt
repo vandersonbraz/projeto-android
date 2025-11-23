@@ -63,34 +63,41 @@ class HomeFragment : Fragment() {
     }
 
     private fun setupAdTestButtons(view: View) {
+        val btnInterstitial = view.findViewById<Button>(R.id.btn_test_interstitial)
+        val btnRewarded = view.findViewById<Button>(R.id.btn_test_rewarded)
+
+        // Pré-carrega os anúncios quando a tela é criada
+        adManager.initialize {
+            adManager.preloadInterstitialAd()
+            adManager.preloadRewardedAd()
+        }
+
         // Botão de teste: Interstitial Ad
-        view.findViewById<Button>(R.id.btn_test_interstitial)?.setOnClickListener {
-            Toast.makeText(requireContext(), "Carregando Interstitial...", Toast.LENGTH_SHORT).show()
+        btnInterstitial?.setOnClickListener {
             adManager.showInterstitialAd(requireActivity()) {
-                Toast.makeText(requireContext(), "Interstitial fechado!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "✅ Anúncio Interstitial fechado!", Toast.LENGTH_SHORT).show()
+                // Pré-carrega o próximo
+                adManager.preloadInterstitialAd()
             }
         }
 
         // Botão de teste: Rewarded Ad
-        view.findViewById<Button>(R.id.btn_test_rewarded)?.setOnClickListener {
-            if (adManager.isRewardedAdReady()) {
-                Toast.makeText(requireContext(), "Mostrando Rewarded...", Toast.LENGTH_SHORT).show()
-                adManager.showRewardedAd(
-                    requireActivity(),
-                    onRewarded = { amount ->
-                        Toast.makeText(
-                            requireContext(),
-                            "🎉 Você ganhou $amount moedas!",
-                            Toast.LENGTH_LONG
-                        ).show()
-                    },
-                    onAdClosed = {
-                        Toast.makeText(requireContext(), "Rewarded fechado!", Toast.LENGTH_SHORT).show()
-                    }
-                )
-            } else {
-                Toast.makeText(requireContext(), "⏳ Anúncio ainda carregando...", Toast.LENGTH_SHORT).show()
-            }
+        btnRewarded?.setOnClickListener {
+            adManager.showRewardedAd(
+                requireActivity(),
+                onRewarded = { amount ->
+                    Toast.makeText(
+                        requireContext(),
+                        "🎉 Parabéns! Você ganhou $amount moedas!",
+                        Toast.LENGTH_LONG
+                    ).show()
+                },
+                onAdClosed = {
+                    Toast.makeText(requireContext(), "✅ Anúncio Rewarded fechado!", Toast.LENGTH_SHORT).show()
+                    // Pré-carrega o próximo
+                    adManager.preloadRewardedAd()
+                }
+            )
         }
     }
 
