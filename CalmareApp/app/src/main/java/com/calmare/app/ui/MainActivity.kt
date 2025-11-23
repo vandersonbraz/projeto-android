@@ -3,10 +3,15 @@ package com.calmare.app.ui
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.calmare.app.R
 import com.calmare.app.managers.AdManager
 import com.calmare.app.managers.BillingManager
+import com.calmare.app.ui.fragments.FavoritesFragment
+import com.calmare.app.ui.fragments.HomeFragment
+import com.calmare.app.ui.fragments.SettingsFragment
+import com.calmare.app.ui.fragments.SoundsFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
@@ -32,6 +37,11 @@ class MainActivity : AppCompatActivity() {
         setupNavigation()
         setupPremiumButton()
 
+        // Carrega o fragment inicial (Home)
+        if (savedInstanceState == null) {
+            loadFragment(HomeFragment())
+        }
+
         // Observa status premium para controlar anúncios
         billingManager.isPremium.observe(this) { _ ->
             // Atualiza UI baseado em status premium
@@ -43,24 +53,30 @@ class MainActivity : AppCompatActivity() {
         bottomNav.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.nav_home -> {
-                    // Load HomeFragment
+                    loadFragment(HomeFragment())
                     true
                 }
                 R.id.nav_sounds -> {
-                    // Load SoundsFragment
+                    loadFragment(SoundsFragment())
                     true
                 }
                 R.id.nav_favorites -> {
-                    // Load FavoritesFragment
+                    loadFragment(FavoritesFragment())
                     true
                 }
                 R.id.nav_settings -> {
-                    // Load SettingsFragment
+                    loadFragment(SettingsFragment())
                     true
                 }
                 else -> false
             }
         }
+    }
+
+    private fun loadFragment(fragment: Fragment) {
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragment_container, fragment)
+            .commit()
     }
 
     private fun setupPremiumButton() {

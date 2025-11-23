@@ -2,6 +2,7 @@
 <resources>
     <!-- Brand Colors - exatamente como nos mockups -->
     <color name="primary">#6C63FF</color>
+    <color name="primary_light">#E8E6FF</color>
     <color name="primary_variant">#A29BFE</color>
     <color name="secondary">#A29BFE</color>
     <color name="accent">#FF6B9D</color>
