@@ -122,7 +122,6 @@
     <!-- General -->
     <string name="btn_play">▶</string>
     <string name="btn_pause">⏸</string>
-    <string name="btn_close">Fechar</string>
     <string name="loading">Carregando…</string>
     <string name="error_generic">Ocorreu um erro. Tente novamente.</string>
     <string name="reminder_scheduled">✅ Lembrete agendado para %1$s</string>
