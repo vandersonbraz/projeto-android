@@ -58,11 +58,14 @@ class HomeFragment : Fragment() {
         // Setup mood trackers
         setupMoodTrackers(view)
 
-        // Setup popular sounds
-        setupPopularSounds(view)
+        // Setup nature sounds (Natureza)
+        setupNatureSounds(view)
 
-        // Setup guided meditations
-        setupGuidedMeditations(view)
+        // Setup meditations
+        setupMeditations(view)
+
+        // Setup music
+        setupMusicSounds(view)
     }
 
     private fun setupMoodTrackers(view: View) {
@@ -95,14 +98,15 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun setupPopularSounds(view: View) {
+    private fun setupNatureSounds(view: View) {
         val recyclerView = view.findViewById<RecyclerView>(R.id.rv_popular_sounds)
 
-        // Get the 4 most popular sounds (non-premium)
-        val popularSounds = SoundsRepository.sounds.filter { !it.isPremium }.take(4)
+        // Get nature sounds (3 populares)
+        val natureSounds = SoundsRepository.sounds.filter { it.category == "Natureza" }.take(3)
 
-        val adapter = SoundsHorizontalAdapter(popularSounds) { sound ->
-            val currentIndex = popularSounds.indexOf(sound)
+        val adapter = SoundsHorizontalAdapter(natureSounds) { sound ->
+            val currentIndex = natureSounds.indexOf(sound)
+            val allNatureSounds = SoundsRepository.sounds.filter { it.category == "Natureza" }
             val intent = Intent(requireContext(), PlayerActivity::class.java).apply {
                 putExtra("SOUND_ID", sound.id)
                 putExtra("SOUND_TITLE", sound.title)
@@ -110,8 +114,8 @@ class HomeFragment : Fragment() {
                 putExtra("SOUND_DURATION", sound.duration)
                 putExtra("SOUND_URL", sound.audioUrl)
                 putExtra("IS_PREMIUM", sound.isPremium)
-                putParcelableArrayListExtra("PLAYLIST", ArrayList(popularSounds))
-                putExtra("CURRENT_INDEX", currentIndex)
+                putParcelableArrayListExtra("PLAYLIST", ArrayList(allNatureSounds))
+                putExtra("CURRENT_INDEX", allNatureSounds.indexOf(sound))
             }
             startActivity(intent)
         }
@@ -124,16 +128,14 @@ class HomeFragment : Fragment() {
         recyclerView.adapter = adapter
     }
 
-    private fun setupGuidedMeditations(view: View) {
+    private fun setupMeditations(view: View) {
         val recyclerView = view.findViewById<RecyclerView>(R.id.rv_meditations)
 
-        // Get meditation sounds
-        val meditations = SoundsRepository.sounds.filter {
-            it.category == "Meditação"
-        }
+        // Get meditation sounds (3 populares)
+        val meditationsPreview = SoundsRepository.sounds.filter { it.category == "Meditação" }.take(3)
+        val allMeditations = SoundsRepository.sounds.filter { it.category == "Meditação" }
 
-        val adapter = SoundsHorizontalAdapter(meditations) { sound ->
-            val currentIndex = meditations.indexOf(sound)
+        val adapter = SoundsHorizontalAdapter(meditationsPreview) { sound ->
             val intent = Intent(requireContext(), PlayerActivity::class.java).apply {
                 putExtra("SOUND_ID", sound.id)
                 putExtra("SOUND_TITLE", sound.title)
@@ -141,8 +143,37 @@ class HomeFragment : Fragment() {
                 putExtra("SOUND_DURATION", sound.duration)
                 putExtra("SOUND_URL", sound.audioUrl)
                 putExtra("IS_PREMIUM", sound.isPremium)
-                putParcelableArrayListExtra("PLAYLIST", ArrayList(meditations))
-                putExtra("CURRENT_INDEX", currentIndex)
+                putParcelableArrayListExtra("PLAYLIST", ArrayList(allMeditations))
+                putExtra("CURRENT_INDEX", allMeditations.indexOf(sound))
+            }
+            startActivity(intent)
+        }
+
+        recyclerView.layoutManager = LinearLayoutManager(
+            requireContext(),
+            LinearLayoutManager.HORIZONTAL,
+            false
+        )
+        recyclerView.adapter = adapter
+    }
+
+    private fun setupMusicSounds(view: View) {
+        val recyclerView = view.findViewById<RecyclerView>(R.id.rv_music)
+
+        // Get music sounds (3 populares)
+        val musicPreview = SoundsRepository.sounds.filter { it.category == "Músicas" }.take(3)
+        val allMusic = SoundsRepository.sounds.filter { it.category == "Músicas" }
+
+        val adapter = SoundsHorizontalAdapter(musicPreview) { sound ->
+            val intent = Intent(requireContext(), PlayerActivity::class.java).apply {
+                putExtra("SOUND_ID", sound.id)
+                putExtra("SOUND_TITLE", sound.title)
+                putExtra("SOUND_CATEGORY", sound.category)
+                putExtra("SOUND_DURATION", sound.duration)
+                putExtra("SOUND_URL", sound.audioUrl)
+                putExtra("IS_PREMIUM", sound.isPremium)
+                putParcelableArrayListExtra("PLAYLIST", ArrayList(allMusic))
+                putExtra("CURRENT_INDEX", allMusic.indexOf(sound))
             }
             startActivity(intent)
         }
@@ -156,8 +187,8 @@ class HomeFragment : Fragment() {
     }
 
     private fun openPlayer() {
-        // Busca o som "Respiração Consciente" no repositório
-        val sound = SoundsRepository.sounds.find { it.id == 5 } // ID 5 = Respiração Consciente
+        // Busca a "Meditação Guiada" no repositório (Sessão Mindfulness)
+        val sound = SoundsRepository.sounds.find { it.id == 1 } // ID 1 = Meditação Guiada
 
         if (sound != null) {
             val intent = Intent(requireContext(), PlayerActivity::class.java).apply {

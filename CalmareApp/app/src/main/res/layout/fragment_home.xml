@@ -173,11 +173,11 @@
             android:layout_marginBottom="16dp"
             android:visibility="gone" />
 
-        <!-- Section: Popular Sounds -->
+        <!-- Section: Natureza -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/section_popular_sounds"
+            android:text="@string/section_nature"
             android:textAppearance="@style/TextAppearance.Calmare.Heading3"
             android:layout_marginBottom="12dp" />
 
@@ -191,16 +191,34 @@
             android:paddingEnd="4dp"
             android:layout_marginBottom="24dp" />
 
-        <!-- Section: Guided Meditations -->
+        <!-- Section: Meditações -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/section_guided_meditations"
+            android:text="@string/section_meditations"
             android:textAppearance="@style/TextAppearance.Calmare.Heading3"
             android:layout_marginBottom="12dp" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_meditations"
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            android:orientation="horizontal"
+            android:clipToPadding="false"
+            android:paddingStart="4dp"
+            android:paddingEnd="4dp"
+            android:layout_marginBottom="24dp" />
+
+        <!-- Section: Músicas Relaxantes -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/section_music"
+            android:textAppearance="@style/TextAppearance.Calmare.Heading3"
+            android:layout_marginBottom="12dp" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_music"
             android:layout_width="match_parent"
             android:layout_height="180dp"
             android:orientation="horizontal"
