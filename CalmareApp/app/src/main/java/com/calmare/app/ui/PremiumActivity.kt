@@ -24,13 +24,9 @@ class PremiumActivity : AppCompatActivity() {
     }
 
     private fun setupPurchaseButton() {
-        // Botão de Remover Anúncios
         findViewById<Button>(R.id.btn_remove_ads)?.setOnClickListener {
             Toast.makeText(this, "Processando compra...", Toast.LENGTH_SHORT).show()
-            // billingManager.purchaseProduct(this, "remove_ads")
-
-            // Simulação de compra bem-sucedida (remover quando integrar billing real)
-            Toast.makeText(this, "✅ Compra realizada! Anúncios removidos!", Toast.LENGTH_LONG).show()
+            billingManager.purchaseProduct(this, "calmare_premium_monthly")
         }
     }
 

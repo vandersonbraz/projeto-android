@@ -6,7 +6,6 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.calmare.app.R
-import com.calmare.app.managers.AdManager
 import com.google.android.gms.ads.AdError
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.FullScreenContentCallback
@@ -61,7 +60,7 @@ class SplashActivity : AppCompatActivity() {
         val adRequest = AdRequest.Builder().build()
         AppOpenAd.load(
             this,
-            "ca-app-pub-5255274256204364/1644728500", // ID de produção - Abertura do app
+            com.calmare.app.managers.AdManager.APP_OPEN_AD_UNIT_ID,
             adRequest,
             object : AppOpenAd.AppOpenAdLoadCallback() {
                 override fun onAdLoaded(ad: AppOpenAd) {
