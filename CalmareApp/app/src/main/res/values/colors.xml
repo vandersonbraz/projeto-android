@@ -44,7 +44,4 @@
     <!-- Material Design System Colors (required) -->
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-
-    <!-- Launcher Icon Background -->
-    <color name="ic_launcher_background">#6C63FF</color>
 </resources>
