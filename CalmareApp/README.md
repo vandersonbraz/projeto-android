@@ -4,19 +4,19 @@
 
 ## 📥 **DOWNLOAD DIRETO**
 
-### 🎯 **PROJETO COMPLETO - v3.1 FINAL - PRONTO PARA PUBLICAR:**
+### 🎯 **PROJETO COMPLETO - v3.2 FINAL - PRONTO PARA PUBLICAR:**
 
-**[⬇️ BAIXAR AQUI - v3.1-FINAL (145 KB)](https://github.com/vandersonbraz/projeto-android/raw/claude/android-monetization-app-01BXuLECEMMS2JfQUs6Cpqsf/CalmareApp/Calmare-App-v3.1-FINAL.zip)**
+**[⬇️ BAIXAR AQUI - v3.2-FINAL (137 KB)](https://github.com/vandersonbraz/projeto-android/raw/claude/android-monetization-app-01BXuLECEMMS2JfQUs6Cpqsf/CalmareApp/Calmare-App-v3.2-FINAL.zip)**
 
-**🚀 NOVIDADES v3.1 FINAL - PRONTO PARA PLAY STORE:**
+**🚀 NOVIDADES v3.2 FINAL:**
 
+**✅ Projeto limpo** - Apenas arquivos essenciais do Android Studio
 **✅ IDs DE PRODUÇÃO do AdMob configurados** (4 unidades)
-**✅ Ícone profissional criado** (lua + ondas, design adaptativo)
-**✅ Tutorial completo de assinatura do app** (criar keystore)
-**✅ Tutorial completo de personalização de ícone**
-**✅ Documentação atualizada** (IDS_ADMOB.txt, ICONE_CRIADO.md)
+**✅ Ícone profissional** (lua + ondas, design adaptativo)
+**✅ Estratégia de monetização equilibrada** (pulos ímpares SEM anúncio)
+**✅ Pronto para gerar AAB e publicar na Play Store**
 
-**🚀 FUNCIONALIDADES v3.0 FINAL - ESTRATÉGIA PROFISSIONAL DE MONETIZAÇÃO:**
+**🚀 FUNCIONALIDADES - ESTRATÉGIA PROFISSIONAL DE MONETIZAÇÃO:**
 
 **💎 4 TIPOS DE ANÚNCIOS IMPLEMENTADOS:**
 **✅ Banner (rodapé do player)** - Receita passiva constante
