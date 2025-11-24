@@ -18,9 +18,11 @@
 
 **🎯 ESTRATÉGIA INTELIGENTE - NÃO IRRITA O USUÁRIO:**
 **✅ Música termina naturalmente** → **SEM ANÚNCIO** (experiência limpa!)
-**✅ Usuário PULA manualmente** → Rewarded Intersticial 10-15s (ações 1-7)
+**✅ Pulo ímpar (1, 3, 5, 7)** → **SEM ANÚNCIO** (melhor experiência!)
+**✅ Pulo par (2, 4, 6)** → Rewarded Intersticial 10-15s
 **✅ 8º pulo** → Rewarded 30s (ação 8) → Contador reseta
 **✅ App Open** → Apenas 1x por dia (não toda vez que abre)
+**✅ Anúncio a cada 2 pulos** (equilíbrio perfeito!)
 
 **💰 ESTIMATIVA DE RECEITA (1000 usuários/dia):**
 **✅ ~$100-$115/dia** = **$3.000-$3.500/mês** 💰💰💰
@@ -28,6 +30,7 @@
 **📊 MUDANÇAS TÉCNICAS:**
 **✅ MAX_ACTIONS: 6 → 8** (menos intrusivo)
 **✅ Anúncios SÓ ao pular** (não ao terminar música)
+**✅ Anúncios a cada 2 pulos** (pulos pares: 2, 4, 6)
 **✅ Rewarded Intersticial** (substitui intersticial normal, paga mais!)
 **✅ App Open com controle de 24h** (SharedPreferences)
 **✅ IDS_ADMOB.txt** - Documento com IDs de teste e instruções

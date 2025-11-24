@@ -721,11 +721,14 @@ class PlayerActivity : AppCompatActivity() {
             showRewardedAd {
                 onComplete?.invoke()
             }
-        } else {
-            // Ações 1-7: mostra rewarded intersticial de 10-15s e executa callback APÓS o anúncio fechar
+        } else if (actionCounter % 2 == 0) {
+            // Ações PARES (2, 4, 6): mostra rewarded intersticial de 10-15s
             showRewardedInterstitialAd {
                 onComplete?.invoke()
             }
+        } else {
+            // Ações ÍMPARES (1, 3, 5, 7): SEM anúncio, executa callback direto
+            onComplete?.invoke()
         }
     }
 
