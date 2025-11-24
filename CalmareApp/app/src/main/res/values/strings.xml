@@ -151,7 +151,7 @@
     <string name="reminder_added_message">Deseja adicionar outro horário?</string>
     <string name="reminders_configured_title">Lembretes Configurados (%d)</string>
     <string name="remove_reminder_title">Remover Lembrete</string>
-    <string name="remove_reminder_message">Deseja remover o lembrete de %02d:%02d?</string>
+    <string name="remove_reminder_message" formatted="false">Deseja remover o lembrete de %02d:%02d?</string>
 
     <!-- Privacy & Terms (Base text - você deve expandir) -->
     <string name="privacy_policy_text">POLÍTICA DE PRIVACIDADE\n\nSua privacidade é importante para nós.\n\n[Adicione aqui o texto completo da política de privacidade]</string>

@@ -63,7 +63,6 @@ class SplashActivity : AppCompatActivity() {
             this,
             "ca-app-pub-5255274256204364/1644728500", // ID de produção - Abertura do app
             adRequest,
-            AppOpenAd.APP_OPEN_AD_ORIENTATION_PORTRAIT,
             object : AppOpenAd.AppOpenAdLoadCallback() {
                 override fun onAdLoaded(ad: AppOpenAd) {
                     appOpenAd = ad

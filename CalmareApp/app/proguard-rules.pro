@@ -9,3 +9,7 @@
 
 # Keep app classes
 -keep class com.calmare.app.** { *; }
+
+# Fix R8 missing classes (Android API 35+)
+-dontwarn android.media.LoudnessCodecController
+-dontwarn android.media.LoudnessCodecController$OnLoudnessCodecUpdateListener
