@@ -421,7 +421,29 @@ class PlayerActivity : AppCompatActivity() {
                         .build()
                 )
 
-                setDataSource(soundUrl)
+                // Detecta se é arquivo local (raw/) ou URL da internet
+                if (soundUrl.startsWith("raw/")) {
+                    // Arquivo local: usa sistema de recursos do Android
+                    val resourceName = soundUrl.substringAfter("raw/")
+                    val resourceId = resources.getIdentifier(resourceName, "raw", packageName)
+
+                    if (resourceId == 0) {
+                        Toast.makeText(
+                            this@PlayerActivity,
+                            "❌ Arquivo de áudio '$resourceName' não encontrado na pasta raw/",
+                            Toast.LENGTH_LONG
+                        ).show()
+                        btnPlayPause.isEnabled = false
+                        return
+                    }
+
+                    val uri = android.net.Uri.parse("android.resource://$packageName/$resourceId")
+                    setDataSource(this@PlayerActivity, uri)
+                } else {
+                    // URL da internet
+                    setDataSource(soundUrl)
+                }
+
                 isLooping = false  // Começa DESATIVADO
                 prepareAsync()
 
