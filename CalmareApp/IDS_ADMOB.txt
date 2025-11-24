@@ -2,52 +2,59 @@
 📱 CALMARE APP - IDs DO GOOGLE ADMOB
 ═══════════════════════════════════════════════════════════════════════
 
-⚠️ IMPORTANTE: Atualmente o app está usando IDs DE TESTE do AdMob.
-Para publicar na Play Store, você PRECISA substituir pelos IDs REAIS de produção.
+✅ CONCLUÍDO: O app está usando IDs DE PRODUÇÃO do AdMob.
+Pronto para publicar na Google Play Store!
 
 ═══════════════════════════════════════════════════════════════════════
-🔧 IDs DE TESTE (ATUAIS - NÃO GERAM RECEITA)
+🎯 ESTRATÉGIA DE MONETIZAÇÃO CONFIGURADA
+═══════════════════════════════════════════════════════════════════════
+
+✅ **PULOS ÍMPARES (1, 3, 5, 7)**: SEM anúncio (melhor experiência)
+✅ **PULOS PARES (2, 4, 6)**: Anúncio intersticial premiado 10-15s
+✅ **8º PULO**: Anúncio premiado completo 30s + pausa automática
+✅ **MÚSICA ACABAR NATURALMENTE**: SEM anúncio (contador reseta)
+✅ **APP OPEN**: 1x por dia ao abrir o app
+✅ **BANNER**: Sempre visível no player (não intrusivo)
+
+**Resultado**: Equilibra receita com retenção de usuários! 💰
+
+═══════════════════════════════════════════════════════════════════════
+✅ IDs DE PRODUÇÃO (CONFIGURADOS - GERAM RECEITA REAL)
 ═══════════════════════════════════════════════════════════════════════
 
 1️⃣ BANNER (rodapé do PlayerActivity)
    Arquivo: app/src/main/res/layout/activity_player.xml
    Linha: 277
-   ID TESTE: ca-app-pub-3940256099942544/6300978111
-   ID PRODUÇÃO: [VOCÊ VAI ME PASSAR]
+   ID PRODUÇÃO: ca-app-pub-5255274256204364/9906361909 ✅
 
-2️⃣ REWARDED INTERSTICIAL (ações 1-7 quando pular faixa)
+2️⃣ REWARDED INTERSTICIAL (pulos pares: 2, 4, 6)
    Arquivo: app/src/main/java/com/calmare/app/ui/PlayerActivity.kt
-   Linha: 625
-   ID TESTE: ca-app-pub-3940256099942544/5354046379
-   ID PRODUÇÃO: [VOCÊ VAI ME PASSAR]
+   Linha: 620
+   ID PRODUÇÃO: ca-app-pub-5255274256204364/7974349040 ✅
 
-3️⃣ REWARDED (ação 8 - a cada 8 pulos)
+3️⃣ REWARDED (8º pulo - anúncio de 30s)
    Arquivo: app/src/main/java/com/calmare/app/ui/PlayerActivity.kt
-   Linha: 642
-   ID TESTE: ca-app-pub-3940256099942544/5224354917
-   ID PRODUÇÃO: [VOCÊ VAI ME PASSAR]
+   Linha: 637
+   ID PRODUÇÃO: ca-app-pub-5255274256204364/5500213038 ✅
 
 4️⃣ APP OPEN (ao abrir o app - 1x por dia)
    Arquivo: app/src/main/java/com/calmare/app/ui/SplashActivity.kt
    Linha: 64
-   ID TESTE: ca-app-pub-3940256099942544/9257395921
-   ID PRODUÇÃO: [VOCÊ VAI ME PASSAR]
+   ID PRODUÇÃO: ca-app-pub-5255274256204364/1644728500 ✅
 
 ═══════════════════════════════════════════════════════════════════════
-📝 COMO OBTER OS IDs DE PRODUÇÃO
+📝 UNIDADES DE ANÚNCIO CRIADAS NO ADMOB
 ═══════════════════════════════════════════════════════════════════════
 
-1. Acesse: https://apps.admob.com/
-2. Faça login com sua conta Google
-3. Clique em "Apps" → "Adicionar app" (se ainda não criou)
-4. Adicione o app Calmare:
-   - Nome: Calmare
-   - Plataforma: Android
-   - Store listing: Não publicado ainda
+Você já criou as 4 unidades necessárias no AdMob:
 
-5. Clique em "Unidades de anúncio" → "Adicionar unidade de anúncio"
+1. ✅ Banner (Calmare Player Banner)
+2. ✅ Intersticial premiado (Calmare Skip Track)
+3. ✅ Premiado (Calmare 8th Action)
+4. ✅ Abertura do app (Calmare App Launch)
 
-6. Crie 4 unidades de anúncio:
+**Configuração**: Deixe tudo no padrão do AdMob. O Google otimiza automaticamente
+os leilões de anúncios para maximizar sua receita!
 
    ┌─────────────────────────────────────────────────┐
    │ UNIDADE 1: BANNER                               │
