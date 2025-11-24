@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎨 Calmare - 12 Opções de Ícones</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            color: white;
+            font-size: 42px;
+            margin-bottom: 20px;
+            text-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+
+        .subtitle {
+            text-align: center;
+            color: rgba(255,255,255,0.95);
+            font-size: 18px;
+            margin-bottom: 40px;
+            line-height: 1.6;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .icon-card {
+            background: white;
+            border-radius: 16px;
+            padding: 25px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .icon-card:hover {
+            transform: translateY(-8px);
+        }
+
+        .icon-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: #2D3436;
+            margin-bottom: 15px;
+        }
+
+        canvas {
+            width: 192px;
+            height: 192px;
+            border-radius: 42px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+            margin-bottom: 15px;
+            cursor: pointer;
+        }
+
+        .download-btn {
+            background: linear-gradient(135deg, #6C63FF 0%, #A29BFE 100%);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .download-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 15px rgba(108,99,255,0.4);
+        }
+
+        .download-btn:active {
+            transform: scale(0.98);
+        }
+
+        .instructions {
+            background: rgba(255,255,255,0.95);
+            border-radius: 16px;
+            padding: 30px;
+            margin-top: 40px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+
+        .instructions h2 {
+            color: #6C63FF;
+            margin-bottom: 15px;
+            font-size: 24px;
+        }
+
+        .instructions p {
+            color: #2D3436;
+            line-height: 1.8;
+            margin-bottom: 10px;
+        }
+
+        .instructions strong {
+            color: #6C63FF;
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 32px; }
+            .grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎨 Calmare - 12 Opções de Ícones</h1>
+        <p class="subtitle">
+            Clique em "Baixar PNG" para salvar o ícone em alta resolução (1024x1024)<br>
+            Depois use no Android Studio: <strong>New → Image Asset → Image</strong>
+        </p>
+
+        <div class="grid" id="iconsGrid"></div>
+
+        <div class="instructions">
+            <h2>📥 Como usar no Android Studio</h2>
+            <p>1. <strong>Clique em "Baixar PNG"</strong> no ícone que você gostou (salva em 1024x1024px)</p>
+            <p>2. <strong>Abra o Android Studio</strong> com o projeto Calmare</p>
+            <p>3. <strong>Botão direito em res/</strong> → <strong>New</strong> → <strong>Image Asset</strong></p>
+            <p>4. <strong>Source Asset</strong>: escolha "Image" e selecione o PNG que baixou</p>
+            <p>5. <strong>Clique Next</strong> → <strong>Finish</strong></p>
+            <p>6. ✅ <strong>Pronto!</strong> O Android Studio cria automaticamente todas as densidades e coloca nas pastas certas</p>
+        </div>
+    </div>
+
+    <script>
+        const icons = [
+            {
+                name: '1. Lua Crescente Suave',
+                draw: (ctx, size) => {
+                    const gradient = ctx.createLinearGradient(0, 0, size, size);
+                    gradient.addColorStop(0, '#6C63FF');
+                    gradient.addColorStop(1, '#A29BFE');
+                    ctx.fillStyle = gradient;
+                    ctx.fillRect(0, 0, size, size);
+
+                    ctx.fillStyle = 'white';
+                    ctx.beginPath();
+                    ctx.arc(size * 0.5, size * 0.4, size * 0.18, 0, Math.PI * 2);
+                    ctx.fill();
+
+                    ctx.fillStyle = '#6C63FF';
+                    ctx.beginPath();
+                    ctx.arc(size * 0.55, size * 0.38, size * 0.15, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+            },
+            {
+                name: '2. Mandala Zen',
+                draw: (ctx, size) => {
+                    const gradient = ctx.createLinearGradient(0, 0, size, size);
+                    gradient.addColorStop(0, '#A29BFE');
+                    gradient.addColorStop(1, '#6C63FF');
+                    ctx.fillStyle = gradient;
+                    ctx.fillRect(0, 0, size, size);
+
+                    ctx.strokeStyle = 'white';
+                    ctx.lineWidth = size * 0.025;
+                    const centerX = size / 2;
+                    const centerY = size / 2;
+
+                    for (let i = 0; i < 8; i++) {
+                        ctx.beginPath();
+                        ctx.arc(centerX, centerY, size * 0.1 + (i * size * 0.04), 0, Math.PI * 2);
+                        ctx.stroke();
+                    }
+
+                    ctx.fillStyle = 'white';
+                    ctx.beginPath();
+                    ctx.arc(centerX, centerY, size * 0.06, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+            },
+            {
+                name: '3. Ondas Concêntricas',
+                draw: (ctx, size) => {
+                    const gradient = ctx.createLinearGradient(0, 0, size, size);
+                    gradient.addColorStop(0, '#6C63FF');
+                    gradient.addColorStop(1, '#764BA2');
+                    ctx.fillStyle = gradient;
+                    ctx.fillRect(0, 0, size, size);
+
+                    ctx.fillStyle = 'rgba(255,255,255,0.9)';
+                    for (let i = 0; i < 5; i++) {
+                        const y = size * 0.5 + (i * size * 0.08);
+                        const width = size * 0.7 - (i * size * 0.05);
+                        const height = size * 0.06;
+                        const x = (size - width) / 2;
+
+                        ctx.beginPath();
+                        ctx.ellipse(size/2, y, width/2, height/2, 0, 0, Math.PI * 2);
+                        ctx.fill();
+                    }
+                }
+            },
+            {
+                name: '4. Om Symbol',
+                draw: (ctx, size) => {
+                    const gradient = ctx.createLinearGradient(0, 0, size, size);
+                    gradient.addColorStop(0, '#6C63FF');
+                    gradient.addColorStop(0.5, '#A29BFE');
+                    gradient.addColorStop(1, '#FF6B9D');
+                    ctx.fillStyle = gradient;
+                    ctx.fillRect(0, 0, size, size);
+
+                    ctx.fillStyle = 'white';
+                    ctx.font = `bold ${size * 0.5}px Arial`;
+                    ctx.textAlign = 'center';
+                    ctx.textBaseline = 'middle';
+                    ctx.fillText('ॐ', size / 2, size / 2);
+                }
+            },
+            {
+                name: '5. Coração Respiração',
+                draw: (ctx, size) => {
+                    const gradient = ctx.createRadialGradient(size/2, size/2, 0, size/2, size/2, size/2);
+                    gradient.addColorStop(0, '#FF6B9D');
+                    gradient.addColorStop(1, '#6C63FF');
+                    ctx.fillStyle = gradient;
+                    ctx.fillRect(0, 0, size, size);
+
+                    ctx.fillStyle = 'white';
+                    ctx.beginPath();
+                    const topCurveHeight = size * 0.3;
+                    ctx.moveTo(size/2, size * 0.6);
+                    ctx.bezierCurveTo(size/2, size * 0.3, size * 0.2, size * 0.2, size * 0.2, size * 0.4);
+                    ctx.bezierCurveTo(size * 0.2, size * 0.5, size/2, size * 0.55, size/2, size * 0.6);
+                    ctx.bezierCurveTo(size/2, size * 0.55, size * 0.8, size * 0.5, size * 0.8, size * 0.4);
+                    ctx.bezierCurveTo(size * 0.8, size * 0.2, size/2, size * 0.3, size/2, size * 0.6);
+                    ctx.fill();
+                }
+            },
+            {
+                name: '6. Montanha Zen',
+                draw: (ctx, size) => {
+                    const gradient = ctx.createLinearGradient(0, 0, 0, size);
+                    gradient.addColorStop(0, '#A29BFE');
+                    gradient.addColorStop(1, '#6C63FF');
+                    ctx.fillStyle = gradient;
+                    ctx.fillRect(0, 0, size, size);
+
+                    ctx.fillStyle = 'white';
+                    ctx.beginPath();
+                    ctx.moveTo(size * 0.2, size * 0.7);
+                    ctx.lineTo(size * 0.5, size * 0.3);
+                    ctx.lineTo(size * 0.8, size * 0.7);
+                    ctx.closePath();
+                    ctx.fill();
+
+                    ctx.fillStyle = 'rgba(255,255,255,0.5)';
+                    ctx.beginPath();
+                    ctx.arc(size * 0.75, size * 0.25, size * 0.08, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+            },
+            {
+                name: '7. Flor de Lótus Simples',
+                draw: (ctx, size) => {
+                    const gradient = ctx.createLinearGradient(0, 0, size, size);
+                    gradient.addColorStop(0, '#6C63FF');
+                    gradient.addColorStop(1, '#A29BFE');
+                    ctx.fillStyle = gradient;
+                    ctx.fillRect(0, 0, size, size);
+
+                    ctx.fillStyle = 'white';
+                    const centerX = size / 2;
+                    const centerY = size / 2;
+                    const petalCount = 8;
+                    const petalLength = size * 0.25;
+
+                    for (let i = 0; i < petalCount; i++) {
+                        const angle = (Math.PI * 2 * i) / petalCount;
+                        ctx.save();
+                        ctx.translate(centerX, centerY);
+                        ctx.rotate(angle);
+                        ctx.beginPath();
+                        ctx.ellipse(0, -petalLength/2, petalLength/3, petalLength/2, 0, 0, Math.PI * 2);
+                        ctx.fill();
+                        ctx.restore();
+                    }
+
+                    ctx.beginPath();
+                    ctx.arc(centerX, centerY, size * 0.1, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+            },
+            {
+                name: '8. Gotas d\'Água',
+                draw: (ctx, size) => {
+                    const gradient = ctx.createLinearGradient(0, 0, size, size);
+                    gradient.addColorStop(0, '#6C63FF');
+                    gradient.addColorStop(1, '#764BA2');
+                    ctx.fillStyle = gradient;
+                    ctx.fillRect(0, 0, size, size);
+
+                    ctx.fillStyle = 'white';
+                    const drops = [
+                        {x: 0.3, y: 0.35, size: 0.12},
+                        {x: 0.5, y: 0.5, size: 0.15},
+                        {x: 0.7, y: 0.4, size: 0.1}
+                    ];
+
+                    drops.forEach(drop => {
+                        ctx.beginPath();
+                        ctx.moveTo(size * drop.x, size * drop.y);
+                        ctx.bezierCurveTo(
+                            size * (drop.x - drop.size/2), size * (drop.y - drop.size/2),
+                            size * (drop.x - drop.size/2), size * (drop.y + drop.size/2),
+                            size * drop.x, size * (drop.y + drop.size)
+                        );
+                        ctx.bezierCurveTo(
+                            size * (drop.x + drop.size/2), size * (drop.y + drop.size/2),
+                            size * (drop.x + drop.size/2), size * (drop.y - drop.size/2),
+                            size * drop.x, size * drop.y
+                        );
+                        ctx.fill();
+                    });
+                }
+            },
+            {
+                name: '9. Círculo Respiração',
+                draw: (ctx, size) => {
+                    const gradient = ctx.createRadialGradient(size/2, size/2, 0, size/2, size/2, size/2);
+                    gradient.addColorStop(0, '#A29BFE');
+                    gradient.addColorStop(1, '#6C63FF');
+                    ctx.fillStyle = gradient;
+                    ctx.fillRect(0, 0, size, size);
+
+                    ctx.strokeStyle = 'white';
+                    ctx.lineWidth = size * 0.03;
+                    for (let i = 0; i < 4; i++) {
+                        ctx.globalAlpha = 1 - (i * 0.2);
+                        ctx.beginPath();
+                        ctx.arc(size/2, size/2, size * 0.15 + (i * size * 0.08), 0, Math.PI * 2);
+                        ctx.stroke();
+                    }
+                    ctx.globalAlpha = 1;
+                }
+            },
+            {
+                name: '10. Estrelas Noite',
+                draw: (ctx, size) => {
+                    const gradient = ctx.createLinearGradient(0, 0, 0, size);
+                    gradient.addColorStop(0, '#764BA2');
+                    gradient.addColorStop(1, '#6C63FF');
+                    ctx.fillStyle = gradient;
+                    ctx.fillRect(0, 0, size, size);
+
+                    ctx.fillStyle = 'white';
+                    const stars = [
+                        {x: 0.3, y: 0.25, size: 0.04},
+                        {x: 0.7, y: 0.3, size: 0.06},
+                        {x: 0.5, y: 0.5, size: 0.08},
+                        {x: 0.25, y: 0.6, size: 0.05},
+                        {x: 0.75, y: 0.65, size: 0.045}
+                    ];
+
+                    stars.forEach(star => {
+                        const centerX = size * star.x;
+                        const centerY = size * star.y;
+                        const radius = size * star.size;
+
+                        ctx.beginPath();
+                        for (let i = 0; i < 5; i++) {
+                            const angle = (Math.PI * 2 * i) / 5 - Math.PI / 2;
+                            const x = centerX + radius * Math.cos(angle);
+                            const y = centerY + radius * Math.sin(angle);
+                            if (i === 0) ctx.moveTo(x, y);
+                            else ctx.lineTo(x, y);
+
+                            const angle2 = angle + Math.PI / 5;
+                            const x2 = centerX + radius * 0.4 * Math.cos(angle2);
+                            const y2 = centerY + radius * 0.4 * Math.sin(angle2);
+                            ctx.lineTo(x2, y2);
+                        }
+                        ctx.closePath();
+                        ctx.fill();
+                    });
+                }
+            },
+            {
+                name: '11. Nuvem Zen',
+                draw: (ctx, size) => {
+                    const gradient = ctx.createLinearGradient(0, 0, size, size);
+                    gradient.addColorStop(0, '#A29BFE');
+                    gradient.addColorStop(1, '#6C63FF');
+                    ctx.fillStyle = gradient;
+                    ctx.fillRect(0, 0, size, size);
+
+                    ctx.fillStyle = 'white';
+                    ctx.beginPath();
+                    ctx.arc(size * 0.35, size * 0.5, size * 0.12, 0, Math.PI * 2);
+                    ctx.arc(size * 0.5, size * 0.45, size * 0.15, 0, Math.PI * 2);
+                    ctx.arc(size * 0.65, size * 0.5, size * 0.12, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+            },
+            {
+                name: '12. Yin Yang Moderno',
+                draw: (ctx, size) => {
+                    const gradient = ctx.createLinearGradient(0, 0, size, size);
+                    gradient.addColorStop(0, '#6C63FF');
+                    gradient.addColorStop(1, '#FF6B9D');
+                    ctx.fillStyle = gradient;
+                    ctx.fillRect(0, 0, size, size);
+
+                    const centerX = size / 2;
+                    const centerY = size / 2;
+                    const radius = size * 0.28;
+
+                    // Círculo externo branco
+                    ctx.fillStyle = 'white';
+                    ctx.beginPath();
+                    ctx.arc(centerX, centerY, radius, 0, Math.PI * 2);
+                    ctx.fill();
+
+                    // Metade escura (transparente)
+                    ctx.fillStyle = 'rgba(108,99,255,0.3)';
+                    ctx.beginPath();
+                    ctx.arc(centerX, centerY, radius, -Math.PI/2, Math.PI/2);
+                    ctx.arc(centerX, centerY - radius/2, radius/2, Math.PI/2, -Math.PI/2, true);
+                    ctx.arc(centerX, centerY + radius/2, radius/2, Math.PI/2, -Math.PI/2);
+                    ctx.fill();
+
+                    // Pontinhos
+                    ctx.fillStyle = 'white';
+                    ctx.beginPath();
+                    ctx.arc(centerX, centerY - radius/2, radius * 0.12, 0, Math.PI * 2);
+                    ctx.fill();
+
+                    ctx.fillStyle = 'rgba(108,99,255,0.3)';
+                    ctx.beginPath();
+                    ctx.arc(centerX, centerY + radius/2, radius * 0.12, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+            }
+        ];
+
+        function createIcon(iconData, index) {
+            const card = document.createElement('div');
+            card.className = 'icon-card';
+
+            const title = document.createElement('div');
+            title.className = 'icon-title';
+            title.textContent = iconData.name;
+
+            const canvas = document.createElement('canvas');
+            canvas.width = 1024;
+            canvas.height = 1024;
+            const ctx = canvas.getContext('2d');
+            iconData.draw(ctx, 1024);
+
+            const btn = document.createElement('button');
+            btn.className = 'download-btn';
+            btn.textContent = '⬇️ Baixar PNG (1024x1024)';
+            btn.onclick = () => {
+                const link = document.createElement('a');
+                link.download = `calmare-icon-${index + 1}.png`;
+                link.href = canvas.toDataURL('image/png');
+                link.click();
+            };
+
+            card.appendChild(title);
+            card.appendChild(canvas);
+            card.appendChild(btn);
+
+            return card;
+        }
+
+        const grid = document.getElementById('iconsGrid');
+        icons.forEach((icon, index) => {
+            grid.appendChild(createIcon(icon, index));
+        });
+    </script>
+</body>
+</html>
