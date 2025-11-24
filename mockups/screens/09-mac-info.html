@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Informações do Dispositivo - Optimus Player</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #000000 0%, #1E1E1E 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden;
+        }
+
+        .phone-frame {
+            width: 375px;
+            height: 812px;
+            background: #000000;
+            border-radius: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.8),
+                        0 0 0 8px #1E1E1E,
+                        0 0 0 12px #000000;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Header */
+        .header {
+            background: #000000;
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            border-bottom: 1px solid #1E1E1E;
+        }
+
+        .back-btn {
+            color: #FFD700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+        }
+
+        .header-title {
+            font-family: 'Poppins', sans-serif;
+            color: #FFFFFF;
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        /* Content */
+        .content {
+            padding: 24px 16px;
+            height: calc(812px - 120px);
+            overflow-y: auto;
+            background: #000000;
+        }
+
+        /* Device Icon */
+        .device-icon-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 32px;
+        }
+
+        .device-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid #FFD700;
+            box-shadow: 0 8px 24px rgba(255, 215, 0, 0.2);
+        }
+
+        .device-icon .material-icons {
+            font-size: 48px;
+            color: #FFD700;
+        }
+
+        /* Info Cards */
+        .info-card {
+            background: #121212;
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 16px;
+            border: 1px solid #1E1E1E;
+        }
+
+        .info-label {
+            color: #757575;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+        }
+
+        .info-value-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+        }
+
+        .info-value {
+            color: #FFFFFF;
+            font-size: 15px;
+            font-weight: 500;
+            font-family: 'Roboto Mono', monospace;
+            flex: 1;
+            word-break: break-all;
+        }
+
+        .copy-btn {
+            background: #FFD700;
+            color: #000000;
+            border: none;
+            border-radius: 8px;
+            padding: 8px 12px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 12px;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .copy-btn:hover {
+            background: #FFC107;
+            transform: translateY(-2px);
+        }
+
+        .copy-btn:active {
+            transform: translateY(0);
+        }
+
+        .copy-btn .material-icons {
+            font-size: 16px;
+        }
+
+        /* License Status */
+        .license-status {
+            background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 16px;
+            border: 1px solid #FFD700;
+            box-shadow: 0 4px 16px rgba(255, 215, 0, 0.15);
+        }
+
+        .status-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .status-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 215, 0, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .status-icon .material-icons {
+            color: #FFD700;
+            font-size: 24px;
+        }
+
+        .status-text {
+            flex: 1;
+        }
+
+        .status-title {
+            color: #FFD700;
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .status-subtitle {
+            color: #757575;
+            font-size: 13px;
+        }
+
+        .status-details {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            padding-top: 16px;
+            border-top: 1px solid #1E1E1E;
+        }
+
+        .detail-item {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .detail-label {
+            color: #757575;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .detail-value {
+            color: #FFFFFF;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        /* Device Details */
+        .device-details {
+            background: #121212;
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 16px;
+            border: 1px solid #1E1E1E;
+        }
+
+        .details-title {
+            color: #FFFFFF;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .details-title .material-icons {
+            color: #FFD700;
+            font-size: 20px;
+        }
+
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #1E1E1E;
+        }
+
+        .detail-row:last-child {
+            border-bottom: none;
+        }
+
+        .detail-row-label {
+            color: #757575;
+            font-size: 13px;
+        }
+
+        .detail-row-value {
+            color: #FFFFFF;
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        /* Bottom Navigation */
+        .nav {
+            background: #000000;
+            border-top: 1px solid #1E1E1E;
+            display: flex;
+            padding: 8px 0;
+        }
+
+        .nav-item {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            color: #757575;
+            font-size: 11px;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .nav-item.active {
+            color: #FFD700;
+        }
+
+        .nav-item .material-icons {
+            font-size: 24px;
+        }
+
+        /* Copied Toast */
+        .toast {
+            position: fixed;
+            bottom: 100px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #FFD700;
+            color: #000000;
+            padding: 12px 24px;
+            border-radius: 24px;
+            font-weight: 600;
+            font-size: 14px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            pointer-events: none;
+            z-index: 1000;
+        }
+
+        .toast.show {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="phone-frame">
+        <!-- Header -->
+        <div class="header">
+            <div class="back-btn">
+                <span class="material-icons">arrow_back</span>
+            </div>
+            <div class="header-title">Informações do Dispositivo</div>
+        </div>
+
+        <!-- Content -->
+        <div class="content">
+            <!-- Device Icon -->
+            <div class="device-icon-container">
+                <div class="device-icon">
+                    <span class="material-icons">router</span>
+                </div>
+            </div>
+
+            <!-- License Status Card -->
+            <div class="license-status">
+                <div class="status-header">
+                    <div class="status-icon">
+                        <span class="material-icons">check_circle</span>
+                    </div>
+                    <div class="status-text">
+                        <div class="status-title">Licença Ativa</div>
+                        <div class="status-subtitle">Tudo funcionando perfeitamente</div>
+                    </div>
+                </div>
+                <div class="status-details">
+                    <div class="detail-item">
+                        <div class="detail-label">Válida até</div>
+                        <div class="detail-value">15/12/2025</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Dias restantes</div>
+                        <div class="detail-value">356 dias</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Tipo</div>
+                        <div class="detail-value">Anual Premium</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Renovação</div>
+                        <div class="detail-value">Automática</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- MAC Address -->
+            <div class="info-card">
+                <div class="info-label">MAC Address</div>
+                <div class="info-value-container">
+                    <div class="info-value" id="mac-value">00:1B:44:11:3A:B7</div>
+                    <button class="copy-btn" onclick="copyToClipboard('mac-value')">
+                        <span class="material-icons">content_copy</span>
+                        Copiar
+                    </button>
+                </div>
+            </div>
+
+            <!-- Device ID -->
+            <div class="info-card">
+                <div class="info-label">Device ID</div>
+                <div class="info-value-container">
+                    <div class="info-value" id="device-id">OPTIMUS-7F4A-9B2C-E8D1</div>
+                    <button class="copy-btn" onclick="copyToClipboard('device-id')">
+                        <span class="material-icons">content_copy</span>
+                        Copiar
+                    </button>
+                </div>
+            </div>
+
+            <!-- Device Details -->
+            <div class="device-details">
+                <div class="details-title">
+                    <span class="material-icons">info</span>
+                    Detalhes do Dispositivo
+                </div>
+                <div class="detail-row">
+                    <div class="detail-row-label">Modelo</div>
+                    <div class="detail-row-value">Fire TV Stick 4K Max</div>
+                </div>
+                <div class="detail-row">
+                    <div class="detail-row-label">Versão Android</div>
+                    <div class="detail-row-value">9.0 (API 28)</div>
+                </div>
+                <div class="detail-row">
+                    <div class="detail-row-label">App Versão</div>
+                    <div class="detail-row-value">1.0.0 (Build 1)</div>
+                </div>
+                <div class="detail-row">
+                    <div class="detail-row-label">Última Sincronização</div>
+                    <div class="detail-row-value">Há 5 minutos</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom Navigation -->
+        <div class="nav">
+            <div class="nav-item">
+                <span class="material-icons">home</span>
+                Início
+            </div>
+            <div class="nav-item">
+                <span class="material-icons">schedule</span>
+                EPG
+            </div>
+            <div class="nav-item active">
+                <span class="material-icons">router</span>
+                MAC
+            </div>
+            <div class="nav-item">
+                <span class="material-icons">settings</span>
+                Config
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Message -->
+    <div class="toast" id="toast">Copiado com sucesso!</div>
+
+    <script>
+        function copyToClipboard(elementId) {
+            const element = document.getElementById(elementId);
+            const text = element.textContent;
+
+            // Create temporary textarea
+            const textarea = document.createElement('textarea');
+            textarea.value = text;
+            textarea.style.position = 'fixed';
+            textarea.style.opacity = '0';
+            document.body.appendChild(textarea);
+
+            // Select and copy
+            textarea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textarea);
+
+            // Show toast
+            const toast = document.getElementById('toast');
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 2000);
+        }
+    </script>
+</body>
+</html>

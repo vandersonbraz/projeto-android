@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html><head><meta charset="UTF-8"><title>Home - Optimus Player</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<style>*{margin:0;padding:0;box-sizing:border-box}body{font-family:Roboto,sans-serif;background:#0a0a0a;display:flex;justify-content:center;align-items:center;min-height:100vh}.phone{width:375px;height:812px;background:#000;border-radius:40px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,0.9)}
+.header{background:#000;padding:16px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #1E1E1E}.logo{font-family:Poppins;color:#FFD700;font-size:20px;font-weight:600}.icons{display:flex;gap:16px}.icon{color:#757575;cursor:pointer}.icon:hover{color:#FFD700}
+.tabs{display:flex;background:#000;border-bottom:1px solid #1E1E1E}.tab{flex:1;padding:12px;text-align:center;color:#757575;font-size:14px;cursor:pointer}.tab.active{color:#FFD700;border-bottom:2px solid #FFD700}
+.content{padding:16px;height:calc(812px - 160px);overflow-y:auto;background:#000}.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.channel-card{background:#121212;border-radius:8px;overflow:hidden;cursor:pointer;transition:transform .2s}.channel-card:hover{transform:scale(1.05)}.thumb{width:100%;height:120px;background:linear-gradient(135deg,#1a1a1a,#2a2a2a);display:flex;align-items:center;justify-content:center;color:#FFD700;font-size:32px}.info{padding:8px}.title{color:#FFF;font-size:13px;font-weight:500;margin-bottom:4px}.category{color:#757575;font-size:11px}
+.nav{background:#000;border-top:1px solid #1E1E1E;display:flex;padding:8px 0}.nav-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;color:#757575;font-size:11px;cursor:pointer}.nav-item.active{color:#FFD700}</style>
+</head><body>
+<div class="phone">
+<div class="header"><div class="logo">OPTIMUS PLAYER</div><div class="icons"><span class="material-icons icon">search</span><span class="material-icons icon">favorite_border</span><span class="material-icons icon">cast</span></div></div>
+<div class="tabs"><div class="tab active">Canais</div><div class="tab">Filmes</div><div class="tab">Séries</div></div>
+<div class="content"><div class="grid">
+<div class="channel-card"><div class="thumb">📺</div><div class="info"><div class="title">Globo HD</div><div class="category">Abertos</div></div></div>
+<div class="channel-card"><div class="thumb">🎬</div><div class="info"><div class="title">HBO Max</div><div class="category">Filmes</div></div></div>
+<div class="channel-card"><div class="thumb">⚽</div><div class="info"><div class="title">ESPN</div><div class="category">Esportes</div></div></div>
+<div class="channel-card"><div class="thumb">📰</div><div class="info"><div class="title">CNN Brasil</div><div class="category">Notícias</div></div></div>
+<div class="channel-card"><div class="thumb">🎵</div><div class="info"><div class="title">MTV</div><div class="category">Música</div></div></div>
+<div class="channel-card"><div class="thumb">👶</div><div class="info"><div class="title">Discovery Kids</div><div class="category">Infantil</div></div></div>
+</div></div>
+<div class="nav">
+<div class="nav-item active"><span class="material-icons">home</span>Início</div>
+<div class="nav-item"><span class="material-icons">schedule</span>EPG</div>
+<div class="nav-item"><span class="material-icons">router</span>MAC</div>
+<div class="nav-item"><span class="material-icons">settings</span>Config</div>
+</div>
+</div>
+</body></html>

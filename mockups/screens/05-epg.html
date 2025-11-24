@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html><head><meta charset="UTF-8"><title>EPG</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+<style>*{margin:0;padding:0}body{background:#0a0a0a;display:flex;justify-content:center;align-items:center;min-height:100vh;font-family:Roboto}
+.phone{width:375px;height:812px;background:#000;border-radius:40px;overflow:hidden}
+.header{background:#000;padding:16px;border-bottom:1px solid #1E1E1E}.title{color:#FFD700;font-size:20px;font-weight:600}.date{color:#999;font-size:12px;margin-top:4px}
+.timeline{background:#121212;padding:12px 16px;display:flex;gap:8px;overflow-x:auto;border-bottom:1px solid #1E1E1E}.time-slot{min-width:60px;text-align:center;padding:8px;border-radius:6px;color:#999;font-size:12px}.time-slot.active{background:#FFD700;color:#000;font-weight:600}
+.content{height:calc(812px - 160px);overflow-y:auto;background:#000}
+.program{padding:16px;border-bottom:1px solid #1E1E1E}.channel-name{color:#FFD700;font-size:12px;margin-bottom:8px}.program-title{color:#FFF;font-size:14px;font-weight:500;margin-bottom:4px}.program-time{color:#999;font-size:12px}
+</style></head><body>
+<div class="phone">
+<div class="header"><div class="title">Guia de Programação</div><div class="date">Sábado, 23 Nov 2025</div></div>
+<div class="timeline">
+<div class="time-slot">18:00</div>
+<div class="time-slot active">19:00</div>
+<div class="time-slot">20:00</div>
+<div class="time-slot">21:00</div>
+<div class="time-slot">22:00</div>
+</div>
+<div class="content">
+<div class="program"><div class="channel-name">GLOBO HD</div><div class="program-title">Jornal Nacional</div><div class="program-time">19:00 - 19:45</div></div>
+<div class="program"><div class="channel-name">RECORD HD</div><div class="program-title">Cidade Alerta</div><div class="program-time">19:00 - 20:00</div></div>
+<div class="program"><div class="channel-name">SBT HD</div><div class="program-title">Primeiro Impacto</div><div class="program-time">19:00 - 19:30</div></div>
+<div class="program"><div class="channel-name">ESPN</div><div class="program-title">Futebol Ao Vivo</div><div class="program-time">19:00 - 21:00</div></div>
+</div>
+</div>
+</body></html>

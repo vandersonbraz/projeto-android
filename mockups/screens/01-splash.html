@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Optimus Player - Splash Screen</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #000000 0%, #1E1E1E 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden;
+        }
+
+        .phone-frame {
+            width: 375px;
+            height: 812px;
+            background: #000000;
+            border-radius: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.8),
+                        0 0 0 8px #1E1E1E,
+                        0 0 0 12px #000000;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .splash-container {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #000000 0%, #0a0a0a 50%, #1a1a1a 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        /* Animated background particles */
+        .particles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: #FFD700;
+            border-radius: 50%;
+            animation: float 3s infinite ease-in-out;
+            opacity: 0.3;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) translateX(0); opacity: 0; }
+            50% { opacity: 0.6; }
+        }
+
+        /* Logo */
+        .logo {
+            width: 160px;
+            height: 160px;
+            margin-bottom: 32px;
+            animation: scaleIn 0.8s cubic-bezier(0.4, 0.0, 0.2, 1);
+            filter: drop-shadow(0 10px 30px rgba(255, 215, 0, 0.4));
+        }
+
+        .logo svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        @keyframes scaleIn {
+            0% {
+                transform: scale(0);
+                opacity: 0;
+            }
+            60% {
+                transform: scale(1.1);
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        /* Brand Name */
+        .brand-name {
+            font-family: 'Poppins', sans-serif;
+            font-size: 36px;
+            font-weight: 700;
+            color: #FFD700;
+            letter-spacing: 4px;
+            margin-bottom: 8px;
+            animation: fadeInUp 0.8s 0.3s cubic-bezier(0.4, 0.0, 0.2, 1) backwards;
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+        }
+
+        .tagline {
+            font-family: 'Roboto', sans-serif;
+            font-size: 14px;
+            font-weight: 400;
+            color: #CCCCCC;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            animation: fadeInUp 0.8s 0.5s cubic-bezier(0.4, 0.0, 0.2, 1) backwards;
+        }
+
+        @keyframes fadeInUp {
+            0% {
+                transform: translateY(20px);
+                opacity: 0;
+            }
+            100% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        /* Loading Spinner */
+        .loading-container {
+            position: absolute;
+            bottom: 100px;
+            animation: fadeIn 0.8s 0.7s cubic-bezier(0.4, 0.0, 0.2, 1) backwards;
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid rgba(255, 215, 0, 0.2);
+            border-top-color: #FFD700;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Version */
+        .version {
+            position: absolute;
+            bottom: 32px;
+            font-size: 12px;
+            color: #757575;
+            animation: fadeIn 1s 1s backwards;
+        }
+
+        /* Glow pulse effect */
+        @keyframes glowPulse {
+            0%, 100% {
+                box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+            }
+            50% {
+                box-shadow: 0 0 40px rgba(255, 215, 0, 0.6);
+            }
+        }
+
+        .logo {
+            animation: scaleIn 0.8s cubic-bezier(0.4, 0.0, 0.2, 1),
+                       glowPulse 2s 1s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body>
+    <div class="phone-frame">
+        <div class="splash-container">
+            <!-- Animated Particles Background -->
+            <div class="particles" id="particles"></div>
+
+            <!-- Logo -->
+            <div class="logo">
+                <svg width="160" height="176" viewBox="0 0 160 176" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <linearGradient id="hex-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#1a1a1a"/>
+                            <stop offset="100%" style="stop-color:#000000"/>
+                        </linearGradient>
+                        <linearGradient id="lightning-grad3" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#FFD700"/>
+                            <stop offset="50%" style="stop-color:#FFED4E"/>
+                            <stop offset="100%" style="stop-color:#FFC107"/>
+                        </linearGradient>
+                    </defs>
+                    <!-- Hexagon Frame -->
+                    <polygon points="80,24 124,48 124,96 80,120 36,96 36,48" fill="url(#hex-grad)" stroke="#FFD700" stroke-width="2"/>
+                    <polygon points="80,30 118,50 118,90 80,110 42,90 42,50" fill="none" stroke="#FFD700" stroke-width="0.4" opacity="0.4"/>
+
+                    <!-- Tech Lines -->
+                    <line x1="80" y1="24" x2="80" y2="34" stroke="#FFD700" stroke-width="1.6"/>
+                    <line x1="124" y1="48" x2="116" y2="53" stroke="#FFD700" stroke-width="1.6"/>
+                    <line x1="124" y1="96" x2="116" y2="91" stroke="#FFD700" stroke-width="1.6"/>
+                    <line x1="36" y1="48" x2="44" y2="53" stroke="#FFD700" stroke-width="1.6"/>
+                    <line x1="36" y1="96" x2="44" y2="91" stroke="#FFD700" stroke-width="1.6"/>
+
+                    <!-- Lightning Bolt -->
+                    <g>
+                        <path d="M 88 44 L 64 76 L 76 76 L 68 104 L 96 72 L 84 72 L 88 44 Z"
+                              fill="url(#lightning-grad3)"
+                              stroke="#E6B800"
+                              stroke-width="1.2"/>
+                        <path d="M 85 50 L 69 74 L 74 74 L 71 96"
+                              fill="none"
+                              stroke="#FFFFFF"
+                              stroke-width="2"
+                              opacity="0.8"
+                              stroke-linecap="round"/>
+                        <path d="M 90 46 L 66 78 L 78 78 L 70 106 L 98 74 L 86 74 L 90 46 Z"
+                              fill="#000"
+                              opacity="0.3"
+                              transform="translate(1.6, 1.6)"/>
+                    </g>
+
+                    <!-- Play Triangle -->
+                    <path d="M 68 104 L 68 114 L 80 109 Z" fill="#FFD700"/>
+
+                    <!-- Tech Particles -->
+                    <circle cx="56" cy="60" r="1.2" fill="#FFD700" opacity="0.6"/>
+                    <circle cx="104" cy="64" r="1.2" fill="#FFD700" opacity="0.6"/>
+                    <circle cx="60" cy="84" r="1.2" fill="#FFD700" opacity="0.6"/>
+                    <circle cx="100" cy="88" r="1.2" fill="#FFD700" opacity="0.6"/>
+
+                    <!-- Text -->
+                    <text x="80" y="145" font-family="Poppins, sans-serif" font-size="13" font-weight="700" fill="#FFD700" text-anchor="middle" letter-spacing="1.2">OPTIMUS</text>
+                    <text x="80" y="162" font-family="Poppins, sans-serif" font-size="10.5" font-weight="700" fill="#CCC" text-anchor="middle" letter-spacing="2">PLAYER</text>
+                </svg>
+            </div>
+
+            <!-- Brand Name -->
+            <div class="brand-name">OPTIMUS PLAYER</div>
+            <div class="tagline">Premium IPTV Experience</div>
+
+            <!-- Loading Spinner -->
+            <div class="loading-container">
+                <div class="spinner"></div>
+            </div>
+
+            <!-- Version -->
+            <div class="version">v1.0.0</div>
+        </div>
+    </div>
+
+    <script>
+        // Generate random particles
+        const particlesContainer = document.getElementById('particles');
+        for (let i = 0; i < 30; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.top = Math.random() * 100 + '%';
+            particle.style.animationDelay = Math.random() * 3 + 's';
+            particle.style.animationDuration = (2 + Math.random() * 3) + 's';
+            particlesContainer.appendChild(particle);
+        }
+
+        // Simulate loading and redirect (for demo purposes)
+        setTimeout(() => {
+            // window.location.href = '02-activation.html';
+        }, 3000);
+    </script>
+</body>
+</html>

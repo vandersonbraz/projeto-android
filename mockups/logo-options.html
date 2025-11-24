@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Opções de Logo - Optimus Player</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background: #0a0a0a;
+            color: #fff;
+            font-family: 'Poppins', sans-serif;
+            padding: 40px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        h1 {
+            color: #FFD700;
+            text-align: center;
+            margin-bottom: 60px;
+            font-size: 36px;
+        }
+        .options {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+        }
+        .option {
+            background: #121212;
+            border-radius: 16px;
+            padding: 32px;
+            text-align: center;
+            border: 2px solid #1E1E1E;
+            transition: all 0.3s;
+        }
+        .option:hover {
+            border-color: #FFD700;
+            box-shadow: 0 8px 32px rgba(255, 215, 0, 0.3);
+        }
+        .option-title {
+            color: #FFD700;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        .logo-preview {
+            background: #000;
+            padding: 40px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+        }
+        .description {
+            color: #CCC;
+            font-size: 14px;
+            line-height: 1.6;
+            font-family: 'Roboto', sans-serif;
+        }
+        .features {
+            margin-top: 16px;
+            text-align: left;
+            font-size: 12px;
+            color: #999;
+        }
+        .features li {
+            margin: 4px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎨 ESCOLHA SEU LOGO FAVORITO</h1>
+
+        <div class="options">
+            <!-- OPÇÃO 1 -->
+            <div class="option">
+                <div class="option-title">OPÇÃO 1</div>
+                <div class="option-title" style="font-size: 16px; color: #999;">RAIO 3D + ESCUDO</div>
+                <div class="logo-preview">
+                    <svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Escudo de fundo -->
+                        <defs>
+                            <linearGradient id="shield-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+                                <stop offset="0%" style="stop-color:#2a2a2a;stop-opacity:1" />
+                                <stop offset="100%" style="stop-color:#0a0a0a;stop-opacity:1" />
+                            </linearGradient>
+                            <linearGradient id="lightning-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#FFD700;stop-opacity:1" />
+                                <stop offset="50%" style="stop-color:#FFC107;stop-opacity:1" />
+                                <stop offset="100%" style="stop-color:#FFD700;stop-opacity:1" />
+                            </linearGradient>
+                            <filter id="glow">
+                                <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+                                <feMerge>
+                                    <feMergeNode in="coloredBlur"/>
+                                    <feMergeNode in="SourceGraphic"/>
+                                </feMerge>
+                            </filter>
+                        </defs>
+
+                        <!-- Escudo -->
+                        <path d="M 100 20 L 160 50 L 160 120 Q 160 160 100 180 Q 40 160 40 120 L 40 50 Z"
+                              fill="url(#shield-grad)"
+                              stroke="#FFD700"
+                              stroke-width="2"/>
+
+                        <!-- Brilho interno do escudo -->
+                        <path d="M 100 25 L 155 52 L 155 118 Q 155 155 100 173 Q 45 155 45 118 L 45 52 Z"
+                              fill="none"
+                              stroke="#FFD700"
+                              stroke-width="0.5"
+                              opacity="0.3"/>
+
+                        <!-- Raio 3D -->
+                        <g filter="url(#glow)">
+                            <path d="M 110 50 L 80 95 L 95 95 L 85 135 L 120 90 L 105 90 L 110 50 Z"
+                                  fill="url(#lightning-grad)"
+                                  stroke="#E6B800"
+                                  stroke-width="1.5"/>
+
+                            <!-- Brilho do raio -->
+                            <path d="M 105 60 L 85 92 L 93 92 L 88 120"
+                                  fill="none"
+                                  stroke="#FFFFFF"
+                                  stroke-width="2"
+                                  opacity="0.6"
+                                  stroke-linecap="round"/>
+                        </g>
+
+                        <!-- Play integrado -->
+                        <path d="M 85 135 L 85 145 L 98 140 Z"
+                              fill="#FFC107"/>
+
+                        <!-- Texto -->
+                        <text x="100" y="172"
+                              font-family="Poppins, sans-serif"
+                              font-size="14"
+                              font-weight="700"
+                              fill="#FFD700"
+                              text-anchor="middle"
+                              letter-spacing="1.5">OPTIMUS</text>
+                        <text x="100" y="188"
+                              font-family="Poppins, sans-serif"
+                              font-size="11"
+                              font-weight="700"
+                              fill="#CCC"
+                              text-anchor="middle"
+                              letter-spacing="2">PLAYER</text>
+                    </svg>
+                </div>
+                <div class="description">
+                    Logo premium com escudo protetor e raio 3D. Transmite segurança, potência e profissionalismo.
+                </div>
+                <ul class="features">
+                    <li>✓ Escudo com gradiente</li>
+                    <li>✓ Raio com efeito 3D e glow</li>
+                    <li>✓ Brilho interno sofisticado</li>
+                    <li>✓ Texto "OPTIMUS PLAYER"</li>
+                </ul>
+            </div>
+
+            <!-- OPÇÃO 2 -->
+            <div class="option">
+                <div class="option-title">OPÇÃO 2</div>
+                <div class="option-title" style="font-size: 16px; color: #999;">RAIO + ANTENA SIGNAL</div>
+                <div class="logo-preview">
+                    <svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <linearGradient id="lightning-grad2" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#FFD700"/>
+                                <stop offset="100%" style="stop-color:#FFC107"/>
+                            </linearGradient>
+                            <radialGradient id="signal-grad">
+                                <stop offset="0%" style="stop-color:#FFD700;stop-opacity:0.6"/>
+                                <stop offset="100%" style="stop-color:#FFD700;stop-opacity:0"/>
+                            </radialGradient>
+                        </defs>
+
+                        <!-- Círculo de fundo -->
+                        <circle cx="100" cy="90" r="70" fill="#121212" stroke="#FFD700" stroke-width="2"/>
+
+                        <!-- Ondas de sinal (IPTV/Streaming) -->
+                        <circle cx="100" cy="90" r="55" fill="none" stroke="#FFD700" stroke-width="1" opacity="0.3">
+                            <animate attributeName="r" from="45" to="65" dur="2s" repeatCount="indefinite"/>
+                            <animate attributeName="opacity" from="0.6" to="0" dur="2s" repeatCount="indefinite"/>
+                        </circle>
+                        <circle cx="100" cy="90" r="60" fill="none" stroke="#FFD700" stroke-width="1" opacity="0.2">
+                            <animate attributeName="r" from="50" to="70" dur="2s" begin="0.5s" repeatCount="indefinite"/>
+                            <animate attributeName="opacity" from="0.5" to="0" dur="2s" begin="0.5s" repeatCount="indefinite"/>
+                        </circle>
+
+                        <!-- Raio central -->
+                        <g>
+                            <path d="M 108 55 L 83 95 L 98 95 L 88 125 L 118 85 L 103 85 L 108 55 Z"
+                                  fill="url(#lightning-grad2)"
+                                  stroke="#000"
+                                  stroke-width="1.5"/>
+
+                            <!-- Brilho interno -->
+                            <path d="M 103 65 L 88 92 L 96 92 L 91 115"
+                                  fill="none"
+                                  stroke="#FFFFFF"
+                                  stroke-width="2.5"
+                                  opacity="0.7"
+                                  stroke-linecap="round"/>
+                        </g>
+
+                        <!-- Play icon -->
+                        <circle cx="100" cy="135" r="12" fill="#FFD700"/>
+                        <path d="M 97 130 L 97 140 L 106 135 Z" fill="#000"/>
+
+                        <!-- Texto -->
+                        <text x="100" y="168"
+                              font-family="Poppins, sans-serif"
+                              font-size="14"
+                              font-weight="700"
+                              fill="#FFD700"
+                              text-anchor="middle"
+                              letter-spacing="1.5">OPTIMUS</text>
+                        <text x="100" y="184"
+                              font-family="Poppins, sans-serif"
+                              font-size="11"
+                              font-weight="700"
+                              fill="#CCC"
+                              text-anchor="middle"
+                              letter-spacing="2">PLAYER</text>
+                    </svg>
+                </div>
+                <div class="description">
+                    Logo moderno com ondas de sinal animadas. Representa streaming e conexão IPTV em tempo real.
+                </div>
+                <ul class="features">
+                    <li>✓ Ondas de sinal animadas</li>
+                    <li>✓ Raio central poderoso</li>
+                    <li>✓ Play button destacado</li>
+                    <li>✓ Conceito IPTV/Streaming</li>
+                </ul>
+            </div>
+
+            <!-- OPÇÃO 3 -->
+            <div class="option">
+                <div class="option-title">OPÇÃO 3</div>
+                <div class="option-title" style="font-size: 16px; color: #999;">RAIO HEXAGONAL TECH</div>
+                <div class="logo-preview">
+                    <svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <linearGradient id="hex-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#1a1a1a"/>
+                                <stop offset="100%" style="stop-color:#000000"/>
+                            </linearGradient>
+                            <linearGradient id="lightning-grad3" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#FFD700"/>
+                                <stop offset="50%" style="stop-color:#FFED4E"/>
+                                <stop offset="100%" style="stop-color:#FFC107"/>
+                            </linearGradient>
+                        </defs>
+
+                        <!-- Hexágono externo -->
+                        <polygon points="100,30 155,60 155,120 100,150 45,120 45,60"
+                                 fill="url(#hex-grad)"
+                                 stroke="#FFD700"
+                                 stroke-width="2.5"/>
+
+                        <!-- Hexágono interno (linhas tech) -->
+                        <polygon points="100,38 147,63 147,113 100,138 53,113 53,63"
+                                 fill="none"
+                                 stroke="#FFD700"
+                                 stroke-width="0.5"
+                                 opacity="0.4"/>
+
+                        <!-- Linhas de canto tech -->
+                        <line x1="100" y1="30" x2="100" y2="42" stroke="#FFD700" stroke-width="2"/>
+                        <line x1="155" y1="60" x2="145" y2="66" stroke="#FFD700" stroke-width="2"/>
+                        <line x1="155" y1="120" x2="145" y2="114" stroke="#FFD700" stroke-width="2"/>
+                        <line x1="45" y1="60" x2="55" y2="66" stroke="#FFD700" stroke-width="2"/>
+                        <line x1="45" y1="120" x2="55" y2="114" stroke="#FFD700" stroke-width="2"/>
+
+                        <!-- Raio central -->
+                        <g>
+                            <path d="M 110 55 L 80 95 L 95 95 L 85 130 L 120 90 L 105 90 L 110 55 Z"
+                                  fill="url(#lightning-grad3)"
+                                  stroke="#E6B800"
+                                  stroke-width="1.5"/>
+
+                            <!-- Detalhe metálico -->
+                            <path d="M 106 62 L 86 92 L 93 92 L 89 120"
+                                  fill="none"
+                                  stroke="#FFFFFF"
+                                  stroke-width="2.5"
+                                  opacity="0.8"
+                                  stroke-linecap="round"/>
+
+                            <!-- Sombra do raio -->
+                            <path d="M 112 57 L 82 97 L 97 97 L 87 132 L 122 92 L 107 92 L 112 57 Z"
+                                  fill="#000"
+                                  opacity="0.3"
+                                  transform="translate(2, 2)"/>
+                        </g>
+
+                        <!-- Play integrado -->
+                        <path d="M 85 130 L 85 142 L 100 136 Z"
+                              fill="#FFD700"/>
+
+                        <!-- Partículas tech -->
+                        <circle cx="70" cy="75" r="1.5" fill="#FFD700" opacity="0.6"/>
+                        <circle cx="130" cy="80" r="1.5" fill="#FFD700" opacity="0.6"/>
+                        <circle cx="75" cy="105" r="1.5" fill="#FFD700" opacity="0.6"/>
+                        <circle cx="125" cy="110" r="1.5" fill="#FFD700" opacity="0.6"/>
+
+                        <!-- Texto -->
+                        <text x="100" y="168"
+                              font-family="Poppins, sans-serif"
+                              font-size="14"
+                              font-weight="700"
+                              fill="#FFD700"
+                              text-anchor="middle"
+                              letter-spacing="1.5">OPTIMUS</text>
+                        <text x="100" y="184"
+                              font-family="Poppins, sans-serif"
+                              font-size="11"
+                              font-weight="700"
+                              fill="#CCC"
+                              text-anchor="middle"
+                              letter-spacing="2">PLAYER</text>
+                    </svg>
+                </div>
+                <div class="description">
+                    Logo tech/futurista com hexágono. Transmite tecnologia de ponta, inovação e modernidade.
+                </div>
+                <ul class="features">
+                    <li>✓ Hexágono tech futurista</li>
+                    <li>✓ Raio com efeito metálico</li>
+                    <li>✓ Partículas flutuantes</li>
+                    <li>✓ Design inovador e moderno</li>
+                </ul>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 60px; padding: 32px; background: #121212; border-radius: 16px;">
+            <h2 style="color: #FFD700; margin-bottom: 16px;">📝 QUAL VOCÊ PREFERE?</h2>
+            <p style="color: #CCC; font-size: 16px; font-family: 'Roboto', sans-serif;">
+                Me diga: <strong>OPÇÃO 1</strong>, <strong>OPÇÃO 2</strong> ou <strong>OPÇÃO 3</strong>?
+            </p>
+            <p style="color: #999; font-size: 14px; margin-top: 16px; font-family: 'Roboto', sans-serif;">
+                Vou usar o logo escolhido em todos os mockups e na splash screen!
+            </p>
+        </div>
+    </div>
+</body>
+</html>

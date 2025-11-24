@@ -1,0 +1,32 @@
+<svg width="200" height="220" viewBox="0 0 200 220" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<linearGradient id="hex-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+<stop offset="0%" style="stop-color:#1a1a1a"/>
+<stop offset="100%" style="stop-color:#000000"/>
+</linearGradient>
+<linearGradient id="lightning-grad3" x1="0%" y1="0%" x2="100%" y2="100%">
+<stop offset="0%" style="stop-color:#FFD700"/>
+<stop offset="50%" style="stop-color:#FFED4E"/>
+<stop offset="100%" style="stop-color:#FFC107"/>
+</linearGradient>
+</defs>
+<polygon points="100,30 155,60 155,120 100,150 45,120 45,60" fill="url(#hex-grad)" stroke="#FFD700" stroke-width="2.5"/>
+<polygon points="100,38 147,63 147,113 100,138 53,113 53,63" fill="none" stroke="#FFD700" stroke-width="0.5" opacity="0.4"/>
+<line x1="100" y1="30" x2="100" y2="42" stroke="#FFD700" stroke-width="2"/>
+<line x1="155" y1="60" x2="145" y2="66" stroke="#FFD700" stroke-width="2"/>
+<line x1="155" y1="120" x2="145" y2="114" stroke="#FFD700" stroke-width="2"/>
+<line x1="45" y1="60" x2="55" y2="66" stroke="#FFD700" stroke-width="2"/>
+<line x1="45" y1="120" x2="55" y2="114" stroke="#FFD700" stroke-width="2"/>
+<g>
+<path d="M 110 55 L 80 95 L 95 95 L 85 130 L 120 90 L 105 90 L 110 55 Z" fill="url(#lightning-grad3)" stroke="#E6B800" stroke-width="1.5"/>
+<path d="M 106 62 L 86 92 L 93 92 L 89 120" fill="none" stroke="#FFFFFF" stroke-width="2.5" opacity="0.8" stroke-linecap="round"/>
+<path d="M 112 57 L 82 97 L 97 97 L 87 132 L 122 92 L 107 92 L 112 57 Z" fill="#000" opacity="0.3" transform="translate(2, 2)"/>
+</g>
+<path d="M 85 130 L 85 142 L 100 136 Z" fill="#FFD700"/>
+<circle cx="70" cy="75" r="1.5" fill="#FFD700" opacity="0.6"/>
+<circle cx="130" cy="80" r="1.5" fill="#FFD700" opacity="0.6"/>
+<circle cx="75" cy="105" r="1.5" fill="#FFD700" opacity="0.6"/>
+<circle cx="125" cy="110" r="1.5" fill="#FFD700" opacity="0.6"/>
+<text x="100" y="175" font-family="Poppins, sans-serif" font-size="16" font-weight="700" fill="#FFD700" text-anchor="middle" letter-spacing="1.5">OPTIMUS</text>
+<text x="100" y="195" font-family="Poppins, sans-serif" font-size="13" font-weight="700" fill="#CCC" text-anchor="middle" letter-spacing="2.5">PLAYER</text>
+</svg>

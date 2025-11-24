@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html><head><meta charset="UTF-8"><title>Player</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<style>*{margin:0;padding:0}body{background:#000;display:flex;justify-content:center;align-items:center;min-height:100vh;font-family:Roboto}
+.phone{width:375px;height:812px;background:#000;border-radius:40px;overflow:hidden;position:relative}
+.video{width:100%;height:100%;background:linear-gradient(135deg,#1a1a1a,#000);display:flex;align-items:center;justify-content:center;color:#FFD700;font-size:64px}
+.controls{position:absolute;bottom:0;width:100%;background:linear-gradient(180deg,transparent,rgba(0,0,0,0.95));padding:24px;color:#FFF}
+.progress-bar{height:4px;background:#424242;margin-bottom:16px;border-radius:2px}.progress{height:100%;width:30%;background:#FFD700;border-radius:2px}
+.time{display:flex;justify-content:space-between;font-size:12px;color:#CCC;margin-bottom:16px}
+.buttons{display:flex;justify-content:center;align-items:center;gap:32px}.btn{background:none;border:none;color:#FFF;cursor:pointer}.btn.play{color:#FFD700;font-size:56px}
+.bottom{display:flex;justify-content:space-between;margin-top:16px}.info{flex:1}.title{font-size:14px;font-weight:500}.channel{font-size:12px;color:#999}
+.extra{display:flex;gap:16px}</style>
+</head><body>
+<div class="phone">
+<div class="video">▶</div>
+<div class="controls">
+<div class="progress-bar"><div class="progress"></div></div>
+<div class="time"><span>15:30</span><span>45:00</span></div>
+<div class="buttons">
+<span class="material-icons btn">skip_previous</span>
+<span class="material-icons btn" style="font-size:24px">fast_rewind</span>
+<span class="material-icons btn play">play_circle_filled</span>
+<span class="material-icons btn" style="font-size:24px">fast_forward</span>
+<span class="material-icons btn">skip_next</span>
+</div>
+<div class="bottom">
+<div class="info"><div class="title">Jornal Nacional</div><div class="channel">Globo HD</div></div>
+<div class="extra">
+<span class="material-icons btn">volume_up</span>
+<span class="material-icons btn">cast</span>
+<span class="material-icons btn">fullscreen</span>
+</div>
+</div>
+</div>
+</div>
+</body></html>

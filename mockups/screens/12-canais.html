@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canais - Optimus Player</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #000000 0%, #1E1E1E 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden;
+        }
+
+        .phone-frame {
+            width: 375px;
+            height: 812px;
+            background: #000000;
+            border-radius: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.8),
+                        0 0 0 8px #1E1E1E,
+                        0 0 0 12px #000000;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Header */
+        .header {
+            background: #000000;
+            padding: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #1E1E1E;
+        }
+
+        .logo {
+            font-family: 'Poppins', sans-serif;
+            color: #FFD700;
+            font-size: 18px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .header-icons {
+            display: flex;
+            gap: 16px;
+        }
+
+        .icon-btn {
+            color: #757575;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .icon-btn:hover {
+            color: #FFD700;
+        }
+
+        .icon-btn.active {
+            color: #FFD700;
+        }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            background: #000000;
+            border-bottom: 1px solid #1E1E1E;
+        }
+
+        .tab {
+            flex: 1;
+            padding: 12px;
+            text-align: center;
+            color: #757575;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.2s;
+            border-bottom: 2px solid transparent;
+        }
+
+        .tab.active {
+            color: #FFD700;
+            border-bottom-color: #FFD700;
+        }
+
+        /* Content */
+        .content {
+            height: calc(812px - 160px);
+            overflow-y: auto;
+            background: #000000;
+        }
+
+        /* Search Bar */
+        .search-container {
+            padding: 16px;
+            background: #000000;
+            border-bottom: 1px solid #1E1E1E;
+        }
+
+        .search-bar {
+            display: flex;
+            align-items: center;
+            background: #121212;
+            border-radius: 24px;
+            padding: 10px 16px;
+            gap: 12px;
+            border: 1px solid #1E1E1E;
+        }
+
+        .search-bar .material-icons {
+            color: #757575;
+            font-size: 20px;
+        }
+
+        .search-input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            color: #FFFFFF;
+            font-size: 14px;
+            outline: none;
+        }
+
+        .search-input::placeholder {
+            color: #757575;
+        }
+
+        /* Categories */
+        .categories {
+            padding: 16px 0;
+            background: #000000;
+            border-bottom: 1px solid #1E1E1E;
+        }
+
+        .categories-scroll {
+            display: flex;
+            gap: 8px;
+            padding: 0 16px;
+            overflow-x: auto;
+            scrollbar-width: none;
+        }
+
+        .categories-scroll::-webkit-scrollbar {
+            display: none;
+        }
+
+        .category-chip {
+            padding: 8px 16px;
+            background: #121212;
+            border: 1px solid #1E1E1E;
+            border-radius: 20px;
+            color: #FFFFFF;
+            font-size: 13px;
+            white-space: nowrap;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .category-chip .material-icons {
+            font-size: 16px;
+        }
+
+        .category-chip:hover,
+        .category-chip.active {
+            background: #FFD700;
+            color: #000000;
+            border-color: #FFD700;
+        }
+
+        /* Section */
+        .section {
+            padding: 20px 16px;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .section-title {
+            color: #FFFFFF;
+            font-size: 16px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .section-title .material-icons {
+            color: #FFD700;
+            font-size: 20px;
+        }
+
+        .channel-count {
+            color: #757575;
+            font-size: 12px;
+        }
+
+        /* Channel Grid */
+        .channel-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        /* Channel Card */
+        .channel-card {
+            background: #121212;
+            border-radius: 12px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 1px solid #1E1E1E;
+            position: relative;
+        }
+
+        .channel-card:hover {
+            transform: translateY(-4px);
+            border-color: #FFD700;
+            box-shadow: 0 8px 24px rgba(255, 215, 0, 0.2);
+        }
+
+        .channel-thumbnail {
+            width: 100%;
+            height: 100px;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .channel-icon {
+            font-size: 36px;
+            transition: transform 0.2s;
+        }
+
+        .channel-card:hover .channel-icon {
+            transform: scale(1.1);
+        }
+
+        .live-badge {
+            position: absolute;
+            top: 8px;
+            left: 8px;
+            background: #FF0000;
+            color: #FFFFFF;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .live-badge::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            background: #FFFFFF;
+            border-radius: 50%;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        .favorite-channel-btn {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background: rgba(0, 0, 0, 0.8);
+            color: #757575;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: none;
+            z-index: 10;
+        }
+
+        .favorite-channel-btn:hover,
+        .favorite-channel-btn.active {
+            color: #FFD700;
+            background: rgba(255, 215, 0, 0.2);
+        }
+
+        .favorite-channel-btn .material-icons {
+            font-size: 16px;
+        }
+
+        .channel-info {
+            padding: 12px;
+        }
+
+        .channel-name {
+            color: #FFFFFF;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 4px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .channel-category {
+            color: #757575;
+            font-size: 12px;
+            margin-bottom: 6px;
+        }
+
+        .now-playing {
+            color: #FFD700;
+            font-size: 11px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            margin-top: 6px;
+            padding-top: 6px;
+            border-top: 1px solid #1E1E1E;
+        }
+
+        .now-playing .material-icons {
+            font-size: 14px;
+        }
+
+        .program-title {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        /* Favorites Section */
+        .favorites-section {
+            background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%);
+            padding: 20px 16px;
+            margin-bottom: 8px;
+        }
+
+        .favorites-empty {
+            text-align: center;
+            padding: 32px 16px;
+        }
+
+        .favorites-empty .material-icons {
+            font-size: 48px;
+            color: #757575;
+            margin-bottom: 12px;
+        }
+
+        .favorites-empty-text {
+            color: #757575;
+            font-size: 14px;
+        }
+
+        /* Bottom Navigation */
+        .nav {
+            background: #000000;
+            border-top: 1px solid #1E1E1E;
+            display: flex;
+            padding: 8px 0;
+        }
+
+        .nav-item {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            color: #757575;
+            font-size: 11px;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .nav-item.active {
+            color: #FFD700;
+        }
+
+        .nav-item .material-icons {
+            font-size: 24px;
+        }
+    </style>
+</head>
+<body>
+    <div class="phone-frame">
+        <!-- Header -->
+        <div class="header">
+            <div class="logo">OPTIMUS PLAYER</div>
+            <div class="header-icons">
+                <span class="material-icons icon-btn">search</span>
+                <span class="material-icons icon-btn active">favorite</span>
+                <span class="material-icons icon-btn">cast</span>
+            </div>
+        </div>
+
+        <!-- Tabs -->
+        <div class="tabs">
+            <div class="tab active">Canais</div>
+            <div class="tab">Filmes</div>
+            <div class="tab">Séries</div>
+        </div>
+
+        <!-- Content -->
+        <div class="content">
+            <!-- Search Bar -->
+            <div class="search-container">
+                <div class="search-bar">
+                    <span class="material-icons">search</span>
+                    <input type="text" class="search-input" placeholder="Buscar canais...">
+                </div>
+            </div>
+
+            <!-- Categories -->
+            <div class="categories">
+                <div class="categories-scroll">
+                    <div class="category-chip active">
+                        <span class="material-icons">apps</span>
+                        Todos
+                    </div>
+                    <div class="category-chip">
+                        <span class="material-icons">tv</span>
+                        Abertos
+                    </div>
+                    <div class="category-chip">
+                        <span class="material-icons">sports_soccer</span>
+                        Esportes
+                    </div>
+                    <div class="category-chip">
+                        <span class="material-icons">movie</span>
+                        Filmes
+                    </div>
+                    <div class="category-chip">
+                        <span class="material-icons">article</span>
+                        Notícias
+                    </div>
+                    <div class="category-chip">
+                        <span class="material-icons">music_note</span>
+                        Música
+                    </div>
+                    <div class="category-chip">
+                        <span class="material-icons">child_care</span>
+                        Infantil
+                    </div>
+                </div>
+            </div>
+
+            <!-- Favorites Section -->
+            <div class="favorites-section">
+                <div class="section-header">
+                    <div class="section-title">
+                        <span class="material-icons">favorite</span>
+                        Meus Favoritos
+                    </div>
+                    <div class="channel-count">2 canais</div>
+                </div>
+                <div class="channel-grid">
+                    <div class="channel-card">
+                        <div class="channel-thumbnail">
+                            <div class="channel-icon">📺</div>
+                            <div class="live-badge">AO VIVO</div>
+                            <button class="favorite-channel-btn active">
+                                <span class="material-icons">favorite</span>
+                            </button>
+                        </div>
+                        <div class="channel-info">
+                            <div class="channel-name">Globo HD</div>
+                            <div class="channel-category">Abertos</div>
+                            <div class="now-playing">
+                                <span class="material-icons">play_circle</span>
+                                <span class="program-title">Jornal Nacional</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="channel-card">
+                        <div class="channel-thumbnail">
+                            <div class="channel-icon">⚽</div>
+                            <div class="live-badge">AO VIVO</div>
+                            <button class="favorite-channel-btn active">
+                                <span class="material-icons">favorite</span>
+                            </button>
+                        </div>
+                        <div class="channel-info">
+                            <div class="channel-name">ESPN Brasil</div>
+                            <div class="channel-category">Esportes</div>
+                            <div class="now-playing">
+                                <span class="material-icons">play_circle</span>
+                                <span class="program-title">Campeonato Brasileiro</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Abertos Section -->
+            <div class="section">
+                <div class="section-header">
+                    <div class="section-title">
+                        <span class="material-icons">tv</span>
+                        Canais Abertos
+                    </div>
+                    <div class="channel-count">8 canais</div>
+                </div>
+                <div class="channel-grid">
+                    <div class="channel-card">
+                        <div class="channel-thumbnail">
+                            <div class="channel-icon">📺</div>
+                            <div class="live-badge">AO VIVO</div>
+                            <button class="favorite-channel-btn active">
+                                <span class="material-icons">favorite</span>
+                            </button>
+                        </div>
+                        <div class="channel-info">
+                            <div class="channel-name">Globo HD</div>
+                            <div class="channel-category">Abertos</div>
+                            <div class="now-playing">
+                                <span class="material-icons">play_circle</span>
+                                <span class="program-title">Jornal Nacional</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="channel-card">
+                        <div class="channel-thumbnail">
+                            <div class="channel-icon">📡</div>
+                            <div class="live-badge">AO VIVO</div>
+                            <button class="favorite-channel-btn">
+                                <span class="material-icons">favorite_border</span>
+                            </button>
+                        </div>
+                        <div class="channel-info">
+                            <div class="channel-name">SBT HD</div>
+                            <div class="channel-category">Abertos</div>
+                            <div class="now-playing">
+                                <span class="material-icons">play_circle</span>
+                                <span class="program-title">Programa do Ratinho</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="channel-card">
+                        <div class="channel-thumbnail">
+                            <div class="channel-icon">🎭</div>
+                            <div class="live-badge">AO VIVO</div>
+                            <button class="favorite-channel-btn">
+                                <span class="material-icons">favorite_border</span>
+                            </button>
+                        </div>
+                        <div class="channel-info">
+                            <div class="channel-name">Record HD</div>
+                            <div class="channel-category">Abertos</div>
+                            <div class="now-playing">
+                                <span class="material-icons">play_circle</span>
+                                <span class="program-title">Cidade Alerta</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="channel-card">
+                        <div class="channel-thumbnail">
+                            <div class="channel-icon">🎬</div>
+                            <div class="live-badge">AO VIVO</div>
+                            <button class="favorite-channel-btn">
+                                <span class="material-icons">favorite_border</span>
+                            </button>
+                        </div>
+                        <div class="channel-info">
+                            <div class="channel-name">Band HD</div>
+                            <div class="channel-category">Abertos</div>
+                            <div class="now-playing">
+                                <span class="material-icons">play_circle</span>
+                                <span class="program-title">MasterChef Brasil</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Esportes Section -->
+            <div class="section">
+                <div class="section-header">
+                    <div class="section-title">
+                        <span class="material-icons">sports_soccer</span>
+                        Esportes
+                    </div>
+                    <div class="channel-count">6 canais</div>
+                </div>
+                <div class="channel-grid">
+                    <div class="channel-card">
+                        <div class="channel-thumbnail">
+                            <div class="channel-icon">⚽</div>
+                            <div class="live-badge">AO VIVO</div>
+                            <button class="favorite-channel-btn active">
+                                <span class="material-icons">favorite</span>
+                            </button>
+                        </div>
+                        <div class="channel-info">
+                            <div class="channel-name">ESPN Brasil</div>
+                            <div class="channel-category">Esportes</div>
+                            <div class="now-playing">
+                                <span class="material-icons">play_circle</span>
+                                <span class="program-title">Campeonato Brasileiro</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="channel-card">
+                        <div class="channel-thumbnail">
+                            <div class="channel-icon">🏆</div>
+                            <div class="live-badge">AO VIVO</div>
+                            <button class="favorite-channel-btn">
+                                <span class="material-icons">favorite_border</span>
+                            </button>
+                        </div>
+                        <div class="channel-info">
+                            <div class="channel-name">SporTV</div>
+                            <div class="channel-category">Esportes</div>
+                            <div class="now-playing">
+                                <span class="material-icons">play_circle</span>
+                                <span class="program-title">UEFA Champions League</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="channel-card">
+                        <div class="channel-thumbnail">
+                            <div class="channel-icon">🏀</div>
+                            <div class="live-badge">AO VIVO</div>
+                            <button class="favorite-channel-btn">
+                                <span class="material-icons">favorite_border</span>
+                            </button>
+                        </div>
+                        <div class="channel-info">
+                            <div class="channel-name">Fox Sports</div>
+                            <div class="channel-category">Esportes</div>
+                            <div class="now-playing">
+                                <span class="material-icons">play_circle</span>
+                                <span class="program-title">NBA Highlights</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="channel-card">
+                        <div class="channel-thumbnail">
+                            <div class="channel-icon">🏁</div>
+                            <button class="favorite-channel-btn">
+                                <span class="material-icons">favorite_border</span>
+                            </button>
+                        </div>
+                        <div class="channel-info">
+                            <div class="channel-name">Band Sports</div>
+                            <div class="channel-category">Esportes</div>
+                            <div class="now-playing">
+                                <span class="material-icons">play_circle</span>
+                                <span class="program-title">Fórmula 1 Debate</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom Navigation -->
+        <div class="nav">
+            <div class="nav-item active">
+                <span class="material-icons">home</span>
+                Início
+            </div>
+            <div class="nav-item">
+                <span class="material-icons">schedule</span>
+                EPG
+            </div>
+            <div class="nav-item">
+                <span class="material-icons">router</span>
+                MAC
+            </div>
+            <div class="nav-item">
+                <span class="material-icons">settings</span>
+                Config
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Toggle favorite
+        document.querySelectorAll('.favorite-channel-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                btn.classList.toggle('active');
+                const icon = btn.querySelector('.material-icons');
+                icon.textContent = btn.classList.contains('active') ? 'favorite' : 'favorite_border';
+            });
+        });
+
+        // Category selection
+        document.querySelectorAll('.category-chip').forEach(chip => {
+            chip.addEventListener('click', () => {
+                document.querySelectorAll('.category-chip').forEach(c => c.classList.remove('active'));
+                chip.classList.add('active');
+            });
+        });
+
+        // Search functionality
+        const searchInput = document.querySelector('.search-input');
+        searchInput.addEventListener('input', (e) => {
+            const query = e.target.value.toLowerCase();
+            document.querySelectorAll('.channel-card').forEach(card => {
+                const name = card.querySelector('.channel-name').textContent.toLowerCase();
+                card.style.display = name.includes(query) ? 'block' : 'none';
+            });
+        });
+    </script>
+</body>
+</html>

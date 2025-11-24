@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Séries - Optimus Player</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #000000 0%, #1E1E1E 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden;
+        }
+
+        .phone-frame {
+            width: 375px;
+            height: 812px;
+            background: #000000;
+            border-radius: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.8),
+                        0 0 0 8px #1E1E1E,
+                        0 0 0 12px #000000;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Header */
+        .header {
+            background: #000000;
+            padding: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #1E1E1E;
+        }
+
+        .logo {
+            font-family: 'Poppins', sans-serif;
+            color: #FFD700;
+            font-size: 18px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .header-icons {
+            display: flex;
+            gap: 16px;
+        }
+
+        .icon-btn {
+            color: #757575;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .icon-btn:hover {
+            color: #FFD700;
+        }
+
+        .icon-btn.active {
+            color: #FFD700;
+        }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            background: #000000;
+            border-bottom: 1px solid #1E1E1E;
+        }
+
+        .tab {
+            flex: 1;
+            padding: 12px;
+            text-align: center;
+            color: #757575;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.2s;
+            border-bottom: 2px solid transparent;
+        }
+
+        .tab.active {
+            color: #FFD700;
+            border-bottom-color: #FFD700;
+        }
+
+        /* Content */
+        .content {
+            height: calc(812px - 160px);
+            overflow-y: auto;
+            background: #000000;
+        }
+
+        /* Search Bar */
+        .search-container {
+            padding: 16px;
+            background: #000000;
+            border-bottom: 1px solid #1E1E1E;
+        }
+
+        .search-bar {
+            display: flex;
+            align-items: center;
+            background: #121212;
+            border-radius: 24px;
+            padding: 10px 16px;
+            gap: 12px;
+            border: 1px solid #1E1E1E;
+        }
+
+        .search-bar .material-icons {
+            color: #757575;
+            font-size: 20px;
+        }
+
+        .search-input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            color: #FFFFFF;
+            font-size: 14px;
+            outline: none;
+        }
+
+        .search-input::placeholder {
+            color: #757575;
+        }
+
+        /* Categories */
+        .categories {
+            padding: 16px 0;
+            background: #000000;
+            border-bottom: 1px solid #1E1E1E;
+        }
+
+        .categories-scroll {
+            display: flex;
+            gap: 8px;
+            padding: 0 16px;
+            overflow-x: auto;
+            scrollbar-width: none;
+        }
+
+        .categories-scroll::-webkit-scrollbar {
+            display: none;
+        }
+
+        .category-chip {
+            padding: 8px 16px;
+            background: #121212;
+            border: 1px solid #1E1E1E;
+            border-radius: 20px;
+            color: #FFFFFF;
+            font-size: 13px;
+            white-space: nowrap;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .category-chip:hover,
+        .category-chip.active {
+            background: #FFD700;
+            color: #000000;
+            border-color: #FFD700;
+        }
+
+        /* Section */
+        .section {
+            padding: 24px 16px;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .section-title {
+            color: #FFFFFF;
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .see-all {
+            color: #FFD700;
+            font-size: 13px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .see-all .material-icons {
+            font-size: 16px;
+        }
+
+        /* Series Scroll */
+        .series-scroll {
+            display: flex;
+            gap: 12px;
+            overflow-x: auto;
+            scrollbar-width: none;
+            padding-bottom: 8px;
+        }
+
+        .series-scroll::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* Series Card */
+        .series-card {
+            min-width: 110px;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .series-poster {
+            width: 110px;
+            height: 160px;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
+            border-radius: 8px;
+            margin-bottom: 8px;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid #1E1E1E;
+            transition: transform 0.2s;
+        }
+
+        .series-card:hover .series-poster {
+            transform: scale(1.05);
+        }
+
+        .series-poster-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.8) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .play-overlay {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 215, 0, 0.9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+
+        .series-card:hover .play-overlay {
+            opacity: 1;
+        }
+
+        .play-overlay .material-icons {
+            color: #000000;
+            font-size: 24px;
+        }
+
+        .series-rating {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background: rgba(0, 0, 0, 0.8);
+            color: #FFD700;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 2px;
+        }
+
+        .series-rating .material-icons {
+            font-size: 12px;
+        }
+
+        .favorite-btn {
+            position: absolute;
+            top: 8px;
+            left: 8px;
+            background: rgba(0, 0, 0, 0.8);
+            color: #757575;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: none;
+        }
+
+        .favorite-btn:hover,
+        .favorite-btn.active {
+            color: #FFD700;
+            background: rgba(255, 215, 0, 0.2);
+        }
+
+        .favorite-btn .material-icons {
+            font-size: 18px;
+        }
+
+        .series-info {
+            padding: 0 4px;
+        }
+
+        .series-title {
+            color: #FFFFFF;
+            font-size: 13px;
+            font-weight: 500;
+            margin-bottom: 4px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .series-meta {
+            color: #757575;
+            font-size: 11px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .series-year {
+            color: #757575;
+        }
+
+        .series-seasons {
+            display: flex;
+            align-items: center;
+            gap: 2px;
+        }
+
+        /* Series Grid */
+        .series-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+        }
+
+        /* Episode Badge */
+        .episode-badge {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.9);
+            color: #FFD700;
+            font-size: 10px;
+            font-weight: 600;
+            text-align: center;
+            padding: 6px 4px;
+            line-height: 1.2;
+        }
+
+        .episode-number {
+            color: #FFFFFF;
+            font-size: 9px;
+        }
+
+        .progress-bar {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 3px;
+            background: #FFD700;
+            transition: width 0.3s;
+        }
+
+        /* New Episodes Badge */
+        .new-badge {
+            position: absolute;
+            top: 8px;
+            left: 8px;
+            background: #FF0000;
+            color: #FFFFFF;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        /* Bottom Navigation */
+        .nav {
+            background: #000000;
+            border-top: 1px solid #1E1E1E;
+            display: flex;
+            padding: 8px 0;
+        }
+
+        .nav-item {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            color: #757575;
+            font-size: 11px;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .nav-item.active {
+            color: #FFD700;
+        }
+
+        .nav-item .material-icons {
+            font-size: 24px;
+        }
+    </style>
+</head>
+<body>
+    <div class="phone-frame">
+        <!-- Header -->
+        <div class="header">
+            <div class="logo">OPTIMUS PLAYER</div>
+            <div class="header-icons">
+                <span class="material-icons icon-btn">search</span>
+                <span class="material-icons icon-btn">favorite_border</span>
+                <span class="material-icons icon-btn">cast</span>
+            </div>
+        </div>
+
+        <!-- Tabs -->
+        <div class="tabs">
+            <div class="tab">Canais</div>
+            <div class="tab">Filmes</div>
+            <div class="tab active">Séries</div>
+        </div>
+
+        <!-- Content -->
+        <div class="content">
+            <!-- Search Bar -->
+            <div class="search-container">
+                <div class="search-bar">
+                    <span class="material-icons">search</span>
+                    <input type="text" class="search-input" placeholder="Buscar séries...">
+                </div>
+            </div>
+
+            <!-- Categories -->
+            <div class="categories">
+                <div class="categories-scroll">
+                    <div class="category-chip active">Todas</div>
+                    <div class="category-chip">Drama</div>
+                    <div class="category-chip">Comédia</div>
+                    <div class="category-chip">Ação</div>
+                    <div class="category-chip">Suspense</div>
+                    <div class="category-chip">Ficção</div>
+                    <div class="category-chip">Crime</div>
+                    <div class="category-chip">Fantasia</div>
+                </div>
+            </div>
+
+            <!-- Continue Watching -->
+            <div class="section">
+                <div class="section-header">
+                    <div class="section-title">Continuar Assistindo</div>
+                    <div class="see-all">
+                        Ver tudo
+                        <span class="material-icons">chevron_right</span>
+                    </div>
+                </div>
+                <div class="series-scroll">
+                    <div class="series-card">
+                        <div class="series-poster">
+                            <button class="favorite-btn active">
+                                <span class="material-icons">favorite</span>
+                            </button>
+                            <div class="series-rating">
+                                <span class="material-icons">star</span>
+                                9.3
+                            </div>
+                            <div class="progress-bar" style="width: 60%"></div>
+                            <div class="episode-badge">
+                                <div>T3 • EP 5</div>
+                                <div class="episode-number">Breaking Bad</div>
+                            </div>
+                            <div class="series-poster-overlay">
+                                <div class="play-overlay">
+                                    <span class="material-icons">play_arrow</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="series-info">
+                            <div class="series-title">Breaking Bad</div>
+                            <div class="series-meta">
+                                <span class="series-year">2008</span>
+                                <span>•</span>
+                                <span class="series-seasons">5 temporadas</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="series-card">
+                        <div class="series-poster">
+                            <button class="favorite-btn active">
+                                <span class="material-icons">favorite</span>
+                            </button>
+                            <div class="series-rating">
+                                <span class="material-icons">star</span>
+                                8.7
+                            </div>
+                            <div class="progress-bar" style="width: 35%"></div>
+                            <div class="episode-badge">
+                                <div>T2 • EP 3</div>
+                                <div class="episode-number">The Last of Us</div>
+                            </div>
+                            <div class="series-poster-overlay">
+                                <div class="play-overlay">
+                                    <span class="material-icons">play_arrow</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="series-info">
+                            <div class="series-title">The Last of Us</div>
+                            <div class="series-meta">
+                                <span class="series-year">2023</span>
+                                <span>•</span>
+                                <span class="series-seasons">2 temporadas</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="series-card">
+                        <div class="series-poster">
+                            <button class="favorite-btn">
+                                <span class="material-icons">favorite_border</span>
+                            </button>
+                            <div class="series-rating">
+                                <span class="material-icons">star</span>
+                                8.9
+                            </div>
+                            <div class="progress-bar" style="width: 80%"></div>
+                            <div class="episode-badge">
+                                <div>T1 • EP 8</div>
+                                <div class="episode-number">The Bear</div>
+                            </div>
+                            <div class="series-poster-overlay">
+                                <div class="play-overlay">
+                                    <span class="material-icons">play_arrow</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="series-info">
+                            <div class="series-title">The Bear</div>
+                            <div class="series-meta">
+                                <span class="series-year">2022</span>
+                                <span>•</span>
+                                <span class="series-seasons">3 temporadas</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Popular Series -->
+            <div class="section">
+                <div class="section-header">
+                    <div class="section-title">Em Alta</div>
+                    <div class="see-all">
+                        Ver tudo
+                        <span class="material-icons">chevron_right</span>
+                    </div>
+                </div>
+                <div class="series-grid">
+                    <div class="series-card">
+                        <div class="series-poster">
+                            <div class="new-badge">NOVO</div>
+                            <button class="favorite-btn">
+                                <span class="material-icons">favorite_border</span>
+                            </button>
+                            <div class="series-rating">
+                                <span class="material-icons">star</span>
+                                8.8
+                            </div>
+                            <div class="series-poster-overlay">
+                                <div class="play-overlay">
+                                    <span class="material-icons">play_arrow</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="series-info">
+                            <div class="series-title">Stranger Things</div>
+                            <div class="series-meta">
+                                <span class="series-year">2016</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="series-card">
+                        <div class="series-poster">
+                            <button class="favorite-btn active">
+                                <span class="material-icons">favorite</span>
+                            </button>
+                            <div class="series-rating">
+                                <span class="material-icons">star</span>
+                                9.5
+                            </div>
+                            <div class="series-poster-overlay">
+                                <div class="play-overlay">
+                                    <span class="material-icons">play_arrow</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="series-info">
+                            <div class="series-title">Game of Thrones</div>
+                            <div class="series-meta">
+                                <span class="series-year">2011</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="series-card">
+                        <div class="series-poster">
+                            <button class="favorite-btn">
+                                <span class="material-icons">favorite_border</span>
+                            </button>
+                            <div class="series-rating">
+                                <span class="material-icons">star</span>
+                                8.5
+                            </div>
+                            <div class="series-poster-overlay">
+                                <div class="play-overlay">
+                                    <span class="material-icons">play_arrow</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="series-info">
+                            <div class="series-title">The Crown</div>
+                            <div class="series-meta">
+                                <span class="series-year">2016</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="series-card">
+                        <div class="series-poster">
+                            <div class="new-badge">NOVO</div>
+                            <button class="favorite-btn">
+                                <span class="material-icons">favorite_border</span>
+                            </button>
+                            <div class="series-rating">
+                                <span class="material-icons">star</span>
+                                9.1
+                            </div>
+                            <div class="series-poster-overlay">
+                                <div class="play-overlay">
+                                    <span class="material-icons">play_arrow</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="series-info">
+                            <div class="series-title">Succession</div>
+                            <div class="series-meta">
+                                <span class="series-year">2018</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="series-card">
+                        <div class="series-poster">
+                            <button class="favorite-btn">
+                                <span class="material-icons">favorite_border</span>
+                            </button>
+                            <div class="series-rating">
+                                <span class="material-icons">star</span>
+                                8.3
+                            </div>
+                            <div class="series-poster-overlay">
+                                <div class="play-overlay">
+                                    <span class="material-icons">play_arrow</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="series-info">
+                            <div class="series-title">Wednesday</div>
+                            <div class="series-meta">
+                                <span class="series-year">2022</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="series-card">
+                        <div class="series-poster">
+                            <button class="favorite-btn active">
+                                <span class="material-icons">favorite</span>
+                            </button>
+                            <div class="series-rating">
+                                <span class="material-icons">star</span>
+                                8.9
+                            </div>
+                            <div class="series-poster-overlay">
+                                <div class="play-overlay">
+                                    <span class="material-icons">play_arrow</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="series-info">
+                            <div class="series-title">The Witcher</div>
+                            <div class="series-meta">
+                                <span class="series-year">2019</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom Navigation -->
+        <div class="nav">
+            <div class="nav-item active">
+                <span class="material-icons">home</span>
+                Início
+            </div>
+            <div class="nav-item">
+                <span class="material-icons">schedule</span>
+                EPG
+            </div>
+            <div class="nav-item">
+                <span class="material-icons">router</span>
+                MAC
+            </div>
+            <div class="nav-item">
+                <span class="material-icons">settings</span>
+                Config
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Toggle favorite
+        document.querySelectorAll('.favorite-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                btn.classList.toggle('active');
+                const icon = btn.querySelector('.material-icons');
+                icon.textContent = btn.classList.contains('active') ? 'favorite' : 'favorite_border';
+            });
+        });
+
+        // Category selection
+        document.querySelectorAll('.category-chip').forEach(chip => {
+            chip.addEventListener('click', () => {
+                document.querySelectorAll('.category-chip').forEach(c => c.classList.remove('active'));
+                chip.classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>

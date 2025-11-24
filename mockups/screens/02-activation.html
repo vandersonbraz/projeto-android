@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Optimus Player - Ativação</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Roboto', sans-serif; background: #0a0a0a; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+        .phone { width: 375px; height: 812px; background: #000; border-radius: 40px; box-shadow: 0 20px 60px rgba(0,0,0,0.9); overflow: hidden; }
+        .content { padding: 48px 24px; height: 100%; background: linear-gradient(180deg, #000 0%, #121212 100%); }
+        .logo-small { width: 60px; height: 60px; margin: 0 auto 16px; }
+        h1 { font-family: 'Poppins', sans-serif; font-size: 28px; color: #FFD700; text-align: center; margin-bottom: 8px; }
+        .subtitle { text-align: center; color: #CCCCCC; font-size: 14px; margin-bottom: 48px; }
+        .info-card { background: #1E1E1E; border-radius: 12px; padding: 20px; margin-bottom: 16px; border: 1px solid #2a2a2a; }
+        .info-label { color: #757575; font-size: 12px; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 1px; }
+        .info-value { color: #FFFFFF; font-size: 16px; font-weight: 500; display: flex; align-items: center; gap: 8px; }
+        .copy-btn { background: none; border: none; color: #FFD700; cursor: pointer; padding: 4px; }
+        .input-group { margin: 32px 0; }
+        .input-label { color: #FFFFFF; font-size: 14px; margin-bottom: 8px; display: block; }
+        input { width: 100%; background: #1E1E1E; border: 1px solid #424242; border-radius: 8px; padding: 14px; color: #FFF; font-size: 16px; }
+        input:focus { outline: none; border-color: #FFD700; box-shadow: 0 0 0 2px rgba(255,215,0,0.2); }
+        .btn-primary { width: 100%; background: linear-gradient(90deg, #FFD700, #FFC107); color: #000; border: none; padding: 16px; border-radius: 8px; font-size: 16px; font-weight: 700; cursor: pointer; margin-top: 24px; }
+        .btn-primary:active { transform: scale(0.98); }
+        .help-text { text-align: center; color: #757575; font-size: 12px; margin-top: 16px; }
+    </style>
+</head>
+<body>
+    <div class="phone">
+        <div class="content">
+            <div class="logo-small">
+                <svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <linearGradient id="hex-grad-small" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#FFD700"/>
+                            <stop offset="100%" style="stop-color:#FFC107"/>
+                        </linearGradient>
+                    </defs>
+                    <polygon points="30,8 46,18 46,38 30,48 14,38 14,18" fill="none" stroke="#FFD700" stroke-width="1.5"/>
+                    <path d="M 33 12 L 24 28 L 28 28 L 25 40 L 36 24 L 32 24 L 33 12 Z" fill="url(#hex-grad-small)"/>
+                </svg>
+            </div>
+            <h1>Ativar Licença</h1>
+            <p class="subtitle">Optimus Player - Digite o código do seu provedor</p>
+
+            <div class="info-card">
+                <div class="info-label">MAC Address</div>
+                <div class="info-value">
+                    AA:BB:CC:DD:EE:FF
+                    <button class="copy-btn"><span class="material-icons" style="font-size:18px">content_copy</span></button>
+                </div>
+            </div>
+
+            <div class="info-card">
+                <div class="info-label">Device ID</div>
+                <div class="info-value">
+                    android-a1b2c3d4e5f6
+                    <button class="copy-btn"><span class="material-icons" style="font-size:18px">content_copy</span></button>
+                </div>
+            </div>
+
+            <div class="input-group">
+                <label class="input-label">Código de Ativação</label>
+                <input type="text" placeholder="XXXX-XXXX-XXXX" maxlength="14">
+            </div>
+
+            <button class="btn-primary">Ativar Licença</button>
+
+            <p class="help-text">Entre em contato com seu provedor se não tiver um código</p>
+        </div>
+    </div>
+</body>
+</html>
