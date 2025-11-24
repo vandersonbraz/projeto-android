@@ -61,7 +61,7 @@ class SplashActivity : AppCompatActivity() {
         val adRequest = AdRequest.Builder().build()
         AppOpenAd.load(
             this,
-            "ca-app-pub-3940256099942544/9257395921", // Test ID do App Open
+            "ca-app-pub-5255274256204364/1644728500", // ID de produção - Abertura do app
             adRequest,
             AppOpenAd.APP_OPEN_AD_ORIENTATION_PORTRAIT,
             object : AppOpenAd.AppOpenAdLoadCallback() {

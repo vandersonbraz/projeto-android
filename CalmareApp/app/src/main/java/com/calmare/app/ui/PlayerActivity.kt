@@ -617,7 +617,7 @@ class PlayerActivity : AppCompatActivity() {
         val adRequest = AdRequest.Builder().build()
         RewardedInterstitialAd.load(
             this,
-            "ca-app-pub-3940256099942544/5354046379",  // Test ID do rewarded intersticial
+            "ca-app-pub-5255274256204364/7974349040",  // ID de produção - Intersticial premiado
             adRequest,
             object : RewardedInterstitialAdLoadCallback() {
                 override fun onAdLoaded(ad: RewardedInterstitialAd) {
@@ -634,7 +634,7 @@ class PlayerActivity : AppCompatActivity() {
         val adRequest = AdRequest.Builder().build()
         RewardedAd.load(
             this,
-            "ca-app-pub-3940256099942544/5224354917",  // Test ID do rewarded
+            "ca-app-pub-5255274256204364/5500213038",  // ID de produção - Premiado
             adRequest,
             object : RewardedAdLoadCallback() {
                 override fun onAdLoaded(ad: RewardedAd) {
