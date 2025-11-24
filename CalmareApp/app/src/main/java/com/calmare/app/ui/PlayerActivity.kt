@@ -93,6 +93,9 @@ class PlayerActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_player)
 
+        // Configura botões de volume do dispositivo para controlar o áudio da música
+        volumeControlStream = AudioManager.STREAM_MUSIC
+
         billingManager = BillingManager(this, lifecycleScope)
         preferencesManager = PreferencesManager(this)
 
@@ -445,6 +448,7 @@ class PlayerActivity : AppCompatActivity() {
                 }
 
                 isLooping = false  // Começa DESATIVADO
+                setVolume(1.0f, 1.0f)  // Volume máximo no app (usuário regula pelos botões do celular)
                 prepareAsync()
 
                 setOnPreparedListener {
