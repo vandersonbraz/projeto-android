@@ -26,7 +26,7 @@ class PremiumActivity : AppCompatActivity() {
     private fun setupPurchaseButton() {
         findViewById<Button>(R.id.btn_remove_ads)?.setOnClickListener {
             Toast.makeText(this, "Processando compra...", Toast.LENGTH_SHORT).show()
-            billingManager.purchaseProduct(this, "calmare_premium_monthly")
+            billingManager.purchaseSubscription(this, BillingManager.PRODUCT_PREMIUM_MONTHLY)
         }
     }
 
