@@ -1,8 +1,13 @@
 package com.calmare.app.ui
 
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
 import android.media.AudioAttributes
 import android.media.AudioManager
 import android.media.MediaPlayer
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -16,6 +21,7 @@ import com.calmare.app.R
 import com.calmare.app.data.PreferencesManager
 import com.calmare.app.data.Sound
 import com.calmare.app.managers.BillingManager
+import com.calmare.app.managers.MediaNotificationManager
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdView
 import com.google.android.gms.ads.LoadAdError
@@ -34,6 +40,7 @@ class PlayerActivity : AppCompatActivity() {
 
     private lateinit var billingManager: BillingManager
     private lateinit var preferencesManager: PreferencesManager
+    private lateinit var mediaNotificationManager: MediaNotificationManager
     private var mediaPlayer: MediaPlayer? = null
     private var isPlaying = false
     private var isLooping = false  // Começa DESATIVADO
@@ -41,7 +48,15 @@ class PlayerActivity : AppCompatActivity() {
     private var isAudioPrepared = false
     private var isAutoPlayEnabled = false  // Reprodução automática da próxima faixa
     private var shouldAutoPlayOnPrepared = false  // Flag temporária para autoplay ao preparar
-    private var isUserPremium = false  // Status premium do usuário (para áudio em segundo plano)
+    var isUserPremium = false  // Status premium do usuário (para áudio em segundo plano + notificação)
+
+    // BroadcastReceiver para receber comandos dos controles da notificação
+    private val mediaControlReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context, intent: Intent) {
+            val action = intent.getStringExtra("action") ?: return
+            handleMediaCommand(action)
+        }
+    }
 
     // Sistema de anúncios
     private lateinit var adViewBanner: AdView
@@ -98,6 +113,18 @@ class PlayerActivity : AppCompatActivity() {
 
         billingManager = BillingManager(this, lifecycleScope)
         preferencesManager = PreferencesManager(this)
+
+        // Initialize Media Notification Manager (controles na notificação)
+        mediaNotificationManager = MediaNotificationManager(this, this)
+        mediaNotificationManager.initializeMediaSession()
+
+        // Registra BroadcastReceiver para receber comandos da notificação
+        val filter = IntentFilter("com.calmare.app.MEDIA_CONTROL")
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            registerReceiver(mediaControlReceiver, filter, Context.RECEIVER_NOT_EXPORTED)
+        } else {
+            registerReceiver(mediaControlReceiver, filter)
+        }
 
         // Get intent extras
         soundId = intent.getIntExtra("SOUND_ID", 0)
@@ -585,6 +612,8 @@ class PlayerActivity : AppCompatActivity() {
                     isPlaying = true
                     btnPlayPause.setImageResource(android.R.drawable.ic_media_pause)
                     handler.post(updateProgressRunnable)
+                    // Atualiza notificação com estado "tocando"
+                    updateMediaNotification()
                 }
             } catch (e: IllegalStateException) {
                 e.printStackTrace()
@@ -602,6 +631,8 @@ class PlayerActivity : AppCompatActivity() {
                 isPlaying = false
                 btnPlayPause.setImageResource(android.R.drawable.ic_media_play)
                 handler.removeCallbacks(updateProgressRunnable)
+                // Atualiza notificação com estado "pausado"
+                updateMediaNotification()
             }
         }
     }
@@ -769,9 +800,44 @@ class PlayerActivity : AppCompatActivity() {
         }
     }
 
+    // ══════════════════════════════════════════════════════════════════════
+    // CONTROLES DE MÍDIA NA NOTIFICAÇÃO
+    // ══════════════════════════════════════════════════════════════════════
+
+    fun handleMediaCommand(command: String) {
+        when (command) {
+            "PLAY" -> startPlayback()
+            "PAUSE" -> pausePlayback()
+            "STOP" -> {
+                stopPlayback()
+                mediaNotificationManager.hideNotification()
+                finish()  // Fecha o PlayerActivity
+            }
+            "NEXT" -> playNextTrack()
+            "PREVIOUS" -> playPreviousTrack()
+        }
+    }
+
+    private fun updateMediaNotification() {
+        val categoryText = "$soundCategory • ${formatDuration(soundDuration)}"
+        mediaNotificationManager.updateNotification(
+            title = soundTitle,
+            artist = categoryText,
+            isPlaying = isPlaying
+        )
+    }
+
+    // ══════════════════════════════════════════════════════════════════════
+
     override fun onPause() {
         super.onPause()
         // Áudio em segundo plano é EXCLUSIVO para usuários PREMIUM
+        // NOTA: Por enquanto está liberado para TODOS (free e premium) para teste
+        //       Quando validar, descomente a linha abaixo:
+        // if (!isUserPremium && isPlaying) {
+
+        // TEMPORÁRIO: Comentado para teste - TODOS podem usar em segundo plano
+        /*
         if (!isUserPremium && isPlaying) {
             pausePlayback()
             Toast.makeText(
@@ -780,7 +846,8 @@ class PlayerActivity : AppCompatActivity() {
                 Toast.LENGTH_LONG
             ).show()
         }
-        // Se é premium, o áudio continua tocando em segundo plano
+        */
+        // Se é premium (ou está em teste), o áudio continua tocando em segundo plano
     }
 
     override fun onDestroy() {
@@ -794,5 +861,15 @@ class PlayerActivity : AppCompatActivity() {
         }
         mediaPlayer = null
         billingManager.destroy()
+
+        // Limpa notificação e MediaSession
+        mediaNotificationManager.release()
+
+        // Desregistra BroadcastReceiver
+        try {
+            unregisterReceiver(mediaControlReceiver)
+        } catch (e: IllegalArgumentException) {
+            // Receiver não estava registrado
+        }
     }
 }
