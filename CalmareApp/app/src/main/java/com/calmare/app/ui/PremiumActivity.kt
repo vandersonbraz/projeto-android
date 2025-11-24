@@ -24,9 +24,12 @@ class PremiumActivity : AppCompatActivity() {
     }
 
     private fun setupPurchaseButton() {
+        // Botão de Remover Anúncios (R$ 14,90)
         findViewById<Button>(R.id.btn_remove_ads)?.setOnClickListener {
             Toast.makeText(this, "Processando compra...", Toast.LENGTH_SHORT).show()
-            billingManager.purchaseSubscription(this, BillingManager.PRODUCT_PREMIUM_MONTHLY)
+            billingManager.purchaseInApp(this, BillingManager.PRODUCT_REMOVE_ADS) { error ->
+                Toast.makeText(this, "Erro: $error", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 

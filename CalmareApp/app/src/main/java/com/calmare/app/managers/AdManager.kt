@@ -12,22 +12,21 @@ import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback
 
 /**
  * Gerenciador central de todos os anúncios do app (AdMob)
+ *
+ * IMPORTANTE: Troque os IDs de teste pelos seus IDs reais antes de publicar!
  */
 class AdManager(private val context: Context) {
 
-    // ========== IDs DE PRODUÇÃO - CALMARE APP ==========
+    // ========== IDs DE TESTE - SUBSTITUA PELOS SEUS IDS REAIS ==========
     companion object {
-        // Banner Ad Unit ID (Produção)
-        private const val BANNER_AD_UNIT_ID = "ca-app-pub-5255274256204364/9906361909"
+        // Banner Ad Unit ID (TESTE)
+        private const val BANNER_AD_UNIT_ID = "ca-app-pub-3940256099942544/6300978111"
 
-        // Rewarded Interstitial Ad Unit ID (Produção)
-        const val REWARDED_INTERSTITIAL_AD_UNIT_ID = "ca-app-pub-5255274256204364/7974349040"
+        // Interstitial Ad Unit ID (TESTE)
+        private const val INTERSTITIAL_AD_UNIT_ID = "ca-app-pub-3940256099942544/1033173712"
 
-        // Rewarded Ad Unit ID (Produção)
-        const val REWARDED_AD_UNIT_ID = "ca-app-pub-5255274256204364/5500213038"
-
-        // App Open Ad Unit ID (Produção)
-        const val APP_OPEN_AD_UNIT_ID = "ca-app-pub-5255274256204364/1644728500"
+        // Rewarded Ad Unit ID (TESTE)
+        private const val REWARDED_AD_UNIT_ID = "ca-app-pub-3940256099942544/5224354917"
     }
 
     private var interstitialAd: InterstitialAd? = null
@@ -63,14 +62,14 @@ class AdManager(private val context: Context) {
     // ========== INTERSTITIAL ADS ==========
 
     /**
-     * Pré-carrega um rewarded interstitial ad
+     * Pré-carrega um interstitial ad
      */
     fun preloadInterstitialAd() {
         val adRequest = AdRequest.Builder().build()
 
         InterstitialAd.load(
             context,
-            REWARDED_INTERSTITIAL_AD_UNIT_ID,
+            INTERSTITIAL_AD_UNIT_ID,
             adRequest,
             object : InterstitialAdLoadCallback() {
                 override fun onAdLoaded(ad: InterstitialAd) {

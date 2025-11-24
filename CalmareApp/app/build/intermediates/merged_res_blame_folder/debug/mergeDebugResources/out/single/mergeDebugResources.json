@@ -1,0 +1,138 @@
+[
+    {
+        "merged": "com.calmare.app-debug-4:/drawable_ic_music.xml.flat",
+        "source": "com.calmare.app-main-6:/drawable/ic_music.xml"
+    },
+    {
+        "merged": "com.calmare.app-debug-4:/mipmap-xxxhdpi_ic_launcher_foreground.xml.flat",
+        "source": "com.calmare.app-main-6:/mipmap-xxxhdpi/ic_launcher_foreground.xml"
+    },
+    {
+        "merged": "com.calmare.app-debug-4:/mipmap-anydpi-v26_ic_launcher_round.xml.flat",
+        "source": "com.calmare.app-main-6:/mipmap-anydpi-v26/ic_launcher_round.xml"
+    },
+    {
+        "merged": "com.calmare.app-debug-4:/drawable_ic_stop.xml.flat",
+        "source": "com.calmare.app-main-6:/drawable/ic_stop.xml"
+    },
+    {
+        "merged": "com.calmare.app-debug-4:/drawable_ic_favorite.xml.flat",
+        "source": "com.calmare.app-main-6:/drawable/ic_favorite.xml"
+    },
+    {
+        "merged": "com.calmare.app-debug-4:/layout_item_sound_horizontal.xml.flat",
+        "source": "com.calmare.app-main-6:/layout/item_sound_horizontal.xml"
+    },
+    {
+        "merged": "com.calmare.app-debug-4:/layout_activity_splash.xml.flat",
+        "source": "com.calmare.app-main-6:/layout/activity_splash.xml"
+    },
+    {
+        "merged": "com.calmare.app-debug-4:/drawable_bg_gradient_pink_purple.xml.flat",
+        "source": "com.calmare.app-main-6:/drawable/bg_gradient_pink_purple.xml"
+    },
+    {
+        "merged": "com.calmare.app-debug-4:/layout_activity_premium.xml.flat",
+        "source": "com.calmare.app-main-6:/layout/activity_premium.xml"
+    },
+    {
+        "merged": "com.calmare.app-debug-4:/drawable_ic_home.xml.flat",
+        "source": "com.calmare.app-main-6:/drawable/ic_home.xml"
+    },
+    {
+        "merged": "com.calmare.app-debug-4:/layout_item_sound.xml.flat",
+        "source": "com.calmare.app-main-6:/layout/item_sound.xml"
+    },
+    {
+        "merged": "com.calmare.app-debug-4:/mipmap-anydpi-v26_ic_launcher.xml.flat",
+        "source": "com.calmare.app-main-6:/mipmap-anydpi-v26/ic_launcher.xml"
+    },
+    {
+        "merged": "com.calmare.app-debug-4:/mipmap-hdpi_ic_launcher_foreground.xml.flat",
+        "source": "com.calmare.app-main-6:/mipmap-hdpi/ic_launcher_foreground.xml"
+    },
+    {
+        "merged": "com.calmare.app-debug-4:/menu_bottom_nav_menu.xml.flat",
+        "source": "com.calmare.app-main-6:/menu/bottom_nav_menu.xml"
+    },
+    {
+        "merged": "com.calmare.app-debug-4:/drawable_bg_premium_badge.xml.flat",
+        "source": "com.calmare.app-main-6:/drawable/bg_premium_badge.xml"
+    },
+    {
+        "merged": "com.calmare.app-debug-4:/layout_activity_main.xml.flat",
+        "source": "com.calmare.app-main-6:/layout/activity_main.xml"
+    },
+    {
+        "merged": "com.calmare.app-debug-4:/layout_activity_player.xml.flat",
+        "source": "com.calmare.app-main-6:/layout/activity_player.xml"
+    },
+    {
+        "merged": "com.calmare.app-debug-4:/mipmap-mdpi_ic_launcher_foreground.xml.flat",
+        "source": "com.calmare.app-main-6:/mipmap-mdpi/ic_launcher_foreground.xml"
+    },
+    {
+        "merged": "com.calmare.app-debug-4:/drawable_bg_gradient_purple.xml.flat",
+        "source": "com.calmare.app-main-6:/drawable/bg_gradient_purple.xml"
+    },
+    {
+        "merged": "com.calmare.app-debug-4:/drawable_bg_button_primary.xml.flat",
+        "source": "com.calmare.app-main-6:/drawable/bg_button_primary.xml"
+    },
+    {
+        "merged": "com.calmare.app-debug-4:/mipmap-xhdpi_ic_launcher_foreground.xml.flat",
+        "source": "com.calmare.app-main-6:/mipmap-xhdpi/ic_launcher_foreground.xml"
+    },
+    {
+        "merged": "com.calmare.app-debug-4:/layout_fragment_sounds.xml.flat",
+        "source": "com.calmare.app-main-6:/layout/fragment_sounds.xml"
+    },
+    {
+        "merged": "com.calmare.app-debug-4:/mipmap-xxhdpi_ic_launcher_foreground.xml.flat",
+        "source": "com.calmare.app-main-6:/mipmap-xxhdpi/ic_launcher_foreground.xml"
+    },
+    {
+        "merged": "com.calmare.app-debug-4:/xml_data_extraction_rules.xml.flat",
+        "source": "com.calmare.app-main-6:/xml/data_extraction_rules.xml"
+    },
+    {
+        "merged": "com.calmare.app-debug-4:/color_switch_thumb_color.xml.flat",
+        "source": "com.calmare.app-main-6:/color/switch_thumb_color.xml"
+    },
+    {
+        "merged": "com.calmare.app-debug-4:/drawable_bg_card_rounded.xml.flat",
+        "source": "com.calmare.app-main-6:/drawable/bg_card_rounded.xml"
+    },
+    {
+        "merged": "com.calmare.app-debug-4:/layout_fragment_settings.xml.flat",
+        "source": "com.calmare.app-main-6:/layout/fragment_settings.xml"
+    },
+    {
+        "merged": "com.calmare.app-debug-4:/layout_activity_settings.xml.flat",
+        "source": "com.calmare.app-main-6:/layout/activity_settings.xml"
+    },
+    {
+        "merged": "com.calmare.app-debug-4:/color_switch_track_color.xml.flat",
+        "source": "com.calmare.app-main-6:/color/switch_track_color.xml"
+    },
+    {
+        "merged": "com.calmare.app-debug-4:/layout_fragment_home.xml.flat",
+        "source": "com.calmare.app-main-6:/layout/fragment_home.xml"
+    },
+    {
+        "merged": "com.calmare.app-debug-4:/drawable_ic_launcher_foreground.xml.flat",
+        "source": "com.calmare.app-main-6:/drawable/ic_launcher_foreground.xml"
+    },
+    {
+        "merged": "com.calmare.app-debug-4:/drawable_ic_settings.xml.flat",
+        "source": "com.calmare.app-main-6:/drawable/ic_settings.xml"
+    },
+    {
+        "merged": "com.calmare.app-debug-4:/layout_fragment_favorites.xml.flat",
+        "source": "com.calmare.app-main-6:/layout/fragment_favorites.xml"
+    },
+    {
+        "merged": "com.calmare.app-debug-4:/xml_backup_rules.xml.flat",
+        "source": "com.calmare.app-main-6:/xml/backup_rules.xml"
+    }
+]

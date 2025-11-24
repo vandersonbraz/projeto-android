@@ -24,9 +24,7 @@
         android:theme="@style/Theme.Calmare"
         tools:targetApi="31">
 
-        <!-- AdMob App ID (Obrigatório) -->
-        <!-- IMPORTANTE: Adicione o ID do app (termina com ~) do seu AdMob -->
-        <!-- Encontre em: https://apps.admob.com/ → Seu App → Configurações do app -->
+        <!-- AdMob App ID de PRODUÇÃO -->
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="ca-app-pub-5255274256204364~6476476685"/>

@@ -1,0 +1,46 @@
+[
+    {
+        "merged": "com.calmare.app-mergeDebugResources-3:/layout/item_sound_horizontal.xml",
+        "source": "com.calmare.app-main-6:/layout/item_sound_horizontal.xml"
+    },
+    {
+        "merged": "com.calmare.app-mergeDebugResources-3:/layout/activity_splash.xml",
+        "source": "com.calmare.app-main-6:/layout/activity_splash.xml"
+    },
+    {
+        "merged": "com.calmare.app-mergeDebugResources-3:/layout/item_sound.xml",
+        "source": "com.calmare.app-main-6:/layout/item_sound.xml"
+    },
+    {
+        "merged": "com.calmare.app-mergeDebugResources-3:/layout/fragment_settings.xml",
+        "source": "com.calmare.app-main-6:/layout/fragment_settings.xml"
+    },
+    {
+        "merged": "com.calmare.app-mergeDebugResources-3:/layout/activity_main.xml",
+        "source": "com.calmare.app-main-6:/layout/activity_main.xml"
+    },
+    {
+        "merged": "com.calmare.app-mergeDebugResources-3:/layout/activity_settings.xml",
+        "source": "com.calmare.app-main-6:/layout/activity_settings.xml"
+    },
+    {
+        "merged": "com.calmare.app-mergeDebugResources-3:/layout/activity_premium.xml",
+        "source": "com.calmare.app-main-6:/layout/activity_premium.xml"
+    },
+    {
+        "merged": "com.calmare.app-mergeDebugResources-3:/layout/fragment_home.xml",
+        "source": "com.calmare.app-main-6:/layout/fragment_home.xml"
+    },
+    {
+        "merged": "com.calmare.app-mergeDebugResources-3:/layout/fragment_sounds.xml",
+        "source": "com.calmare.app-main-6:/layout/fragment_sounds.xml"
+    },
+    {
+        "merged": "com.calmare.app-mergeDebugResources-3:/layout/activity_player.xml",
+        "source": "com.calmare.app-main-6:/layout/activity_player.xml"
+    },
+    {
+        "merged": "com.calmare.app-mergeDebugResources-3:/layout/fragment_favorites.xml",
+        "source": "com.calmare.app-main-6:/layout/fragment_favorites.xml"
+    }
+]
