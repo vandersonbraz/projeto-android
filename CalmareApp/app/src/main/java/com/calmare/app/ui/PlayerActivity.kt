@@ -24,6 +24,8 @@ import com.google.android.gms.ads.interstitial.InterstitialAd
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 import com.google.android.gms.ads.rewarded.RewardedAd
 import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback
+import com.google.android.gms.ads.rewardedinterstitial.RewardedInterstitialAd
+import com.google.android.gms.ads.rewardedinterstitial.RewardedInterstitialAdLoadCallback
 import kotlinx.coroutines.launch
 import java.io.IOException
 import java.util.concurrent.TimeUnit
@@ -43,12 +45,12 @@ class PlayerActivity : AppCompatActivity() {
 
     // Sistema de anúncios
     private lateinit var adViewBanner: AdView
-    private var interstitialAd: InterstitialAd? = null
+    private var rewardedInterstitialAd: com.google.android.gms.ads.rewardedinterstitial.RewardedInterstitialAd? = null
     private var rewardedAd: RewardedAd? = null
 
-    // Contador de ações (a cada 6 ações mostra rewarded)
-    private var actionCounter = 0  // Conta ações: pular, retroceder, avançar, completar música
-    private val MAX_ACTIONS = 6
+    // Contador de ações (a cada 8 PULOS mostra rewarded 30s)
+    private var actionCounter = 0  // Conta APENAS quando usuário PULA manualmente
+    private val MAX_ACTIONS = 8
 
     private lateinit var tvTitle: TextView
     private lateinit var tvCategory: TextView
@@ -475,40 +477,35 @@ class PlayerActivity : AppCompatActivity() {
                             }
                         }
                     } else {
-                        // Resto do app: sistema normal de ações
-                        // Salva estado antes de registrar ação (porque pode pausar no anúncio de 30s)
+                        // Resto do app: música terminou NATURALMENTE (NÃO conta como ação, NÃO mostra anúncio)
                         val shouldContinuePlaying = true
                         val wasLooping = this@PlayerActivity.isLooping
                         val hasAutoPlay = this@PlayerActivity.isAutoPlayEnabled
                         val hasMultipleTracks = this@PlayerActivity.playlist.size > 1
 
-                        // Registra ação (música terminou) e mostra anúncio (SEMPRE, mesmo com loop)
-                        this@PlayerActivity.registerAction {
-                            // Callback executado APÓS anúncio (se houver)
-                            // Decide o que fazer após mostrar anúncio
-                            if (wasLooping) {
-                                // Loop da MÚSICA ativo: volta ao início da MESMA música e recomeça
-                                it.seekTo(0)
-                                this@PlayerActivity.seekBar.progress = 0
-                                this@PlayerActivity.tvCurrentTime.text = this@PlayerActivity.formatTime(0)
-                                this@PlayerActivity.startPlayback()
-                            } else if (hasAutoPlay && hasMultipleTracks) {
-                                // Autoplay ativo E tem mais de 1 música: vai pra próxima (loop infinito na playlist)
-                                this@PlayerActivity.currentIndex++
-                                // Se chegou no fim, volta pra primeira (loop infinito)
-                                if (this@PlayerActivity.currentIndex >= this@PlayerActivity.playlist.size) {
-                                    this@PlayerActivity.currentIndex = 0
-                                }
-                                this@PlayerActivity.loadAndPlaySound(this@PlayerActivity.playlist[this@PlayerActivity.currentIndex], autoPlay = shouldContinuePlaying)
-                            } else {
-                                // Sem loop e sem autoplay (ou só tem 1 música): volta ao início e pausa
-                                it.seekTo(0)
-                                this@PlayerActivity.isPlaying = false
-                                this@PlayerActivity.btnPlayPause.setImageResource(android.R.drawable.ic_media_play)
-                                this@PlayerActivity.handler.removeCallbacks(this@PlayerActivity.updateProgressRunnable)
-                                this@PlayerActivity.seekBar.progress = 0
-                                this@PlayerActivity.tvCurrentTime.text = this@PlayerActivity.formatTime(0)
+                        // NÃO registra ação quando música termina naturalmente (apenas quando PULAR manualmente)
+                        if (wasLooping) {
+                            // Loop da MÚSICA ativo: volta ao início da MESMA música e recomeça
+                            it.seekTo(0)
+                            this@PlayerActivity.seekBar.progress = 0
+                            this@PlayerActivity.tvCurrentTime.text = this@PlayerActivity.formatTime(0)
+                            this@PlayerActivity.startPlayback()
+                        } else if (hasAutoPlay && hasMultipleTracks) {
+                            // Autoplay ativo E tem mais de 1 música: vai pra próxima (loop infinito na playlist)
+                            this@PlayerActivity.currentIndex++
+                            // Se chegou no fim, volta pra primeira (loop infinito)
+                            if (this@PlayerActivity.currentIndex >= this@PlayerActivity.playlist.size) {
+                                this@PlayerActivity.currentIndex = 0
                             }
+                            this@PlayerActivity.loadAndPlaySound(this@PlayerActivity.playlist[this@PlayerActivity.currentIndex], autoPlay = shouldContinuePlaying)
+                        } else {
+                            // Sem loop e sem autoplay (ou só tem 1 música): volta ao início e pausa
+                            it.seekTo(0)
+                            this@PlayerActivity.isPlaying = false
+                            this@PlayerActivity.btnPlayPause.setImageResource(android.R.drawable.ic_media_play)
+                            this@PlayerActivity.handler.removeCallbacks(this@PlayerActivity.updateProgressRunnable)
+                            this@PlayerActivity.seekBar.progress = 0
+                            this@PlayerActivity.tvCurrentTime.text = this@PlayerActivity.formatTime(0)
                         }
                     }
                 }
@@ -600,10 +597,10 @@ class PlayerActivity : AppCompatActivity() {
             adViewBanner.loadAd(adRequest)
         }
 
-        // Carrega intersticial
-        loadInterstitialAd()
+        // Carrega rewarded intersticial (ações 1-7)
+        loadRewardedInterstitialAd()
 
-        // Carrega rewarded ad
+        // Carrega rewarded ad (ação 8)
         loadRewardedAd()
     }
 
@@ -616,18 +613,18 @@ class PlayerActivity : AppCompatActivity() {
         }
     }
 
-    private fun loadInterstitialAd() {
+    private fun loadRewardedInterstitialAd() {
         val adRequest = AdRequest.Builder().build()
-        InterstitialAd.load(
+        RewardedInterstitialAd.load(
             this,
-            "ca-app-pub-3940256099942544/1033173712",  // Test ID do intersticial
+            "ca-app-pub-3940256099942544/5354046379",  // Test ID do rewarded intersticial
             adRequest,
-            object : InterstitialAdLoadCallback() {
-                override fun onAdLoaded(ad: InterstitialAd) {
-                    interstitialAd = ad
+            object : RewardedInterstitialAdLoadCallback() {
+                override fun onAdLoaded(ad: RewardedInterstitialAd) {
+                    rewardedInterstitialAd = ad
                 }
                 override fun onAdFailedToLoad(error: LoadAdError) {
-                    interstitialAd = null
+                    rewardedInterstitialAd = null
                 }
             }
         )
@@ -650,22 +647,24 @@ class PlayerActivity : AppCompatActivity() {
         )
     }
 
-    private fun showInterstitialAd(onAdClosed: (() -> Unit)? = null) {
+    private fun showRewardedInterstitialAd(onAdClosed: (() -> Unit)? = null) {
         // Só mostra se não for premium
-        if (!isUserPremium && interstitialAd != null) {
-            interstitialAd?.fullScreenContentCallback = object : com.google.android.gms.ads.FullScreenContentCallback() {
+        if (!isUserPremium && rewardedInterstitialAd != null) {
+            rewardedInterstitialAd?.fullScreenContentCallback = object : com.google.android.gms.ads.FullScreenContentCallback() {
                 override fun onAdDismissedFullScreenContent() {
                     // Ad fechado, executa callback
                     onAdClosed?.invoke()
-                    loadInterstitialAd()  // Carrega o próximo
+                    loadRewardedInterstitialAd()  // Carrega o próximo
                 }
                 override fun onAdFailedToShowFullScreenContent(error: com.google.android.gms.ads.AdError) {
                     // Se falhou, executa callback mesmo assim
                     onAdClosed?.invoke()
-                    loadInterstitialAd()
+                    loadRewardedInterstitialAd()
                 }
             }
-            interstitialAd?.show(this)
+            rewardedInterstitialAd?.show(this) { _ ->
+                // Recompensa concedida (mesmo que mínima)
+            }
         } else {
             // Se não tem anúncio ou é premium, executa callback imediatamente
             onAdClosed?.invoke()
@@ -709,7 +708,7 @@ class PlayerActivity : AppCompatActivity() {
         actionCounter++
 
         if (actionCounter >= MAX_ACTIONS) {
-            // 6ª ação: PAUSA e mostra rewarded de 30s
+            // 8ª ação (pulo): PAUSA e mostra rewarded de 30s
             if (isPlaying) {
                 pausePlayback()
             }
@@ -723,8 +722,8 @@ class PlayerActivity : AppCompatActivity() {
                 onComplete?.invoke()
             }
         } else {
-            // Ações 1-5: mostra intersticial de 5s e executa callback APÓS o anúncio fechar
-            showInterstitialAd {
+            // Ações 1-7: mostra rewarded intersticial de 10-15s e executa callback APÓS o anúncio fechar
+            showRewardedInterstitialAd {
                 onComplete?.invoke()
             }
         }

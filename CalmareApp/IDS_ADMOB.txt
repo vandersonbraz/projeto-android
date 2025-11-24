@@ -1,0 +1,110 @@
+═══════════════════════════════════════════════════════════════════════
+📱 CALMARE APP - IDs DO GOOGLE ADMOB
+═══════════════════════════════════════════════════════════════════════
+
+⚠️ IMPORTANTE: Atualmente o app está usando IDs DE TESTE do AdMob.
+Para publicar na Play Store, você PRECISA substituir pelos IDs REAIS de produção.
+
+═══════════════════════════════════════════════════════════════════════
+🔧 IDs DE TESTE (ATUAIS - NÃO GERAM RECEITA)
+═══════════════════════════════════════════════════════════════════════
+
+1️⃣ BANNER (rodapé do PlayerActivity)
+   Arquivo: app/src/main/res/layout/activity_player.xml
+   Linha: 277
+   ID TESTE: ca-app-pub-3940256099942544/6300978111
+   ID PRODUÇÃO: [VOCÊ VAI ME PASSAR]
+
+2️⃣ REWARDED INTERSTICIAL (ações 1-7 quando pular faixa)
+   Arquivo: app/src/main/java/com/calmare/app/ui/PlayerActivity.kt
+   Linha: 625
+   ID TESTE: ca-app-pub-3940256099942544/5354046379
+   ID PRODUÇÃO: [VOCÊ VAI ME PASSAR]
+
+3️⃣ REWARDED (ação 8 - a cada 8 pulos)
+   Arquivo: app/src/main/java/com/calmare/app/ui/PlayerActivity.kt
+   Linha: 642
+   ID TESTE: ca-app-pub-3940256099942544/5224354917
+   ID PRODUÇÃO: [VOCÊ VAI ME PASSAR]
+
+4️⃣ APP OPEN (ao abrir o app - 1x por dia)
+   Arquivo: app/src/main/java/com/calmare/app/ui/SplashActivity.kt
+   Linha: 64
+   ID TESTE: ca-app-pub-3940256099942544/9257395921
+   ID PRODUÇÃO: [VOCÊ VAI ME PASSAR]
+
+═══════════════════════════════════════════════════════════════════════
+📝 COMO OBTER OS IDs DE PRODUÇÃO
+═══════════════════════════════════════════════════════════════════════
+
+1. Acesse: https://apps.admob.com/
+2. Faça login com sua conta Google
+3. Clique em "Apps" → "Adicionar app" (se ainda não criou)
+4. Adicione o app Calmare:
+   - Nome: Calmare
+   - Plataforma: Android
+   - Store listing: Não publicado ainda
+
+5. Clique em "Unidades de anúncio" → "Adicionar unidade de anúncio"
+
+6. Crie 4 unidades de anúncio:
+
+   ┌─────────────────────────────────────────────────┐
+   │ UNIDADE 1: BANNER                               │
+   ├─────────────────────────────────────────────────┤
+   │ Tipo: Banner                                    │
+   │ Nome: Calmare Player Banner                     │
+   │ Tamanho: Banner (320x50)                        │
+   └─────────────────────────────────────────────────┘
+
+   ┌─────────────────────────────────────────────────┐
+   │ UNIDADE 2: REWARDED INTERSTICIAL                │
+   ├─────────────────────────────────────────────────┤
+   │ Tipo: Rewarded Interstitial                     │
+   │ Nome: Calmare Skip Track                        │
+   └─────────────────────────────────────────────────┘
+
+   ┌─────────────────────────────────────────────────┐
+   │ UNIDADE 3: REWARDED                             │
+   ├─────────────────────────────────────────────────┤
+   │ Tipo: Rewarded                                  │
+   │ Nome: Calmare 8th Action                        │
+   └─────────────────────────────────────────────────┘
+
+   ┌─────────────────────────────────────────────────┐
+   │ UNIDADE 4: APP OPEN                             │
+   ├─────────────────────────────────────────────────┤
+   │ Tipo: App Open                                  │
+   │ Nome: Calmare App Launch                        │
+   │ Orientação: Portrait                            │
+   └─────────────────────────────────────────────────┘
+
+7. Após criar, cada unidade terá um ID no formato:
+   ca-app-pub-XXXXXXXXXXXXXXXX/YYYYYYYYYY
+
+8. Me passe os 4 IDs e eu substituo no código!
+
+═══════════════════════════════════════════════════════════════════════
+💰 ESTIMATIVA DE RECEITA COM IDs DE PRODUÇÃO
+═══════════════════════════════════════════════════════════════════════
+
+Com 1000 usuários ativos/dia:
+- Banner: ~$5/dia
+- App Open (1x/dia): ~$12/dia
+- Rewarded Intersticial (pulos): ~$45/dia
+- Rewarded (cada 8 pulos): ~$36/dia
+
+TOTAL ESTIMADO: $98-$115/dia = $3.000-$3.500/mês 💎
+
+═══════════════════════════════════════════════════════════════════════
+⚠️ ATENÇÃO ANTES DE PUBLICAR
+═══════════════════════════════════════════════════════════════════════
+
+1. ✅ Substituir TODOS os 4 IDs de teste pelos IDs de produção
+2. ✅ Testar app com IDs de produção (sem clicar nos próprios anúncios!)
+3. ✅ Aguardar aprovação do AdMob (pode levar até 24h)
+4. ✅ Publicar na Play Store
+
+❌ NUNCA CLIQUE NOS SEUS PRÓPRIOS ANÚNCIOS - isso pode banir sua conta!
+
+═══════════════════════════════════════════════════════════════════════

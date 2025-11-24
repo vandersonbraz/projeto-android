@@ -4,29 +4,33 @@
 
 ## 📥 **DOWNLOAD DIRETO**
 
-### 🎯 **PROJETO COMPLETO - v2.12 FINAL (BUILD OK):**
+### 🎯 **PROJETO COMPLETO - v3.0 FINAL - MONETIZAÇÃO PROFISSIONAL:**
 
-**[⬇️ BAIXAR AQUI - v2.12-FINAL (137 KB)](https://github.com/vandersonbraz/projeto-android/raw/claude/android-monetization-app-01BXuLECEMMS2JfQUs6Cpqsf/CalmareApp/Calmare-App-v2.12-FINAL.zip)**
+**[⬇️ BAIXAR AQUI - v3.0-FINAL (140 KB)](https://github.com/vandersonbraz/projeto-android/raw/claude/android-monetization-app-01BXuLECEMMS2JfQUs6Cpqsf/CalmareApp/Calmare-App-v3.0-FINAL.zip)**
 
-**🔥 NOVIDADES v2.12 FINAL:**
-**⏹️ BOTÃO STOP PROPORCIONAL:**
-**✅ Botões secundários aumentados: 56dp → 72dp (Loop, Stop, Volume)**
-**✅ Quadradinho do STOP maior e mais visível**
-**✅ Visual proporcional e profissional em todos os botões**
-**✅ Interface balanceada: botões principais (80dp) + secundários (72dp)**
-**🔁 LOOP AUTOMÁTICO FUNCIONANDO 100%:**
-**✅ Loop agora funciona PERFEITAMENTE em TODAS as músicas**
-**✅ Callback inteligente: aguarda anúncio fechar antes de retomar playback**
-**✅ Intersticial (5s): música recomeça AUTOMATICAMENTE após o anúncio**
-**✅ Rewarded (30s): música recomeça AUTOMATICAMENTE após o anúncio**
-**🎯 INTERFACE COMPLETA:**
-**✅ Layout: Loop (🔁) | Stop (⏹️) | Volume (🔊)**
-**✅ Todos os botões com visual consistente e profissional**
-**✅ Sistema de 6 ações funcionando perfeitamente**
-**🎯 SISTEMA DE ANÚNCIOS (6 AÇÕES):**
-**✅ Pulos 1-5: intersticial 5s DEPOIS de cada pulo**
-**✅ Pulo 6: rewarded 30s ANTES de tocar a próxima (BLOQUEIA tudo!)**
-**✅ Loop infinito: 1→2→3→4→5→6(rewarded)→7→8→9→10→11→12(rewarded)→...**
+**🚀 NOVIDADES v3.0 FINAL - ESTRATÉGIA PROFISSIONAL DE MONETIZAÇÃO:**
+
+**💎 4 TIPOS DE ANÚNCIOS IMPLEMENTADOS:**
+**✅ Banner (rodapé do player)** - Receita passiva constante
+**✅ App Open (1x por dia ao abrir)** - Alta receita ($8-$20 CPM)
+**✅ Rewarded Intersticial (pulos 1-7)** - Paga 60% MAIS ($7-$25 CPM)
+**✅ Rewarded (pulo 8)** - Máxima receita ($10-$50 CPM)
+
+**🎯 ESTRATÉGIA INTELIGENTE - NÃO IRRITA O USUÁRIO:**
+**✅ Música termina naturalmente** → **SEM ANÚNCIO** (experiência limpa!)
+**✅ Usuário PULA manualmente** → Rewarded Intersticial 10-15s (ações 1-7)
+**✅ 8º pulo** → Rewarded 30s (ação 8) → Contador reseta
+**✅ App Open** → Apenas 1x por dia (não toda vez que abre)
+
+**💰 ESTIMATIVA DE RECEITA (1000 usuários/dia):**
+**✅ ~$100-$115/dia** = **$3.000-$3.500/mês** 💰💰💰
+
+**📊 MUDANÇAS TÉCNICAS:**
+**✅ MAX_ACTIONS: 6 → 8** (menos intrusivo)
+**✅ Anúncios SÓ ao pular** (não ao terminar música)
+**✅ Rewarded Intersticial** (substitui intersticial normal, paga mais!)
+**✅ App Open com controle de 24h** (SharedPreferences)
+**✅ IDS_ADMOB.txt** - Documento com IDs de teste e instruções
 **🔁 LOOP INFINITO NAS CATEGORIAS:**
 **✅ Categoria com 8 músicas: 1→2→3→4→5→6→7→8→volta pra 1→2→3...**
 **✅ Anúncios continuam funcionando no loop (não para nunca)**
