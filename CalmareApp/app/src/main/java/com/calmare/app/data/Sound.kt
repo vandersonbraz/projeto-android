@@ -20,7 +20,7 @@ object SoundsRepository {
             id = 1,
             title = "Chuva Suave",
             description = "Som relaxante de chuva caindo",
-            duration = 600, // 10 minutos (ajuste se souber a duração real do seu áudio)
+            duration = 60, // Duração estimada (será detectada automaticamente pelo player)
             category = "Natureza",
             audioUrl = "raw/chuva_suave",  // Arquivo local - SEM extensão .mp3
             isPremium = false

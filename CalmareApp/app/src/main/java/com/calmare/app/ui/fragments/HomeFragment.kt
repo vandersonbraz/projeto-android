@@ -45,7 +45,12 @@ class HomeFragment : Fragment() {
         adManager.loadBannerAd(adContainer)
         adContainer.visibility = View.VISIBLE
 
-        // Setup quick session button
+        // Setup quick session - card inteiro clicável
+        view.findViewById<View>(R.id.card_quick_session)?.setOnClickListener {
+            openPlayer()
+        }
+
+        // Botão também clicável (redundante, mas mantém funcionalidade)
         view.findViewById<Button>(R.id.btn_start_quick_session)?.setOnClickListener {
             openPlayer()
         }

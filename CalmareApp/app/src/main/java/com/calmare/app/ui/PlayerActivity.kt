@@ -452,7 +452,18 @@ class PlayerActivity : AppCompatActivity() {
                 prepareAsync()
 
                 setOnPreparedListener {
-                    tvTotalTime.text = formatTime(duration / 1000)
+                    // Detecta duração REAL do áudio (em milissegundos)
+                    val realDurationSeconds = duration / 1000
+
+                    // Atualiza a duração na variável do Activity
+                    this@PlayerActivity.soundDuration = realDurationSeconds
+
+                    // Atualiza UI com tempo real detectado
+                    tvTotalTime.text = formatTime(realDurationSeconds)
+
+                    // Atualiza categoria com duração real
+                    tvCategory.text = "${this@PlayerActivity.soundCategory} • ${formatDuration(realDurationSeconds)}"
+
                     isAudioPrepared = true
                     btnPlayPause.isEnabled = true
                     // Se shouldAutoPlayOnPrepared está true, toca automaticamente
