@@ -46,5 +46,5 @@
     <color name="white">#FFFFFFFF</color>
 
     <!-- Launcher Icon Background - cor do ícone personalizado -->
-    <color name="ic_launcher_background">#A192C5</color>
+    <color name="ic_launcher_background">#FFFFFF</color>
 </resources>
