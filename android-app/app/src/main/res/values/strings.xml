@@ -1,0 +1,127 @@
+<resources>
+    <!-- App Name -->
+    <string name="app_name">Optimus Player</string>
+    <string name="app_tagline">Premium IPTV Experience</string>
+
+    <!-- Splash Screen -->
+    <string name="loading">Carregando…</string>
+
+    <!-- Activation Screen -->
+    <string name="activation_title">Ativar Licença</string>
+    <string name="activation_subtitle">Digite o código fornecido pelo seu provedor</string>
+    <string name="mac_address_label">MAC Address</string>
+    <string name="device_id_label">Device ID</string>
+    <string name="activation_code_label">Código de Ativação</string>
+    <string name="activation_code_hint">XXXX-XXXX-XXXX</string>
+    <string name="activate_button">Ativar Licença</string>
+    <string name="copy_button">Copiar</string>
+    <string name="copied_toast">Copiado com sucesso!</string>
+    <string name="help_text">Entre em contato com seu provedor se não tiver um código</string>
+    <string name="activation_error">Código inválido. Tente novamente.</string>
+    <string name="activation_success">Licença ativada com sucesso!</string>
+
+    <!-- Bottom Navigation -->
+    <string name="nav_home">Início</string>
+    <string name="nav_epg">EPG</string>
+    <string name="nav_mac">MAC</string>
+    <string name="nav_settings">Config</string>
+
+    <!-- Tabs -->
+    <string name="tab_channels">Canais</string>
+    <string name="tab_movies">Filmes</string>
+    <string name="tab_series">Séries</string>
+
+    <!-- Home Screen -->
+    <string name="search_hint">Buscar…</string>
+    <string name="live_tv">TV Ao Vivo</string>
+    <string name="movies">Filmes</string>
+    <string name="series">Séries</string>
+    <string name="videos">Vídeos</string>
+
+    <!-- Channels -->
+    <string name="channels_title">Canais</string>
+    <string name="search_channels_hint">Buscar canais…</string>
+    <string name="my_favorites">Meus Favoritos</string>
+    <string name="category_all">Todos</string>
+    <string name="category_open">Abertos</string>
+    <string name="category_sports">Esportes</string>
+    <string name="category_movies">Filmes</string>
+    <string name="category_news">Notícias</string>
+    <string name="category_music">Música</string>
+    <string name="category_kids">Infantil</string>
+    <string name="live_badge">AO VIVO</string>
+    <string name="channel_count">%d canais</string>
+
+    <!-- Movies -->
+    <string name="movies_title">Filmes</string>
+    <string name="search_movies_hint">Buscar filmes…</string>
+    <string name="continue_watching">Continuar Assistindo</string>
+    <string name="trending">Em Alta</string>
+    <string name="see_all">Ver tudo</string>
+    <string name="movie_year">%d</string>
+    <string name="movie_duration">%dh %dmin</string>
+
+    <!-- Series -->
+    <string name="series_title">Séries</string>
+    <string name="search_series_hint">Buscar séries…</string>
+    <string name="episode_format">T%d • EP %d</string>
+    <string name="seasons_count">%d temporadas</string>
+    <string name="new_badge">NOVO</string>
+
+    <!-- Player -->
+    <string name="player_title">Player</string>
+    <string name="play">Reproduzir</string>
+    <string name="pause">Pausar</string>
+    <string name="forward">Avançar</string>
+    <string name="rewind">Retroceder</string>
+    <string name="next">Próximo</string>
+    <string name="previous">Anterior</string>
+    <string name="fullscreen">Tela Cheia</string>
+    <string name="volume">Volume</string>
+    <string name="cast">Transmitir</string>
+
+    <!-- EPG -->
+    <string name="epg_title">Guia de Programação</string>
+    <string name="today">Hoje</string>
+
+    <!-- MAC Info -->
+    <string name="mac_info_title">Informações do Dispositivo</string>
+    <string name="license_active">Licença Ativa</string>
+    <string name="license_status_ok">Tudo funcionando perfeitamente</string>
+    <string name="valid_until">Válida até</string>
+    <string name="days_remaining">Dias restantes</string>
+    <string name="license_type">Tipo</string>
+    <string name="license_renewal">Renovação</string>
+    <string name="annual_premium">Anual Premium</string>
+    <string name="automatic">Automática</string>
+    <string name="device_details">Detalhes do Dispositivo</string>
+    <string name="device_model">Modelo</string>
+    <string name="android_version">Versão Android</string>
+    <string name="app_version">App Versão</string>
+    <string name="last_sync">Última Sincronização</string>
+    <string name="sync_time_ago">Há %d minutos</string>
+
+    <!-- Settings -->
+    <string name="settings_title">Configurações</string>
+    <string name="parental_control">Controle Parental</string>
+    <string name="about">Sobre</string>
+    <string name="update_playlist">Atualizar Playlist</string>
+    <string name="logout">Sair</string>
+
+    <!-- Expired License -->
+    <string name="license_expired_title">Licença Expirada</string>
+    <string name="license_expired_message">Sua licença anual expirou. Entre em contato com seu provedor para renovar e continuar aproveitando o OPTIMUS PLAYER.</string>
+    <string name="renew_now">Renovar Agora</string>
+    <string name="contact_provider">Contatar Provedor</string>
+
+    <!-- Errors -->
+    <string name="error_network">Erro de conexão. Verifique sua internet.</string>
+    <string name="error_generic">Algo deu errado. Tente novamente.</string>
+    <string name="error_loading">Erro ao carregar dados</string>
+
+    <!-- General -->
+    <string name="ok">OK</string>
+    <string name="cancel">Cancelar</string>
+    <string name="retry">Tentar Novamente</string>
+    <string name="loading_data">Carregando dados…</string>
+</resources>

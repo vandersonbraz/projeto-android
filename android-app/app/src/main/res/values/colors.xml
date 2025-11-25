@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Primary Colors - Gold -->
+    <color name="gold_bright">#FFD700</color>
+    <color name="gold_soft">#FFC107</color>
+    <color name="gold_dark">#E6B800</color>
+
+    <!-- Black Shades -->
+    <color name="black_deep">#000000</color>
+    <color name="black_carbon">#121212</color>
+    <color name="black_charcoal">#1E1E1E</color>
+    <color name="black_graphite">#0A0A0A</color>
+
+    <!-- Gray Shades -->
+    <color name="gray_steel">#424242</color>
+    <color name="gray_medium">#757575</color>
+    <color name="gray_light">#9E9E9E</color>
+    <color name="gray_silver">#CCCCCC</color>
+
+    <!-- Accent Colors -->
+    <color name="white">#FFFFFF</color>
+    <color name="error_red">#F44336</color>
+    <color name="success_green">#4CAF50</color>
+    <color name="warning_orange">#FF9800</color>
+
+    <!-- Gradient Colors -->
+    <color name="gradient_start">#FFD700</color>
+    <color name="gradient_end">#FFC107</color>
+
+    <!-- Live Badge -->
+    <color name="live_red">#FF0000</color>
+
+    <!-- Transparent Overlays -->
+    <color name="black_overlay_80">#CC000000</color>
+    <color name="black_overlay_60">#99000000</color>
+    <color name="black_overlay_40">#66000000</color>
+    <color name="gold_overlay_20">#33FFD700</color>
+
+    <!-- Material Design Defaults (required) -->
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+</resources>

@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Optimus Player Premium Dark Theme -->
+    <style name="Theme.OptimusPlayer" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Primary Colors -->
+        <item name="colorPrimary">@color/gold_bright</item>
+        <item name="colorPrimaryVariant">@color/gold_dark</item>
+        <item name="colorOnPrimary">@color/black_deep</item>
+
+        <!-- Secondary Colors -->
+        <item name="colorSecondary">@color/gold_soft</item>
+        <item name="colorSecondaryVariant">@color/gold_dark</item>
+        <item name="colorOnSecondary">@color/black_deep</item>
+
+        <!-- Background Colors -->
+        <item name="android:colorBackground">@color/black_deep</item>
+        <item name="colorSurface">@color/black_carbon</item>
+        <item name="colorOnBackground">@color/white</item>
+        <item name="colorOnSurface">@color/white</item>
+
+        <!-- Status Bar -->
+        <item name="android:statusBarColor">@color/black_deep</item>
+        <item name="android:windowLightStatusBar">false</item>
+
+        <!-- Navigation Bar -->
+        <item name="android:navigationBarColor">@color/black_deep</item>
+        <item name="android:windowLightNavigationBar">false</item>
+
+        <!-- Window Background -->
+        <item name="android:windowBackground">@color/black_deep</item>
+
+        <!-- Text Colors -->
+        <item name="android:textColorPrimary">@color/white</item>
+        <item name="android:textColorSecondary">@color/gray_medium</item>
+        <item name="android:textColorHint">@color/gray_medium</item>
+
+        <!-- Material Components -->
+        <item name="materialButtonStyle">@style/Widget.OptimusPlayer.Button</item>
+        <item name="textInputStyle">@style/Widget.OptimusPlayer.TextInputLayout</item>
+        <item name="bottomNavigationStyle">@style/Widget.OptimusPlayer.BottomNavigationView</item>
+    </style>
+
+    <!-- Splash Screen Theme -->
+    <style name="Theme.OptimusPlayer.Splash" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/black_deep</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_logo_splash</item>
+        <item name="windowSplashScreenAnimationDuration">1000</item>
+        <item name="postSplashScreenTheme">@style/Theme.OptimusPlayer</item>
+    </style>
+
+    <!-- Button Style -->
+    <style name="Widget.OptimusPlayer.Button" parent="Widget.MaterialComponents.Button">
+        <item name="android:textColor">@color/black_deep</item>
+        <item name="backgroundTint">@color/gold_bright</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:letterSpacing">0.01</item>
+        <item name="cornerRadius">8dp</item>
+        <item name="android:paddingTop">16dp</item>
+        <item name="android:paddingBottom">16dp</item>
+    </style>
+
+    <!-- TextInputLayout Style -->
+    <style name="Widget.OptimusPlayer.TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="boxStrokeColor">@color/gold_bright</item>
+        <item name="boxStrokeErrorColor">@color/error_red</item>
+        <item name="hintTextColor">@color/gray_medium</item>
+        <item name="android:textColorHint">@color/gray_medium</item>
+        <item name="boxBackgroundColor">@color/black_charcoal</item>
+    </style>
+
+    <!-- Bottom Navigation Style -->
+    <style name="Widget.OptimusPlayer.BottomNavigationView" parent="Widget.MaterialComponents.BottomNavigationView">
+        <item name="android:background">@color/black_deep</item>
+        <item name="itemIconTint">@color/bottom_nav_color</item>
+        <item name="itemTextColor">@color/bottom_nav_color</item>
+        <item name="labelVisibilityMode">labeled</item>
+        <item name="itemIconSize">24dp</item>
+        <item name="itemTextAppearanceActive">@style/BottomNavTextActive</item>
+        <item name="itemTextAppearanceInactive">@style/BottomNavTextInactive</item>
+    </style>
+
+    <!-- Bottom Navigation Text Styles -->
+    <style name="BottomNavTextActive">
+        <item name="android:textSize">11sp</item>
+        <item name="android:textColor">@color/gold_bright</item>
+    </style>
+
+    <style name="BottomNavTextInactive">
+        <item name="android:textSize">11sp</item>
+        <item name="android:textColor">@color/gray_medium</item>
+    </style>
+
+    <!-- Tab Layout Style -->
+    <style name="Widget.OptimusPlayer.TabLayout" parent="Widget.MaterialComponents.TabLayout">
+        <item name="android:background">@color/black_deep</item>
+        <item name="tabTextColor">@color/gray_medium</item>
+        <item name="tabSelectedTextColor">@color/gold_bright</item>
+        <item name="tabIndicatorColor">@color/gold_bright</item>
+        <item name="tabIndicatorHeight">2dp</item>
+        <item name="tabTextAppearance">@style/TabTextAppearance</item>
+    </style>
+
+    <style name="TabTextAppearance">
+        <item name="android:textSize">14sp</item>
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
+
+    <!-- Card Style -->
+    <style name="Widget.OptimusPlayer.CardView" parent="Widget.MaterialComponents.CardView">
+        <item name="cardBackgroundColor">@color/black_carbon</item>
+        <item name="cardCornerRadius">12dp</item>
+        <item name="cardElevation">0dp</item>
+        <item name="strokeColor">@color/black_charcoal</item>
+        <item name="strokeWidth">1dp</item>
+    </style>
+
+    <!-- Toolbar Style -->
+    <style name="Widget.OptimusPlayer.Toolbar" parent="Widget.MaterialComponents.Toolbar">
+        <item name="android:background">@color/black_deep</item>
+        <item name="titleTextColor">@color/gold_bright</item>
+        <item name="android:elevation">0dp</item>
+    </style>
+</resources>
