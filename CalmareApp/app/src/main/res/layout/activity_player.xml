@@ -5,14 +5,14 @@
     android:layout_height="match_parent"
     android:background="@drawable/bg_gradient_purple">
 
-    <!-- Botão Voltar -->
+    <!-- Botão Voltar (setinha ←) -->
     <ImageButton
         android:id="@+id/btn_back"
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_margin="16dp"
         android:background="?attr/selectableItemBackgroundBorderless"
-        android:src="@android:drawable/ic_menu_close_clear_cancel"
+        android:src="@android:drawable/ic_menu_revert"
         android:tint="@color/white"
         android:contentDescription="Voltar"
         app:layout_constraintTop_toTopOf="parent"

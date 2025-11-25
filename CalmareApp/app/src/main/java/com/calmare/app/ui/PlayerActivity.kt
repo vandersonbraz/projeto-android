@@ -49,7 +49,6 @@ class PlayerActivity : AppCompatActivity() {
     private var isAutoPlayEnabled = false  // Reprodução automática da próxima faixa
     private var shouldAutoPlayOnPrepared = false  // Flag temporária para autoplay ao preparar
     var isUserPremium = false  // Status premium do usuário (para áudio em segundo plano + notificação)
-    private var isUserNavigatingBack = false  // Flag para saber se usuário apertou VOLTAR
 
     // BroadcastReceiver para receber comandos dos controles da notificação
     private val mediaControlReceiver = object : BroadcastReceiver() {
@@ -207,6 +206,7 @@ class PlayerActivity : AppCompatActivity() {
     }
 
     private fun setupClickListeners() {
+        // Botão VOLTAR do app: chama finish() para voltar (música continua via notificação)
         btnBack.setOnClickListener { finish() }
 
         btnPlayPause.setOnClickListener { togglePlayPause() }
@@ -841,13 +841,6 @@ class PlayerActivity : AppCompatActivity() {
 
     // ══════════════════════════════════════════════════════════════════════
 
-    @Deprecated("Deprecated in Java")
-    override fun onBackPressed() {
-        // Marca que o usuário apertou VOLTAR
-        isUserNavigatingBack = true
-        super.onBackPressed()
-    }
-
     override fun onPause() {
         super.onPause()
         // FREE pode voltar com a setinha (onPause não para o áudio)
@@ -856,13 +849,13 @@ class PlayerActivity : AppCompatActivity() {
 
     override fun onStop() {
         super.onStop()
-        // Se usuário FREE minimizar app ou bloquear tela, PARA o áudio
-        // MAS se usuário apertar VOLTAR, a música CONTINUA
+        // Se usuário FREE minimizar app (HOME) ou bloquear tela, PARA o áudio
+        // MAS se usuário apertar VOLTAR (isFinishing == true), a música CONTINUA via notificação
         // PREMIUM pode continuar ouvindo normalmente em qualquer situação
 
-        // isUserNavigatingBack = true quando usuário aperta VOLTAR
-        // isUserNavigatingBack = false quando minimiza ou bloqueia tela
-        if (!isUserPremium && isPlaying && !isUserNavigatingBack) {
+        // isFinishing == true: usuário apertou VOLTAR (fechando activity) → música CONTINUA
+        // isFinishing == false: usuário minimizou (HOME) ou bloqueou → música PARA (FREE)
+        if (!isUserPremium && isPlaying && !isFinishing) {
             pausePlayback()
         }
     }
@@ -870,17 +863,26 @@ class PlayerActivity : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
         handler.removeCallbacks(updateProgressRunnable)
+
+        // Se a Activity está sendo destruída mas o áudio está tocando,
+        // NÃO para o MediaPlayer (deixa continuar via notificação)
+        // Apenas libera recursos se o áudio NÃO estiver tocando
         mediaPlayer?.apply {
-            if (isPlaying) {
-                stop()
+            if (!isPlaying) {
+                // Áudio pausado: pode liberar recursos
+                release()
+                mediaPlayer = null
             }
-            release()
+            // Se isPlaying == true: mantém o MediaPlayer vivo para continuar tocando
         }
-        mediaPlayer = null
+
         billingManager.destroy()
 
-        // Limpa notificação e MediaSession
-        mediaNotificationManager.release()
+        // Se o áudio não está tocando, limpa a notificação
+        if (!isPlaying) {
+            mediaNotificationManager.release()
+        }
+        // Se está tocando: mantém notificação ativa
 
         // Desregistra BroadcastReceiver
         try {
