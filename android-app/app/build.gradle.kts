@@ -6,12 +6,12 @@ plugins {
 
 android {
     namespace = "com.optimus.player"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.optimus.player"
         minSdk = 21  // Android 5.0+ (Fire Stick, TV Box support)
-        targetSdk = 34
+        targetSdk = 35  // Play Store requirement (2025)
         versionCode = 1
         versionName = "1.0.0"
 
@@ -24,15 +24,29 @@ android {
 
     buildTypes {
         release {
+            // Ofuscação e otimização (R8)
             isMinifyEnabled = true
+            isShrinkResources = true  // Remove recursos não usados
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+
+            // Assinatura de código (será configurado depois)
+            // signingConfig = signingConfigs.getByName("release")
         }
         debug {
             isDebuggable = true
+            isMinifyEnabled = false
+            applicationIdSuffix = ".debug"
+            versionNameSuffix = "-DEBUG"
         }
+    }
+
+    // Configurações de compilação
+    compileOptions {
+        // Suporte a APIs modernas
+        isCoreLibraryDesugaringEnabled = true
     }
 
     compileOptions {
@@ -51,6 +65,9 @@ android {
 }
 
 dependencies {
+    // Desugaring para APIs modernas em versões antigas do Android
+    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.4")
+
     // AndroidX Core
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
