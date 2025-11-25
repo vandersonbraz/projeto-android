@@ -248,13 +248,13 @@ class PlayerActivity : AppCompatActivity() {
     }
 
     private fun setupClickListeners() {
-        // Botão VOLTAR: apenas fecha a Activity (áudio continua em background)
+        // Botão VOLTAR
         btnBack.setOnClickListener {
-            // FREE: esconde notificação (áudio continua sem controle)
-            // PREMIUM: mantém notificação e controle
-            if (!isUserPremium) {
-                mediaNotificationManager.hideNotification()
-            }
+            // FREE: Para o áudio ao sair
+            // PREMIUM: Mantém tocando com controle na notificação
+
+            // O onStop() vai cuidar de parar o áudio para FREE
+            // Só precisamos fechar a Activity
             finish()
         }
 
@@ -931,9 +931,27 @@ class PlayerActivity : AppCompatActivity() {
 
     override fun onStop() {
         super.onStop()
-        // Não faz nada - deixa áudio continuar em background
-        // FREE: sem controle na notificação (escondido no btnBack)
-        // PREMIUM: com controle na notificação
+
+        // FREE: Para o áudio ao minimizar/bloquear/voltar
+        // PREMIUM: Continua tocando em background com controle
+        if (!isUserPremium) {
+            // Para o áudio completamente (FREE não tem direito a background playback)
+            mediaPlayer?.apply {
+                if (isPlaying) {
+                    pause()
+                }
+                seekTo(0)  // Volta pro início
+            }
+            isPlaying = false
+            btnPlayPause.setImageResource(android.R.drawable.ic_media_play)
+            handler.removeCallbacks(updateProgressRunnable)
+            seekBar.progress = 0
+            tvCurrentTime.text = formatTime(0)
+
+            // Esconde notificação
+            mediaNotificationManager.hideNotification()
+        }
+        // PREMIUM: não faz nada, deixa áudio continuar com controle na notificação
     }
 
     override fun onDestroy() {
