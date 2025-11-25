@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/homeFragment">
+
+    <!-- Home Fragment (Início com Tabs: Canais, Filmes, Séries) -->
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.optimus.player.ui.home.HomeFragment"
+        android:label="@string/nav_home"
+        tools:layout="@layout/fragment_home" />
+
+    <!-- EPG Fragment (Guia de Programação) -->
+    <fragment
+        android:id="@+id/epgFragment"
+        android:name="com.optimus.player.ui.epg.EpgFragment"
+        android:label="@string/nav_epg"
+        tools:layout="@layout/fragment_epg" />
+
+    <!-- MAC Fragment (Informações do Dispositivo) -->
+    <fragment
+        android:id="@+id/macFragment"
+        android:name="com.optimus.player.ui.mac.MacFragment"
+        android:label="@string/nav_mac"
+        tools:layout="@layout/fragment_mac" />
+
+    <!-- Config Fragment (Configurações) -->
+    <fragment
+        android:id="@+id/configFragment"
+        android:name="com.optimus.player.ui.config.ConfigFragment"
+        android:label="@string/nav_settings"
+        tools:layout="@layout/fragment_config" />
+
+</navigation>

@@ -106,6 +106,9 @@
         <item name="android:fontFamily">sans-serif</item>
     </style>
 
+    <!-- Tab Text Style (Alias) -->
+    <style name="TabTextStyle" parent="TabTextAppearance" />
+
     <!-- Card Style -->
     <style name="Widget.OptimusPlayer.CardView" parent="Widget.MaterialComponents.CardView">
         <item name="cardBackgroundColor">@color/black_carbon</item>

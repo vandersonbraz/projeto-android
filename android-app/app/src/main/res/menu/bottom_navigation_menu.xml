@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Início (Canais, Filmes, Séries) -->
+    <item
+        android:id="@+id/navigation_home"
+        android:icon="@drawable/ic_home"
+        android:title="@string/nav_home" />
+
+    <!-- EPG (Guia de Programação) -->
+    <item
+        android:id="@+id/navigation_epg"
+        android:icon="@drawable/ic_epg"
+        android:title="@string/nav_epg" />
+
+    <!-- MAC (Info do Dispositivo) -->
+    <item
+        android:id="@+id/navigation_mac"
+        android:icon="@drawable/ic_device"
+        android:title="@string/nav_mac" />
+
+    <!-- Configurações -->
+    <item
+        android:id="@+id/navigation_config"
+        android:icon="@drawable/ic_settings"
+        android:title="@string/nav_settings" />
+
+</menu>
