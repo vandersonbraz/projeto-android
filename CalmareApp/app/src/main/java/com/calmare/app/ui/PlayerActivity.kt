@@ -49,6 +49,7 @@ class PlayerActivity : AppCompatActivity() {
     private var isAutoPlayEnabled = false  // Reprodução automática da próxima faixa
     private var shouldAutoPlayOnPrepared = false  // Flag temporária para autoplay ao preparar
     var isUserPremium = false  // Status premium do usuário (para áudio em segundo plano + notificação)
+    private var isUserNavigatingBack = false  // Flag para saber se usuário apertou VOLTAR
 
     // BroadcastReceiver para receber comandos dos controles da notificação
     private val mediaControlReceiver = object : BroadcastReceiver() {
@@ -160,10 +161,17 @@ class PlayerActivity : AppCompatActivity() {
         btnStop = findViewById(R.id.btn_stop)
         btnVolume = findViewById(R.id.btn_volume)
 
+        // Inicializa o detector de duração
+        com.calmare.app.utils.AudioDurationDetector.init(this)
+
         // Setup UI
         tvTitle.text = soundTitle
-        tvCategory.text = "$soundCategory • ${formatDuration(soundDuration)}"
-        tvTotalTime.text = formatTime(soundDuration)
+
+        // Usa duração do cache se disponível, senão usa placeholder
+        val cachedDuration = com.calmare.app.utils.AudioDurationDetector.getCachedDuration(soundId)
+        tvCategory.text = "$soundCategory • ${formatDuration(cachedDuration)}"
+        tvTotalTime.text = formatTime(cachedDuration)
+
         updateAlbumArt()
         loadFavoriteState()
         loadAutoPlayState()
@@ -361,8 +369,12 @@ class PlayerActivity : AppCompatActivity() {
 
         // Atualiza UI
         tvTitle.text = soundTitle
-        tvCategory.text = "$soundCategory • ${formatDuration(soundDuration)}"
-        tvTotalTime.text = formatTime(soundDuration)
+
+        // Usa duração do cache se disponível, senão usa placeholder
+        val cachedDuration = com.calmare.app.utils.AudioDurationDetector.getCachedDuration(soundId)
+        tvCategory.text = "$soundCategory • ${formatDuration(cachedDuration)}"
+        tvTotalTime.text = formatTime(cachedDuration)
+
         updateAlbumArt()
         loadFavoriteState()
 
@@ -829,6 +841,13 @@ class PlayerActivity : AppCompatActivity() {
 
     // ══════════════════════════════════════════════════════════════════════
 
+    @Deprecated("Deprecated in Java")
+    override fun onBackPressed() {
+        // Marca que o usuário apertou VOLTAR
+        isUserNavigatingBack = true
+        super.onBackPressed()
+    }
+
     override fun onPause() {
         super.onPause()
         // FREE pode voltar com a setinha (onPause não para o áudio)
@@ -838,12 +857,12 @@ class PlayerActivity : AppCompatActivity() {
     override fun onStop() {
         super.onStop()
         // Se usuário FREE minimizar app ou bloquear tela, PARA o áudio
-        // MAS se usuário apertar VOLTAR (isFinishing), a música CONTINUA
+        // MAS se usuário apertar VOLTAR, a música CONTINUA
         // PREMIUM pode continuar ouvindo normalmente em qualquer situação
 
-        // isFinishing() = true quando usuário aperta VOLTAR
-        // isFinishing() = false quando minimiza ou bloqueia tela
-        if (!isUserPremium && isPlaying && !isFinishing) {
+        // isUserNavigatingBack = true quando usuário aperta VOLTAR
+        // isUserNavigatingBack = false quando minimiza ou bloqueia tela
+        if (!isUserPremium && isPlaying && !isUserNavigatingBack) {
             pausePlayback()
         }
     }

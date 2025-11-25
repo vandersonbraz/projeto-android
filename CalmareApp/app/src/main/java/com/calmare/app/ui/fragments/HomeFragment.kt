@@ -18,6 +18,7 @@ import com.calmare.app.data.SoundsRepository
 import com.calmare.app.managers.AdManager
 import com.calmare.app.ui.PlayerActivity
 import com.calmare.app.ui.adapters.SoundsHorizontalAdapter
+import com.calmare.app.utils.AudioDurationDetector
 import kotlinx.coroutines.launch
 
 class HomeFragment : Fragment() {
@@ -39,6 +40,14 @@ class HomeFragment : Fragment() {
 
         adManager = AdManager(requireContext())
         preferencesManager = PreferencesManager(requireContext())
+
+        // Inicializa o detector de duração de áudio
+        AudioDurationDetector.init(requireContext())
+
+        // Detecta durações reais dos áudios em background
+        lifecycleScope.launch {
+            AudioDurationDetector.detectAllDurations(requireContext(), SoundsRepository.sounds)
+        }
 
         // Carrega banner de anúncio
         val adContainer = view.findViewById<FrameLayout>(R.id.ad_banner_container)

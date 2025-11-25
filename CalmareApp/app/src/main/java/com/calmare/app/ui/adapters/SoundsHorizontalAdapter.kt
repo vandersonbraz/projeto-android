@@ -7,6 +7,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.calmare.app.R
 import com.calmare.app.data.Sound
+import com.calmare.app.utils.AudioDurationDetector
 import com.google.android.material.chip.Chip
 
 class SoundsHorizontalAdapter(
@@ -33,7 +34,10 @@ class SoundsHorizontalAdapter(
         // Set emoji based on title
         holder.tvEmoji.text = getSoundEmoji(sound.title)
         holder.tvTitle.text = sound.title
-        holder.tvDuration.text = formatDuration(sound.duration)
+
+        // Usa duração real do cache (detectada automaticamente)
+        val realDuration = AudioDurationDetector.getCachedDuration(sound.id)
+        holder.tvDuration.text = formatDuration(realDuration)
 
         // Premium removido - todos os sons são gratuitos agora
         holder.chipPremium.visibility = View.GONE
