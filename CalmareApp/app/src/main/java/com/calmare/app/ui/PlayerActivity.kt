@@ -44,9 +44,6 @@ class PlayerActivity : AppCompatActivity() {
 
         // Indica se havia música tocando antes de abrir novo player
         var wasPlaying = false
-
-        // Flag para indicar navegação interna (voltar dentro do app)
-        var isNavigatingWithinApp = false
     }
 
     private lateinit var billingManager: BillingManager
@@ -228,9 +225,13 @@ class PlayerActivity : AppCompatActivity() {
     }
 
     private fun setupClickListeners() {
-        // Botão VOLTAR do app: marca navegação interna e fecha (música continua)
+        // Botão VOLTAR: apenas fecha a Activity (áudio continua em background)
         btnBack.setOnClickListener {
-            isNavigatingWithinApp = true
+            // FREE: esconde notificação (áudio continua sem controle)
+            // PREMIUM: mantém notificação e controle
+            if (!isUserPremium) {
+                mediaNotificationManager.hideNotification()
+            }
             finish()
         }
 
@@ -897,21 +898,14 @@ class PlayerActivity : AppCompatActivity() {
 
     override fun onPause() {
         super.onPause()
-        // Quando o app perde foco (não está mais visível)
+        // Não faz nada - deixa áudio continuar em background
     }
 
     override fun onStop() {
         super.onStop()
-        // FREE e PREMIUM:
-        // - Apertar VOLTAR (isNavigatingWithinApp = true): música CONTINUA (navega pelo app)
-        // - Minimizar/Bloquear (isNavigatingWithinApp = false): FREE PARA, PREMIUM CONTINUA
-
-        if (!isUserPremium && isPlaying && !isNavigatingWithinApp) {
-            // FREE: Para apenas ao minimizar/bloquear (NÃO ao voltar)
-            pausePlayback()
-        }
-        // PREMIUM: sempre continua (não faz nada)
-        // FREE + navegando: continua (não faz nada)
+        // Não faz nada - deixa áudio continuar em background
+        // FREE: sem controle na notificação (escondido no btnBack)
+        // PREMIUM: com controle na notificação
     }
 
     override fun onDestroy() {
@@ -924,22 +918,17 @@ class PlayerActivity : AppCompatActivity() {
             wasPlaying = false
         }
 
-        // Reseta flag de navegação interna
-        isNavigatingWithinApp = false
-
-        // SEMPRE para e libera o MediaPlayer ao destruir a Activity
-        mediaPlayer?.apply {
-            if (isPlaying) {
-                stop()
-            }
-            release()
-        }
-        mediaPlayer = null
+        // NÃO para o MediaPlayer - deixa áudio continuar em background
+        // O áudio só para quando:
+        // 1. Clicar em outro áudio (stopAndReleasePlayer)
+        // 2. Apertar STOP manualmente
+        // 3. Áudio terminar naturalmente
 
         billingManager.destroy()
 
-        // Limpa notificação e MediaSession
-        mediaNotificationManager.release()
+        // NÃO libera MediaSession se estiver tocando
+        // FREE: notificação já foi escondida (se voltou)
+        // PREMIUM: mantém notificação ativa
 
         // Desregistra BroadcastReceiver
         try {
