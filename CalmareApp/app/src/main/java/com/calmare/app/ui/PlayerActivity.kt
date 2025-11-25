@@ -48,6 +48,9 @@ class PlayerActivity : AppCompatActivity() {
         // Indica se havia música tocando antes de abrir novo player
         var wasPlaying = false
 
+        // Flag para detectar se está navegando de volta (setinha)
+        private var isNavigatingBack = false
+
         // Libera o MediaPlayer compartilhado
         fun releaseSharedMediaPlayer() {
             try {
@@ -250,11 +253,8 @@ class PlayerActivity : AppCompatActivity() {
     private fun setupClickListeners() {
         // Botão VOLTAR
         btnBack.setOnClickListener {
-            // FREE: Para o áudio ao sair
-            // PREMIUM: Mantém tocando com controle na notificação
-
-            // O onStop() vai cuidar de parar o áudio para FREE
-            // Só precisamos fechar a Activity
+            // Marca que está navegando de volta (não deve parar áudio)
+            isNavigatingBack = true
             finish()
         }
 
@@ -932,10 +932,10 @@ class PlayerActivity : AppCompatActivity() {
     override fun onStop() {
         super.onStop()
 
-        // FREE: Para o áudio ao minimizar/bloquear/voltar
-        // PREMIUM: Continua tocando em background com controle
-        if (!isUserPremium) {
-            // Para o áudio completamente (FREE não tem direito a background playback)
+        // Se está navegando de volta (setinha ←): NÃO para o áudio!
+        // Se está minimizando/bloqueando: Para para FREE, continua para PREMIUM
+        if (!isNavigatingBack && !isUserPremium) {
+            // FREE: Para o áudio ao minimizar/bloquear/fechar app
             mediaPlayer?.apply {
                 if (isPlaying) {
                     pause()
@@ -950,13 +950,19 @@ class PlayerActivity : AppCompatActivity() {
 
             // Esconde notificação
             mediaNotificationManager.hideNotification()
+        } else if (isNavigatingBack && !isUserPremium) {
+            // Setinha: FREE esconde notificação mas áudio continua
+            mediaNotificationManager.hideNotification()
         }
-        // PREMIUM: não faz nada, deixa áudio continuar com controle na notificação
+        // PREMIUM: não faz nada, deixa áudio continuar sempre com controle
     }
 
     override fun onDestroy() {
         super.onDestroy()
         handler.removeCallbacks(updateProgressRunnable)
+
+        // Reseta flag
+        isNavigatingBack = false
 
         // Limpa a instância atual se for esta
         if (currentInstance == this) {
@@ -967,14 +973,11 @@ class PlayerActivity : AppCompatActivity() {
         // NÃO para o MediaPlayer - deixa áudio continuar em background
         // O áudio só para quando:
         // 1. Clicar em outro áudio (stopAndReleasePlayer)
-        // 2. Apertar STOP manualmente
-        // 3. Áudio terminar naturalmente
+        // 2. Minimizar/bloquear (FREE apenas, via onStop)
+        // 3. Apertar STOP manualmente
+        // 4. Áudio terminar naturalmente
 
         billingManager.destroy()
-
-        // NÃO libera MediaSession se estiver tocando
-        // FREE: notificação já foi escondida (se voltou)
-        // PREMIUM: mantém notificação ativa
 
         // Desregistra BroadcastReceiver
         try {
