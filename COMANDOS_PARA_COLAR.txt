@@ -1,0 +1,23 @@
+Digite esses comandos UM POR VEZ no Git Bash:
+
+COMANDO 1 (copiar o ZIP):
+cp /home/user/projeto-android/optimus-android-app-completo.zip /c/Users/vande/Downloads/
+
+COMANDO 2 (ir para pasta do projeto):
+cd /c/Users/vande/Documents/projeto-android
+
+COMANDO 3 (extrair o ZIP):
+unzip -o /c/Users/vande/Downloads/optimus-android-app-completo.zip
+
+COMANDO 4 (adicionar arquivos):
+git add -A
+
+COMANDO 5 (fazer commit):
+git commit -m "feat: App Android completo - MainActivity + Fragments + SDK 35"
+
+COMANDO 6 (fazer PUSH):
+git push origin claude/ai-project-prompt-template-01W6iFWAYN6gVZK7r7BDo9SC
+
+===================================
+PRONTO! 14 commits vao pro GitHub!
+===================================
