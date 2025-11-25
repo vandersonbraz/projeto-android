@@ -38,6 +38,14 @@ import java.util.concurrent.TimeUnit
 
 class PlayerActivity : AppCompatActivity() {
 
+    companion object {
+        // Instância atual do PlayerActivity (para parar música anterior)
+        private var currentInstance: PlayerActivity? = null
+
+        // Indica se havia música tocando antes de abrir novo player
+        var wasPlaying = false
+    }
+
     private lateinit var billingManager: BillingManager
     private lateinit var preferencesManager: PreferencesManager
     private lateinit var mediaNotificationManager: MediaNotificationManager
@@ -110,6 +118,15 @@ class PlayerActivity : AppCompatActivity() {
 
         // Configura botões de volume do dispositivo para controlar o áudio da música
         volumeControlStream = AudioManager.STREAM_MUSIC
+
+        // Para a instância anterior (se existir) e salva se estava tocando
+        currentInstance?.let { previousInstance ->
+            wasPlaying = previousInstance.isPlaying
+            previousInstance.stopAndReleasePlayer()
+        }
+
+        // Define esta como a instância atual
+        currentInstance = this
 
         billingManager = BillingManager(this, lifecycleScope)
         preferencesManager = PreferencesManager(this)
@@ -458,6 +475,24 @@ class PlayerActivity : AppCompatActivity() {
         tvAlbumArt.text = emoji
     }
 
+    private fun stopAndReleasePlayer() {
+        try {
+            mediaPlayer?.apply {
+                if (isPlaying) {
+                    stop()
+                }
+                reset()
+                release()
+            }
+            mediaPlayer = null
+            isPlaying = false
+            handler.removeCallbacks(updateProgressRunnable)
+            mediaNotificationManager.hideNotification()
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+    }
+
     private fun prepareMediaPlayer() {
         if (soundUrl.isEmpty()) {
             Toast.makeText(this, "⚠️ URL de áudio não disponível", Toast.LENGTH_LONG).show()
@@ -516,9 +551,11 @@ class PlayerActivity : AppCompatActivity() {
 
                     isAudioPrepared = true
                     btnPlayPause.isEnabled = true
-                    // Se shouldAutoPlayOnPrepared está true, toca automaticamente
-                    if (this@PlayerActivity.shouldAutoPlayOnPrepared) {
+
+                    // Auto-play se estava tocando antes OU se shouldAutoPlayOnPrepared
+                    if (this@PlayerActivity.shouldAutoPlayOnPrepared || wasPlaying) {
                         this@PlayerActivity.shouldAutoPlayOnPrepared = false
+                        wasPlaying = false  // Reseta a flag
                         this@PlayerActivity.startPlayback()
                     }
                 }
@@ -859,18 +896,27 @@ class PlayerActivity : AppCompatActivity() {
 
     override fun onStop() {
         super.onStop()
-        // FREE: SEMPRE para ao sair do app (minimizar, bloquear, voltar)
-        // Música só toca quando app está ABERTO e VISÍVEL
-        // PREMIUM: NUNCA para (continua em background)
+        // FREE e PREMIUM:
+        // - Apertar VOLTAR (isFinishing = true): música CONTINUA (navega pelo app)
+        // - Minimizar/Bloquear (isFinishing = false): FREE PARA, PREMIUM CONTINUA
 
-        if (!isUserPremium && isPlaying) {
+        if (!isUserPremium && isPlaying && !isFinishing) {
+            // FREE: Para apenas ao minimizar/bloquear (NÃO ao voltar)
             pausePlayback()
         }
+        // PREMIUM: sempre continua (não faz nada)
+        // FREE + isFinishing: continua (não faz nada)
     }
 
     override fun onDestroy() {
         super.onDestroy()
         handler.removeCallbacks(updateProgressRunnable)
+
+        // Limpa a instância atual se for esta
+        if (currentInstance == this) {
+            currentInstance = null
+            wasPlaying = false
+        }
 
         // SEMPRE para e libera o MediaPlayer ao destruir a Activity
         mediaPlayer?.apply {
