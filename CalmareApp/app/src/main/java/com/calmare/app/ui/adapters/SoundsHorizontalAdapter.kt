@@ -33,7 +33,7 @@ class SoundsHorizontalAdapter(
         // Set emoji based on title
         holder.tvEmoji.text = getSoundEmoji(sound.title)
         holder.tvTitle.text = sound.title
-        holder.tvDuration.text = formatDuration(sound.duration)
+        holder.tvDuration.visibility = View.GONE // Duração real só no player
 
         // Premium removido - todos os sons são gratuitos agora
         holder.chipPremium.visibility = View.GONE
@@ -45,11 +45,6 @@ class SoundsHorizontalAdapter(
     }
 
     override fun getItemCount() = sounds.size
-
-    private fun formatDuration(seconds: Int): String {
-        // Duração será detectada automaticamente no player
-        return "●"
-    }
 
     private fun getSoundEmoji(title: String): String {
         return when {

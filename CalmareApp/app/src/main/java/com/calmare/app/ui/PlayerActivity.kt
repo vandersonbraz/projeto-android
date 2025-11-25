@@ -838,8 +838,12 @@ class PlayerActivity : AppCompatActivity() {
     override fun onStop() {
         super.onStop()
         // Se usuário FREE minimizar app ou bloquear tela, PARA o áudio
-        // PREMIUM pode continuar ouvindo normalmente
-        if (!isUserPremium && isPlaying) {
+        // MAS se usuário apertar VOLTAR (isFinishing), a música CONTINUA
+        // PREMIUM pode continuar ouvindo normalmente em qualquer situação
+
+        // isFinishing() = true quando usuário aperta VOLTAR
+        // isFinishing() = false quando minimiza ou bloqueia tela
+        if (!isUserPremium && isPlaying && !isFinishing) {
             pausePlayback()
         }
     }

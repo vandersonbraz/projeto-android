@@ -37,7 +37,7 @@ class SoundsAdapter(
 
         holder.tvTitle.text = sound.title
         holder.tvDescription.text = sound.description
-        holder.tvDuration.text = formatDuration(sound.duration)
+        holder.tvDuration.visibility = View.GONE // Duração real só no player
         holder.tvCategory.text = sound.category
 
         // Premium removido - todos os sons são gratuitos agora
@@ -77,10 +77,5 @@ class SoundsAdapter(
 
     fun getCurrentSounds(): List<Sound> {
         return sounds
-    }
-
-    private fun formatDuration(seconds: Int): String {
-        // Duração será detectada automaticamente no player
-        return "●"
     }
 }

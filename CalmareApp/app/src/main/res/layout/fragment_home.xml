@@ -116,7 +116,7 @@
         <androidx.cardview.widget.CardView
             android:id="@+id/card_quick_session"
             android:layout_width="match_parent"
-            android:layout_height="190dp"
+            android:layout_height="210dp"
             app:cardCornerRadius="20dp"
             app:cardElevation="8dp"
             android:layout_marginBottom="16dp"
@@ -127,7 +127,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@drawable/bg_gradient_purple"
-                android:padding="24dp">
+                android:padding="20dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -140,32 +140,32 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="🧘‍♂️"
-                        android:textSize="38sp"
-                        android:layout_marginBottom="8dp" />
+                        android:textSize="40sp"
+                        android:layout_marginBottom="10dp" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/quick_session_title"
                         android:textColor="@color/white"
-                        android:textSize="22sp"
+                        android:textSize="23sp"
                         android:textStyle="bold"
                         android:lineSpacingMultiplier="1.1"
-                        android:layout_marginBottom="6dp" />
+                        android:layout_marginBottom="8dp" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Prática mindfulness para relaxar"
                         android:textColor="@color/white"
-                        android:textSize="13sp"
+                        android:textSize="14sp"
                         android:alpha="0.9"
-                        android:layout_marginBottom="14dp" />
+                        android:layout_marginBottom="16dp" />
 
                     <Button
                         android:id="@+id/btn_start_quick_session"
                         android:layout_width="wrap_content"
-                        android:layout_height="46dp"
+                        android:layout_height="48dp"
                         android:text="▶  Começar agora"
                         android:textSize="15sp"
                         android:textStyle="bold"
@@ -174,7 +174,7 @@
                         android:backgroundTint="@color/white"
                         android:textColor="@color/primary"
                         android:textAllCaps="false"
-                        app:cornerRadius="23dp"
+                        app:cornerRadius="24dp"
                         android:elevation="4dp" />
 
                 </LinearLayout>
