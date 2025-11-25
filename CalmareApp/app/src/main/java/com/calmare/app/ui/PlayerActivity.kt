@@ -831,23 +831,17 @@ class PlayerActivity : AppCompatActivity() {
 
     override fun onPause() {
         super.onPause()
-        // Áudio em segundo plano é EXCLUSIVO para usuários PREMIUM
-        // NOTA: Por enquanto está liberado para TODOS (free e premium) para teste
-        //       Quando validar, descomente a linha abaixo:
-        // if (!isUserPremium && isPlaying) {
+        // FREE pode voltar com a setinha (onPause não para o áudio)
+        // Apenas onStop() (minimizar/bloquear) irá parar para FREE
+    }
 
-        // TEMPORÁRIO: Comentado para teste - TODOS podem usar em segundo plano
-        /*
+    override fun onStop() {
+        super.onStop()
+        // Se usuário FREE minimizar app ou bloquear tela, PARA o áudio
+        // PREMIUM pode continuar ouvindo normalmente
         if (!isUserPremium && isPlaying) {
             pausePlayback()
-            Toast.makeText(
-                this,
-                "⭐ PREMIUM: Ouça em segundo plano seus áudios favoritos! Assine por R$ 14,90/mês",
-                Toast.LENGTH_LONG
-            ).show()
         }
-        */
-        // Se é premium (ou está em teste), o áudio continua tocando em segundo plano
     }
 
     override fun onDestroy() {

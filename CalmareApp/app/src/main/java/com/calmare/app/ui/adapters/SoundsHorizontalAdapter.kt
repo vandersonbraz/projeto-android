@@ -47,8 +47,8 @@ class SoundsHorizontalAdapter(
     override fun getItemCount() = sounds.size
 
     private fun formatDuration(seconds: Int): String {
-        val minutes = seconds / 60
-        return "$minutes min"
+        // Duração será detectada automaticamente no player
+        return "●"
     }
 
     private fun getSoundEmoji(title: String): String {
