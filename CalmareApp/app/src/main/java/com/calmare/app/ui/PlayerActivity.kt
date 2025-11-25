@@ -44,6 +44,9 @@ class PlayerActivity : AppCompatActivity() {
 
         // Indica se havia música tocando antes de abrir novo player
         var wasPlaying = false
+
+        // Flag para indicar navegação interna (voltar dentro do app)
+        var isNavigatingWithinApp = false
     }
 
     private lateinit var billingManager: BillingManager
@@ -225,8 +228,11 @@ class PlayerActivity : AppCompatActivity() {
     }
 
     private fun setupClickListeners() {
-        // Botão VOLTAR do app: chama finish() para voltar (música continua via notificação)
-        btnBack.setOnClickListener { finish() }
+        // Botão VOLTAR do app: marca navegação interna e fecha (música continua)
+        btnBack.setOnClickListener {
+            isNavigatingWithinApp = true
+            finish()
+        }
 
         btnPlayPause.setOnClickListener { togglePlayPause() }
 
@@ -897,15 +903,15 @@ class PlayerActivity : AppCompatActivity() {
     override fun onStop() {
         super.onStop()
         // FREE e PREMIUM:
-        // - Apertar VOLTAR (isFinishing = true): música CONTINUA (navega pelo app)
-        // - Minimizar/Bloquear (isFinishing = false): FREE PARA, PREMIUM CONTINUA
+        // - Apertar VOLTAR (isNavigatingWithinApp = true): música CONTINUA (navega pelo app)
+        // - Minimizar/Bloquear (isNavigatingWithinApp = false): FREE PARA, PREMIUM CONTINUA
 
-        if (!isUserPremium && isPlaying && !isFinishing) {
+        if (!isUserPremium && isPlaying && !isNavigatingWithinApp) {
             // FREE: Para apenas ao minimizar/bloquear (NÃO ao voltar)
             pausePlayback()
         }
         // PREMIUM: sempre continua (não faz nada)
-        // FREE + isFinishing: continua (não faz nada)
+        // FREE + navegando: continua (não faz nada)
     }
 
     override fun onDestroy() {
@@ -917,6 +923,9 @@ class PlayerActivity : AppCompatActivity() {
             currentInstance = null
             wasPlaying = false
         }
+
+        // Reseta flag de navegação interna
+        isNavigatingWithinApp = false
 
         // SEMPRE para e libera o MediaPlayer ao destruir a Activity
         mediaPlayer?.apply {

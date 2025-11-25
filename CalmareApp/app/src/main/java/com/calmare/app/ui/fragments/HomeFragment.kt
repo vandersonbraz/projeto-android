@@ -114,7 +114,6 @@ class HomeFragment : Fragment() {
         val natureSounds = SoundsRepository.sounds.filter { it.category == "Natureza" }.take(3)
 
         val adapter = SoundsHorizontalAdapter(natureSounds) { sound ->
-            val currentIndex = natureSounds.indexOf(sound)
             val allNatureSounds = SoundsRepository.sounds.filter { it.category == "Natureza" }
             val intent = Intent(requireContext(), PlayerActivity::class.java).apply {
                 putExtra("SOUND_ID", sound.id)
