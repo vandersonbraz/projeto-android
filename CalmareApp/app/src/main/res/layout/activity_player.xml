@@ -89,7 +89,7 @@
             android:id="@+id/track_category"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Natureza • 10 min"
+            android:text="Natureza"
             android:textSize="14sp"
             android:textColor="@color/white"
             android:alpha="0.7"

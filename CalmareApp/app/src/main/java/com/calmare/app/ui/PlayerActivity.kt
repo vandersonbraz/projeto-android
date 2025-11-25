@@ -166,9 +166,11 @@ class PlayerActivity : AppCompatActivity() {
         // Setup UI
         tvTitle.text = soundTitle
 
+        // Mostra apenas a categoria (sem duração)
+        tvCategory.text = soundCategory
+
         // Usa duração do cache se disponível, senão usa placeholder
         val cachedDuration = com.calmare.app.utils.AudioDurationDetector.getCachedDuration(soundId)
-        tvCategory.text = "$soundCategory • ${formatDuration(cachedDuration)}"
         tvTotalTime.text = formatTime(cachedDuration)
 
         updateAlbumArt()
@@ -345,15 +347,22 @@ class PlayerActivity : AppCompatActivity() {
     }
 
     private fun loadAndPlaySound(sound: Sound, autoPlay: Boolean = false) {
-        // Para o player atual
+        // Para COMPLETAMENTE o player atual antes de carregar o novo
         mediaPlayer?.apply {
-            if (isPlaying) {
-                stop()
+            try {
+                if (isPlaying) {
+                    stop()  // Para a reprodução
+                }
+                reset()  // Reseta o estado
+                release()  // Libera recursos
+            } catch (e: IllegalStateException) {
+                // MediaPlayer já estava em estado inválido, apenas libera
+                release()
             }
-            reset()
-            release()
         }
         mediaPlayer = null
+        isPlaying = false
+        isAudioPrepared = false
         handler.removeCallbacks(updateProgressRunnable)
 
         // Atualiza variáveis do som
@@ -370,9 +379,11 @@ class PlayerActivity : AppCompatActivity() {
         // Atualiza UI
         tvTitle.text = soundTitle
 
+        // Mostra apenas a categoria (sem duração)
+        tvCategory.text = soundCategory
+
         // Usa duração do cache se disponível, senão usa placeholder
         val cachedDuration = com.calmare.app.utils.AudioDurationDetector.getCachedDuration(soundId)
-        tvCategory.text = "$soundCategory • ${formatDuration(cachedDuration)}"
         tvTotalTime.text = formatTime(cachedDuration)
 
         updateAlbumArt()
@@ -500,8 +511,8 @@ class PlayerActivity : AppCompatActivity() {
                     // Atualiza UI com tempo real detectado
                     tvTotalTime.text = formatTime(realDurationSeconds)
 
-                    // Atualiza categoria com duração real
-                    tvCategory.text = "${this@PlayerActivity.soundCategory} • ${formatDuration(realDurationSeconds)}"
+                    // Categoria já está definida (sem duração)
+                    // tvCategory.text já foi definido com apenas soundCategory
 
                     isAudioPrepared = true
                     btnPlayPause.isEnabled = true
@@ -831,10 +842,10 @@ class PlayerActivity : AppCompatActivity() {
     }
 
     private fun updateMediaNotification() {
-        val categoryText = "$soundCategory • ${formatDuration(soundDuration)}"
+        // Mostra apenas a categoria (sem duração)
         mediaNotificationManager.updateNotification(
             title = soundTitle,
-            artist = categoryText,
+            artist = soundCategory,
             isPlaying = isPlaying
         )
     }
@@ -843,19 +854,16 @@ class PlayerActivity : AppCompatActivity() {
 
     override fun onPause() {
         super.onPause()
-        // FREE pode voltar com a setinha (onPause não para o áudio)
-        // Apenas onStop() (minimizar/bloquear) irá parar para FREE
+        // Quando o app perde foco (não está mais visível)
     }
 
     override fun onStop() {
         super.onStop()
-        // Se usuário FREE minimizar app (HOME) ou bloquear tela, PARA o áudio
-        // MAS se usuário apertar VOLTAR (isFinishing == true), a música CONTINUA via notificação
-        // PREMIUM pode continuar ouvindo normalmente em qualquer situação
+        // FREE: SEMPRE para ao sair do app (minimizar, bloquear, voltar)
+        // Música só toca quando app está ABERTO e VISÍVEL
+        // PREMIUM: NUNCA para (continua em background)
 
-        // isFinishing == true: usuário apertou VOLTAR (fechando activity) → música CONTINUA
-        // isFinishing == false: usuário minimizou (HOME) ou bloqueou → música PARA (FREE)
-        if (!isUserPremium && isPlaying && !isFinishing) {
+        if (!isUserPremium && isPlaying) {
             pausePlayback()
         }
     }
@@ -864,25 +872,19 @@ class PlayerActivity : AppCompatActivity() {
         super.onDestroy()
         handler.removeCallbacks(updateProgressRunnable)
 
-        // Se a Activity está sendo destruída mas o áudio está tocando,
-        // NÃO para o MediaPlayer (deixa continuar via notificação)
-        // Apenas libera recursos se o áudio NÃO estiver tocando
+        // SEMPRE para e libera o MediaPlayer ao destruir a Activity
         mediaPlayer?.apply {
-            if (!isPlaying) {
-                // Áudio pausado: pode liberar recursos
-                release()
-                mediaPlayer = null
+            if (isPlaying) {
+                stop()
             }
-            // Se isPlaying == true: mantém o MediaPlayer vivo para continuar tocando
+            release()
         }
+        mediaPlayer = null
 
         billingManager.destroy()
 
-        // Se o áudio não está tocando, limpa a notificação
-        if (!isPlaying) {
-            mediaNotificationManager.release()
-        }
-        // Se está tocando: mantém notificação ativa
+        // Limpa notificação e MediaSession
+        mediaNotificationManager.release()
 
         // Desregistra BroadcastReceiver
         try {
