@@ -39,11 +39,30 @@ import java.util.concurrent.TimeUnit
 class PlayerActivity : AppCompatActivity() {
 
     companion object {
+        // MediaPlayer estático compartilhado entre instâncias
+        private var sharedMediaPlayer: MediaPlayer? = null
+
         // Instância atual do PlayerActivity (para parar música anterior)
         private var currentInstance: PlayerActivity? = null
 
         // Indica se havia música tocando antes de abrir novo player
         var wasPlaying = false
+
+        // Libera o MediaPlayer compartilhado
+        fun releaseSharedMediaPlayer() {
+            try {
+                sharedMediaPlayer?.apply {
+                    if (isPlaying) {
+                        stop()
+                    }
+                    reset()
+                    release()
+                }
+                sharedMediaPlayer = null
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
     }
 
     private lateinit var billingManager: BillingManager
@@ -118,6 +137,10 @@ class PlayerActivity : AppCompatActivity() {
 
         // Configura botões de volume do dispositivo para controlar o áudio da música
         volumeControlStream = AudioManager.STREAM_MUSIC
+
+        // CRÍTICO: Para o MediaPlayer compartilhado ANTES de criar novo
+        // Isso garante que apenas 1 áudio toca por vez
+        releaseSharedMediaPlayer()
 
         // Para a instância anterior (se existir) e salva se estava tocando
         currentInstance?.let { previousInstance ->
@@ -508,6 +531,7 @@ class PlayerActivity : AppCompatActivity() {
         }
 
         try {
+            // Cria novo MediaPlayer
             mediaPlayer = MediaPlayer().apply {
                 setAudioAttributes(
                     AudioAttributes.Builder()
@@ -651,6 +675,10 @@ class PlayerActivity : AppCompatActivity() {
                     true
                 }
             }
+
+            // Salva no companion object para parar quando clicar em outro áudio
+            sharedMediaPlayer = mediaPlayer
+
         } catch (e: IOException) {
             e.printStackTrace()
             Toast.makeText(this, "❌ Erro: ${e.message}", Toast.LENGTH_LONG).show()
