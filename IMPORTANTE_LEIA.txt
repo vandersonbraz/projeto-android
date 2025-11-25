@@ -1,0 +1,71 @@
+====================================================================
+  🚨 IMPORTANTE - PUSH MANUAL NECESSÁRIO 🚨
+====================================================================
+
+PROBLEMA:
+---------
+O proxy do Claude Code não tem permissão de escrita (erro 403).
+Tentei 10+ vezes fazer push - TODOS falharam.
+
+SOLUÇÃO:
+--------
+VOCÊ precisa fazer o push do Windows!
+
+====================================================================
+  📥 PASSO 1: PEGAR O ZIP NO WINDOWS
+====================================================================
+
+Opção A (Explorador de Arquivos):
+----------------------------------
+1. Aperte Windows + E
+2. Clique na barra de endereço
+3. Cole: \\wsl$\Ubuntu\home\user\projeto-android
+4. Copie: optimus-android-app-completo.zip
+5. Cole em: C:\Users\vande\Downloads
+
+Opção B (PowerShell/CMD):
+-------------------------
+wsl cp /home/user/projeto-android/optimus-android-app-completo.zip C:\Users\vande\Downloads\
+
+====================================================================
+  🚀 PASSO 2: EXTRAIR E FAZER PUSH
+====================================================================
+
+1. Extraia o ZIP em:
+   C:\Users\vande\Documents\projeto-android
+
+2. Abra Git Bash nessa pasta
+
+3. Execute:
+   git add -A
+   git commit -m "feat: App Android completo - SDK 35 + MainActivity + Fragments"
+   git push origin claude/ai-project-prompt-template-01W6iFWAYN6gVZK7r7BDo9SC
+
+====================================================================
+  ✅ O QUE TEM NO ZIP (3500+ linhas de código)
+====================================================================
+
+✅ SplashActivity - Animação inicial
+✅ ActivationActivity - Tela de ativação
+✅ MainActivity - Bottom Navigation (4 tabs)
+✅ HomeFragment - ViewPager2 com 3 tabs
+✅ ChannelsFragment - Lista de canais TV
+✅ MoviesFragment - Catálogo de filmes
+✅ SeriesFragment - Catálogo de séries  
+✅ MacFragment - Info dispositivo + licença
+✅ ConfigFragment - Configurações + logout
+✅ EpgFragment - Guia de programação
+✅ SDK 35 - Play Store 2025
+✅ ProGuard/R8 - Ofuscação completa
+
+TOTAL: 12 commits prontos
+
+====================================================================
+  📦 ARQUIVO
+====================================================================
+
+Nome: optimus-android-app-completo.zip
+Tamanho: 133KB
+Local: /home/user/projeto-android/
+
+====================================================================
