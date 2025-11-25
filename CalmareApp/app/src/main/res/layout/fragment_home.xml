@@ -116,9 +116,9 @@
         <androidx.cardview.widget.CardView
             android:id="@+id/card_quick_session"
             android:layout_width="match_parent"
-            android:layout_height="180dp"
-            app:cardCornerRadius="16dp"
-            app:cardElevation="4dp"
+            android:layout_height="200dp"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="8dp"
             android:layout_marginBottom="16dp"
             android:clickable="true"
             android:focusable="true">
@@ -127,7 +127,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@drawable/bg_gradient_purple"
-                android:padding="24dp">
+                android:padding="28dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -135,29 +135,47 @@
                     android:orientation="vertical"
                     android:gravity="center_vertical">
 
+                    <!-- Ícone de meditação -->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="🧘‍♂️"
+                        android:textSize="48sp"
+                        android:layout_marginBottom="12dp" />
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/quick_session_title"
                         android:textColor="@color/white"
-                        android:textSize="24sp"
+                        android:textSize="26sp"
                         android:textStyle="bold"
                         android:lineSpacingMultiplier="1.2"
-                        android:layout_marginBottom="16dp" />
+                        android:layout_marginBottom="8dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Prática mindfulness para relaxar"
+                        android:textColor="@color/white"
+                        android:textSize="14sp"
+                        android:alpha="0.9"
+                        android:layout_marginBottom="20dp" />
 
                     <Button
                         android:id="@+id/btn_start_quick_session"
                         android:layout_width="wrap_content"
-                        android:layout_height="48dp"
+                        android:layout_height="52dp"
                         android:text="▶  Começar agora"
                         android:textSize="16sp"
                         android:textStyle="bold"
-                        android:paddingStart="28dp"
-                        android:paddingEnd="28dp"
+                        android:paddingStart="32dp"
+                        android:paddingEnd="32dp"
                         android:backgroundTint="@color/white"
                         android:textColor="@color/primary"
                         android:textAllCaps="false"
-                        app:cornerRadius="24dp" />
+                        app:cornerRadius="26dp"
+                        android:elevation="4dp" />
 
                 </LinearLayout>
 

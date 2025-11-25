@@ -96,7 +96,7 @@ class SoundsFragment : Fragment() {
             "Todos" -> allSounds
             "Natureza" -> allSounds.filter { it.category == "Natureza" }
             "Meditação" -> allSounds.filter { it.category == "Meditação" }
-            "Música" -> allSounds.filter { it.category == "Música" }
+            "Música" -> allSounds.filter { it.category == "Músicas" }
             "Sono" -> allSounds.filter { it.category == "Sono" }
             "Ambiente" -> allSounds.filter { it.category == "Ambiente" }
             else -> allSounds

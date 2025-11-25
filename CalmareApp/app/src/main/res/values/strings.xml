@@ -14,10 +14,10 @@
     <string name="home_greeting_default">Bem-vindo ao Calmare ❤️</string>
     <string name="home_feeling">Como você está se sentindo hoje?</string>
     <string name="section_quick_session">🎯 Sessão Rápida</string>
-    <string name="section_nature">🌿 Natureza</string>
-    <string name="section_meditations">✨ Meditações</string>
-    <string name="section_music">🎵 Músicas Relaxantes</string>
-    <string name="quick_session_title">Meditação Mindfulness</string>
+    <string name="section_nature">🌿 Os Mais Populares - Natureza</string>
+    <string name="section_meditations">✨ Os Mais Populares - Meditações</string>
+    <string name="section_music">🎵 Os Mais Populares - Músicas</string>
+    <string name="quick_session_title">Meditação Guiada</string>
     <string name="btn_start_now">Começar agora</string>
     <string name="premium_badge">PREMIUM</string>
     <string name="locked_content">🔒</string>
